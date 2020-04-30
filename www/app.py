@@ -15,7 +15,7 @@ async def homepage(request):
 def init():
     app = web.Application()
     app.add_routes([web.get('/', homepage)])
-    logging.info('server started at http://localhost:9000...')
+    logging.info('server started at http://127.0.0.1:9000...')
     web.run_app(app, host='127.0.0.1', port=9000)
 
 
