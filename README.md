@@ -1,2 +1,2 @@
-# python_web
- pyhton_web coding pratice
+# Fullstack
+Fullstack coding pratice
