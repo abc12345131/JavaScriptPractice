@@ -1,2 +1,2 @@
 # Fullstack
-Fullstack coding pratice
+Fullstack projects and templates
