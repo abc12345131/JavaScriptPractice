@@ -1,3 +1,11 @@
+.clearfix::before,
+.clearfix::after {
+    content:'';
+    display:table;
+    clear:both;
+}
+
+
 body {
   font-size: 16px;
   color: #fff;
