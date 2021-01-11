@@ -10,8 +10,11 @@ module.exports = {
     },
     module: {
         rules: [
-            test: ,
-            use: []
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader'
+            ]
         ]
     },
     plugins: [],
