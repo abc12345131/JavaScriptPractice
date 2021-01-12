@@ -23,6 +23,7 @@
     "gulp-load-plugins": "^2.0.6",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
+    "html-webpack-plugin": "^4.5.1",
     "less-loader": "^7.2.1",
     "open": "^7.3.0",
     "style-loader": "^2.0.0",
