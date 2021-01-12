@@ -1,5 +1,6 @@
 //webpack use commonjs as 
 //use resolve to join the path
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
 
 module.exports = {
@@ -27,6 +28,12 @@ module.exports = {
             }
         ]
     },
-    plugins: [],
+    plugins: [
+        new HtmlWebpackPlugin(
+            {
+                template:'./src/index.html'
+            }
+        )
+    ],
     mode: 'development',
 }
