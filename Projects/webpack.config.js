@@ -28,12 +28,17 @@ module.exports = {
             },
             {
                 test: /\.(jpg|png|gif)$/,
-                use: [
-                    'url-loader'
-                ],
+                loader: 'url-loader',
                 options: {
-                    limit: 16 * 1024
+                    limit: 16 * 1024,
+                    // html-loader use commonjs, change default es6 to false
+                    esModule: false, 
+                    name: '[hash:10].[ext]'
                 }
+            },
+            {
+                test: /\.html$/,
+                loader: 'html-loader',
             }
         ]
     },
