@@ -42,7 +42,10 @@ module.exports = {
             },
             {
                 exclude: /\.(css|js|html)$/,
-                loader: 'file-loader'
+                loader: 'file-loader',
+                options: {
+                    name: '[hash:10].[ext]'
+                }
             }
         ]
     },
