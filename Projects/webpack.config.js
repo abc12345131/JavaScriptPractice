@@ -4,20 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/js/index.js',
     output: {
-        filename: 'build.js',
+        filename: 'js/build.js',
         path: resolve(__dirname, 'build')
     },
     module: {
         rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            },
             {
                 test: /\.less$/,
                 use: [
@@ -27,13 +20,21 @@ module.exports = {
                 ]
             },
             {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
                 test: /\.(jpg|png|gif)$/,
                 loader: 'url-loader',
                 options: {
                     limit: 16 * 1024,
                     // html-loader use commonjs, change default es6 to false
                     esModule: false, 
-                    name: '[hash:10].[ext]'
+                    name: '[hash:10].[ext]',
+                    outputPath: 'img'
                 }
             },
             {
@@ -41,10 +42,11 @@ module.exports = {
                 loader: 'html-loader'
             },
             {
-                exclude: /\.(css|js|html)$/,
+                exclude: /\.(js|css|less|jpg|png|gif|html)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[hash:10].[ext]'
+                    name: '[hash:10].[ext]',
+                    outputPath: 'media'
                 }
             }
         ]
@@ -57,4 +59,11 @@ module.exports = {
         )
     ],
     mode: 'development',
-}
+
+    devServer: {
+        contentBase: resolve(__dirname, 'build'),
+        compress: true,
+        port: 3000,
+        open: true
+    }
+};
