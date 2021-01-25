@@ -1,7 +1,8 @@
 //webpack use commonjs as 
 //use resolve to join the path
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './src/js/index.js',
@@ -22,7 +23,9 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
+                    //use mini-css-extract-plugin loader replace style-loader
+                    //extract css in separate file
+                    MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
             },
@@ -55,6 +58,11 @@ module.exports = {
         new HtmlWebpackPlugin(
             {
                 template:'./src/index.html'
+            }
+        ),
+        new MiniCssExtractPlugin(
+            {
+                filename: 'css/build.css'
             }
         )
     ],
