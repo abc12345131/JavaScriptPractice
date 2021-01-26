@@ -26,7 +26,16 @@ module.exports = {
                     //use mini-css-extract-plugin loader replace style-loader
                     //extract css in separate file
                     MiniCssExtractPlugin.loader,
-                    'css-loader'
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: () => [
+                                require('postcss-preset-env')()
+                            ]
+                        }
+                    }
                 ]
             },
             {
