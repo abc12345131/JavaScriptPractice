@@ -8,8 +8,39 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //install optimize-css-assets-webpack-plugin to compress css file
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
-//set env to development mode
+//set package.json browserlist to development mode, default is production
 process.env.NODE_ENV = 'development';
+
+//reuse css compatibility loader
+const commonCssLoader = [
+    //use mini-css-extract-plugin loader replace style-loader
+    MiniCssExtractPlugin.loader,
+    'css-loader',
+    {
+        //install postcss-loader postcss-preset-env
+        loader: 'postcss-loader',
+        options: {
+            ident: 'postcss',
+            plugins: () => [
+                /*
+                    set package.json 
+                    "browserlist": {
+                        "development": [
+                            "last 1 chrome version",
+                            "last 1 firefox version",
+                            "last 1 safari version"],
+                        "production": [
+                            ">0.2%",
+                            "not dead",
+                            "not op_mini all"]
+                    }
+                */    
+                //help plugin find setting of browserlist in package.json
+                require('postcss-preset-env')()
+            ]
+        }
+    }
+]
 
 module.exports = {
     entry: './src/js/index.js',
@@ -20,6 +51,14 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.css$/,
+                use: [...commonCssLoader]
+            },
+            {
+                test: /\.less$/,
+                use: [...commonCssLoader, 'less-loader']
+            },
+            {
                 test: /\.js$/,
                 //do not check imported node_modules 
                 exclude: /node_modules/,
@@ -29,6 +68,8 @@ module.exports = {
                         "extends": "airbnb-base"
                     }
                 */
+                //make sure js code go through eslint-loader first, then babel-loader
+                enforce: 'pre',
                 //install eslint-config-airbnb-base eslint-plugin-import eslint
                 loader: 'eslint-loader',
                 options: {
@@ -68,58 +109,17 @@ module.exports = {
                         ]
                     ]        
                 }
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    //install style-loader css-loader less-loader
-                    'style-loader',
-                    'css-loader',
-                    'less-loader'
-                ]
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    //use mini-css-extract-plugin loader replace style-loader
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        //install postcss-loader postcss-preset-env
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: () => [
-                                /*
-                                    set package.json 
-                                    "browserlist": {
-                                        "development": [
-                                            "last 1 chrome version",
-                                            "last 1 firefox version",
-                                            "last 1 safari version"],
-                                        "production": [
-                                            ">0.2%",
-                                            "not dead",
-                                            "not op_mini all"]
-                                    }
-                                */    
-                                //help plugin find setting of browserlist in package.json
-                                require('postcss-preset-env')()
-                            ]
-                        }
-                    }
-                ]
-            },
+            },            
             {
                 test: /\.(jpg|png|gif)$/,
                 //install url-loader
                 loader: 'url-loader',
                 options: {
-                    limit: 16 * 1024,
+                    limit: 8 * 1024,
                     //html-loader use commonjs, change default es6 to false
                     esModule: false, 
                     name: '[hash:10].[ext]',
-                    outputPath: 'img'
+                    outputPath: 'imgs'
                 }
             },
             {
