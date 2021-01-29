@@ -142,7 +142,12 @@ module.exports = {
         new HtmlWebpackPlugin(
             {
                 //auto import all packed js/css based on template
-                template:'./src/index.html'
+                template:'./src/index.html',
+                //compress html code
+                minify: {
+                    collapseWhitespace: true,
+                    removeComments: true
+                }
             }
         ),
         new MiniCssExtractPlugin(
@@ -152,6 +157,7 @@ module.exports = {
         ),
         new OptimizeCssAssetsWebpackPlugin()
     ],
+    //compress js code use production mode
     mode: 'development',
 
     devServer: {
