@@ -53,14 +53,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: [...commonCssLoader]
-            },
-            {
-                test: /\.less$/,
-                use: [...commonCssLoader, 'less-loader']
-            },
-            {
                 test: /\.js$/,
                 //do not check imported node_modules 
                 exclude: /node_modules/,
@@ -80,63 +72,77 @@ module.exports = {
                 }
             },
             {
-                test: /\.js$/,
-                //do not check imported node_modules 
-                exclude: /node_modules/,
-                //install babel-loader @babel/core @babel/preset-env
-                loader: 'babel-loader',
-                options: {
-                    //1.set compatibility options (only use @babel/preset-env only for basic compatibility)
-                    //2.for full compatibility install and import @babel/polyfill in js code, but the file will be huge
-                    //3.load on demand, install core-js
-                    presets: [
-                        [
-                            '@babel/preset-env',
-                            {
-                                //load on demand
-                                useBuiltIns: 'usage',
-                                //core-js version
-                                corejs: {
-                                    version: 3
-                                },
-                                //target compatibility version
-                                targets: {
-                                    chrome: '60',
-                                    firefox: '60',
-                                    ie: '9',
-                                    safari: '10',
-                                    edge: '17'
-                                }
-                            }
-                        ]
-                    ]        
-                }
-            },            
-            {
-                test: /\.(jpg|png|gif)$/,
-                //install url-loader
-                loader: 'url-loader',
-                options: {
-                    limit: 8 * 1024,
-                    //html-loader use commonjs, change default es6 to false
-                    esModule: false, 
-                    name: '[hash:10].[ext]',
-                    outputPath: 'imgs'
-                }
-            },
-            {
-                test: /\.html$/,
-                //install html-loader for html pics
-                loader: 'html-loader'
-            },
-            {
-                exclude: /\.(js|css|less|jpg|png|gif|html)$/,
-                //install file-loader for media
-                loader: 'file-loader',
-                options: {
-                    name: '[hash:10].[ext]',
-                    outputPath: 'media'
-                }
+                oneOf: [
+                    {
+                        test: /\.css$/,
+                        use: [...commonCssLoader]
+                    },
+                    {
+                        test: /\.less$/,
+                        use: [...commonCssLoader, 'less-loader']
+                    },                    
+                    {
+                        test: /\.js$/,
+                        //do not check imported node_modules 
+                        exclude: /node_modules/,
+                        //install babel-loader @babel/core @babel/preset-env
+                        loader: 'babel-loader',
+                        options: {
+                            //1.set compatibility options (only use @babel/preset-env only for basic compatibility)
+                            //2.for full compatibility install and import @babel/polyfill in js code, but the file will be huge
+                            //3.load on demand, install core-js
+                            presets: [
+                                [
+                                    '@babel/preset-env',
+                                    {
+                                        //load on demand
+                                        useBuiltIns: 'usage',
+                                        //core-js version
+                                        corejs: {
+                                            version: 3
+                                        },
+                                        //target compatibility version
+                                        targets: {
+                                            chrome: '60',
+                                            firefox: '60',
+                                            ie: '9',
+                                            safari: '10',
+                                            edge: '17'
+                                        }
+                                    }
+                                ]
+                            ],
+                            //start using babel cache to read cache if anything changed after first build
+                            cacheDirectory: true        
+                        }
+                    },            
+                    {
+                        test: /\.(jpg|png|gif)$/,
+                        //install url-loader
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8 * 1024,
+                            //html-loader use commonjs, change default es6 to false
+                            esModule: false, 
+                            name: '[hash:10].[ext]',
+                            outputPath: 'imgs'
+                        }
+                    },
+                    {
+                        test: /\.html$/,
+                        //install html-loader for html pics
+                        loader: 'html-loader'
+                    },
+                    {
+                        exclude: /\.(js|css|less|jpg|png|gif|html)$/,
+                        //install file-loader for media
+                        loader: 'file-loader',
+                        options: {
+                            name: '[hash:10].[ext]',
+                            outputPath: 'media'
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -169,5 +175,8 @@ module.exports = {
         open: true,
         hot: ture
     },
+    //development use eval-source-map/eval-cheap-module-source-map
+    //production use source-map/cheap-module-source-map
+    //if need to hide code use hidden-source-map(hide build code)/nonsources-source-map(hide all code)
     devtool: 'source-map'
 };
