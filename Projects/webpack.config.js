@@ -13,7 +13,9 @@ process.env.NODE_ENV = 'development';
 
 //reuse css compatibility loader
 const commonCssLoader = [
-    //use mini-css-extract-plugin loader replace style-loader
+    //use style-loader in development for HMR(hot module replacement)
+    //'style-loader',
+    //use mini-css-extract-plugin loader replace style-loader in production for user experience
     MiniCssExtractPlugin.loader,
     'css-loader',
     {
@@ -43,7 +45,7 @@ const commonCssLoader = [
 ]
 
 module.exports = {
-    entry: './src/js/index.js',
+    entry: ['./src/js/index.js', './src/index.html'],
     output: {
         filename: 'js/build.js',
         path: resolve(__dirname, 'build')
@@ -164,6 +166,8 @@ module.exports = {
         contentBase: resolve(__dirname, 'build'),
         compress: true,
         port: 3000,
-        open: true
-    }
+        open: true,
+        hot: ture
+    },
+    devtool: 'source-map'
 };
