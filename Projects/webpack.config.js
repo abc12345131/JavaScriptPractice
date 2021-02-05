@@ -47,7 +47,7 @@ const commonCssLoader = [
 module.exports = {
     entry: ['./src/js/index.js', './src/index.html'],
     output: {
-        filename: 'js/build.js',
+        filename: 'js/build.[hash:10].js',
         path: resolve(__dirname, 'build')
     },
     module: {
@@ -124,7 +124,7 @@ module.exports = {
                             limit: 8 * 1024,
                             //html-loader use commonjs, change default es6 to false
                             esModule: false, 
-                            name: '[hash:10].[ext]',
+                            name: '[chunkhash:10].[ext]',
                             outputPath: 'imgs'
                         }
                     },
@@ -160,7 +160,7 @@ module.exports = {
         ),
         new MiniCssExtractPlugin(
             {
-                filename: 'css/build.css'
+                filename: 'css/build.[hash:10].css'
             }
         ),
         new OptimizeCssAssetsWebpackPlugin()
