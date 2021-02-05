@@ -47,7 +47,7 @@ const commonCssLoader = [
 module.exports = {
     entry: ['./src/js/index.js', './src/index.html'],
     output: {
-        filename: 'js/build.[chunkhash:10].js',
+        filename: 'js/build.[contenthash:10].js',
         path: resolve(__dirname, 'build')
     },
     module: {
@@ -160,7 +160,7 @@ module.exports = {
         ),
         new MiniCssExtractPlugin(
             {
-                filename: 'css/build.[chunkhash:10].css'
+                filename: 'css/build.[contenthash:10].css'
             }
         ),
         new OptimizeCssAssetsWebpackPlugin()
