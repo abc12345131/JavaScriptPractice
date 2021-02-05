@@ -61,5 +61,6 @@
   "eslintConfig": {
     "extends": "airbnb-base"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "sideEffects": ["*.css", "*.less"]
 }
