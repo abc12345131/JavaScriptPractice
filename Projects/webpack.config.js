@@ -165,7 +165,12 @@ module.exports = {
         ),
         new OptimizeCssAssetsWebpackPlugin()
     ],
-    //compress js code use production mode
+    //compress js code use production mode,
+    /*
+        production mode will do tree shaking in ES6, do not let them cut css/less file
+        set package.json 
+        "sideEffects": "sideEffects": ["*.css", "*.less"]
+    */
     mode: 'development',
 
     devServer: {
