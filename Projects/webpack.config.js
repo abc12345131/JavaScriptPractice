@@ -47,6 +47,7 @@ const commonCssLoader = [
 module.exports = {
     entry: ['./src/js/index.js', './src/index.html'],
     output: {
+        //[name] is the entry point like main/test
         filename: 'js/build.[contenthash:10].js',
         path: resolve(__dirname, 'build')
     },
@@ -165,6 +166,14 @@ module.exports = {
         ),
         new OptimizeCssAssetsWebpackPlugin()
     ],
+    /*
+        pack node_modules into one separate file
+    */
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     //compress js code use production mode,
     /*
         production mode will do tree shaking in ES6, do not let them cut css/less file
@@ -178,6 +187,12 @@ module.exports = {
         compress: true,
         port: 3000,
         open: true,
+        /*
+            turn on HMR(hot module replacement)
+            css: HMR is implemented inside style-loader 
+            js: need to modify code with module.hot
+            html: don't support HMR, need to modify entry point
+        */    
         hot: ture
     },
     //development use eval-source-map/eval-cheap-module-source-map
