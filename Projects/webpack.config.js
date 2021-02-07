@@ -7,7 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //install optimize-css-assets-webpack-plugin to compress css file
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-
+//install workbox-webpack-plugin for PWA(progressive web application) which could access offline
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 //set package.json browserlist to development mode, default is production
 process.env.NODE_ENV = 'development';
 
@@ -164,7 +165,37 @@ module.exports = {
                 filename: 'css/build.[contenthash:10].css'
             }
         ),
-        new OptimizeCssAssetsWebpackPlugin()
+        new OptimizeCssAssetsWebpackPlugin(),
+        new WorkboxWebpackPlugin.GenerateSW(
+            {
+                /*
+                    quickstart serviceworker and delete old serviceworker
+                    generate serviceworker config
+                    modify package.json, add env to eslint, so that eslint could understand window and navigator
+                        "eslintConfig": {
+                            "extends": "airbnb-base",
+                            "env": {
+                                "browser": true
+                            }
+                        }
+                    register serviceworker in js code
+                        if ('serviceWorker' in navigator) {
+                            window.addEventListener('load', () => {
+                                navigator.serviceWorker
+                                .register('/service-worker.js/')
+                                .then(() => {
+                                    console.log('SW register succeed!');
+                                })
+                                .catch(() => {
+                                    console.log('SW register failed!');
+                                });
+                            });
+                        }
+                */
+                clientsClaim: true,
+                skipWaiting: true
+            }
+        )
     ],
     /*
         pack node_modules into one separate file
