@@ -1,7 +1,7 @@
 import '../src/css/'
 
 /*
-
+    //HMR(hot module replacement)
     if (module.hot) {
         module.hot.accept('./modulechanged.js', function () {
             functionchanged()
@@ -11,14 +11,32 @@ import '../src/css/'
 
 
 
-// use import syntax to pack test as a separate file 
-// import(/* webpackChunkName: 'test' */'./test')
+// use import syntax to pack test as a separate file which could be lazy loading or prefetch
+// warning: prefetch may have compatibility issue  
+// import(/* webpackChunkName: 'test', webpackPrefetch: true */'./test')
 //     .then(() => {
-//         //file load successfully
+//         //file loading succeed
 //         functionloaded()
 //     })
 //     .catch(() => {
-//         //file load failed
-//         console.log('File load failed!')
+//         //file loading failed
+//         console.log('File loading failed!')
 //     });
-   
+
+
+/*
+    //register serviceworker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker
+            .register('/service-worker.js/')
+            .then(() => {
+                console.log('SW register succeed!');
+            })
+            .catch(() => {
+                console.log('SW register failed!');
+            });
+        });
+    }
+
+*/
