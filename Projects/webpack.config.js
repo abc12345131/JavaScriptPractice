@@ -87,36 +87,52 @@ module.exports = {
                         test: /\.js$/,
                         //do not check imported node_modules 
                         exclude: /node_modules/,
-                        //install babel-loader @babel/core @babel/preset-env
-                        loader: 'babel-loader',
-                        options: {
-                            //1.set compatibility options (only use @babel/preset-env only for basic compatibility)
-                            //2.for full compatibility install and import @babel/polyfill in js code, but the file will be huge
-                            //3.load on demand, install core-js
-                            presets: [
-                                [
-                                    '@babel/preset-env',
-                                    {
-                                        //load on demand
-                                        useBuiltIns: 'usage',
-                                        //core-js version
-                                        corejs: {
-                                            version: 3
-                                        },
-                                        //target compatibility version
-                                        targets: {
-                                            chrome: '60',
-                                            firefox: '60',
-                                            ie: '9',
-                                            safari: '10',
-                                            edge: '17'
-                                        }
-                                    }
-                                ]
-                            ],
-                            //start using babel cache to read cache if anything changed after first build
-                            cacheDirectory: true        
-                        }
+                        use: [
+                            /*
+                                pack with multi-thread, start would take roughly 600ms
+                                communication between threads also take time, so only use for really huge job like babel
+                            */
+                            {
+                                loader: 'thread-loader',
+                                options: {
+                                    //thread number
+                                    workers: 2
+                                }
+                            },
+                            {
+                                //install babel-loader @babel/core @babel/preset-env
+                                loader: 'babel-loader',
+                                options: {
+                                    //1.set compatibility options (only use @babel/preset-env only for basic compatibility)
+                                    //2.for full compatibility install and import @babel/polyfill in js code, but the file will be huge
+                                    //3.load on demand, install core-js
+                                    presets: [
+                                        [
+                                            '@babel/preset-env',
+                                            {
+                                                //load on demand
+                                                useBuiltIns: 'usage',
+                                                //core-js version
+                                                corejs: {
+                                                    version: 3
+                                                },
+                                                //target compatibility version
+                                                targets: {
+                                                    chrome: '60',
+                                                    firefox: '60',
+                                                    ie: '9',
+                                                    safari: '10',
+                                                    edge: '17'
+                                                }
+                                            }
+                                        ]
+                                    ],
+                                    //start using babel cache to read cache if anything changed after first build
+                                    cacheDirectory: true        
+                                }
+                            }
+                        ]
+                        
                     },            
                     {
                         test: /\.(jpg|png|gif)$/,
