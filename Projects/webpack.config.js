@@ -1,4 +1,4 @@
-//webpack use commonjs as 
+//webpack use commonjs syntax
 //use resolve to join the path
 const { resolve } = require('path');
 //install html-webpack-plugin to auto import js/css to html
@@ -48,7 +48,7 @@ const commonCssLoader = [
 module.exports = {
     entry: ['./src/js/index.js', './src/index.html'],
     output: {
-        //[name] is the entry point like main/test
+        //could use [name] as file name, which is the entry point like main/test
         filename: 'js/build.[contenthash:10].js',
         path: resolve(__dirname, 'build')
     },
@@ -228,7 +228,11 @@ module.exports = {
         "sideEffects": "sideEffects": ["*.css", "*.less"]
     */
     mode: 'development',
-
+    externals: {
+        //ignore library while packing, need to import from public website in html file
+        //Library name: package name in npm
+        jquery: 'jQuery'
+    },
     devServer: {
         contentBase: resolve(__dirname, 'build'),
         compress: true,
