@@ -1,6 +1,10 @@
 //webpack use commonjs syntax
 //use resolve to join the path
 const { resolve } = require('path');
+//use webpack built-in plugin
+const { webpack } = require('webpack');
+//install add-asset-html-webpack-plugin to auto import dll library to html
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 //install html-webpack-plugin to auto import js/css to html
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //install mini-css-extract-plugin to extract css in separate file
@@ -167,13 +171,25 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin(
             {
-                //auto import all packed js/css based on template
+                //auto import packed js/css based on template
                 template:'./src/index.html',
                 //compress html code
                 minify: {
                     collapseWhitespace: true,
                     removeComments: true
                 }
+            }
+        ),
+        new webpack.DllReferencePlugin(
+            {
+                //webpack won't pack library in this manifest and reference mapped library name in packed code
+                manifest: resolve(__dirname, 'dll/manifest.json')
+            }
+        ),
+        new AddAssetHtmlWebpackPlugin(
+            {
+                //auto import separat packed library to html
+                filepath: resolve(__dirname, 'dll/jquery.js'),
             }
         ),
         new MiniCssExtractPlugin(
