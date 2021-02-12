@@ -1,6 +1,10 @@
-//webpack use commonjs syntax
+/*
+    change webpack config while packing like code below
+    webpack --config webpack.dll.js
+*/
 //use resolve to join the path
 const { resolve } = require('path');
+//use webpack built-in plugin
 const { webpack } = require('webpack');
 
 module.exports = {
@@ -18,8 +22,12 @@ module.exports = {
     plugins: [
         new webpack.DllPlugin(
             {
-                name: ''
+                //mapping the exported library
+                name: '[name]_[hash]',
+                //output path
+                path: resolve(__dirname, 'dll/manifest.json'),
             }
         )
-    ]
+    ],
+    mode: 'production'
 };
