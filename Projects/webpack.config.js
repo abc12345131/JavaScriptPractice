@@ -258,12 +258,12 @@ module.exports = {
             turn on HMR(hot module replacement)
             css: HMR is implemented inside style-loader 
             js: need to modify code with module.hot
-            html: don't support HMR, need to modify entry point
+            html: don't support HMR, need to modify entry point if hot is true
         */    
         hot: ture
     },
-    //development use eval-source-map/eval-cheap-module-source-map
-    //production use source-map/cheap-module-source-map
+    //development use eval-source-map(react recommended)/eval-cheap-module-source-map
+    //production use source-map(react recommended)/cheap-module-source-map
     //if need to hide code use hidden-source-map(hide build code)/nonsources-source-map(hide all code)
     devtool: 'source-map'
 };
