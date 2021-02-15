@@ -13,15 +13,17 @@ import '../src/css/'
 
 // use import syntax to pack test as a separate file which could be lazy loading or prefetch
 // warning: prefetch may have compatibility issue  
-// import(/* webpackChunkName: 'test', webpackPrefetch: true */'./test')
-//     .then(() => {
-//         //file loading succeed
-//         functionloaded()
-//     })
-//     .catch(() => {
-//         //file loading failed
-//         console.log('File loading failed!')
-//     });
+// document.getElementById().onclick = function(){
+//     import(/* webpackChunkName: 'test', webpackPrefetch: true */'./test')
+//         .then(() => {
+//             //file loading succeed
+//             functionloaded()
+//         })
+//         .catch(() => {
+//             //file loading failed
+//             console.log('File loading failed!')
+//         });
+// };
 
 
 /*
