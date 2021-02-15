@@ -16,13 +16,13 @@ module.exports = {
         //se [name] as file name, which is the entry point like main/test
         filename: '[name].js',
         path: resolve(__dirname, 'dll'),
-        //exported name of the packed library 
+        //exposed name of the packed library 
         library: '[name]_[hash]',
     },
     plugins: [
         new webpack.DllPlugin(
             {
-                //mapping the exported library
+                //mapping the exposed library
                 name: '[name]_[hash]',
                 //output path
                 path: resolve(__dirname, 'dll/manifest.json'),
