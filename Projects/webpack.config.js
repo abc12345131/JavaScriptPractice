@@ -54,7 +54,19 @@ module.exports = {
     output: {
         //could use [name] as file name, which is the entry point like main/test
         filename: 'js/build.[contenthash:10].js',
-        path: resolve(__dirname, 'build')
+        path: resolve(__dirname, 'build'),
+        //html import path prefix 
+        publicPath: '/',
+        //non-entry chunk name
+        chunkFilename: '[name]_chunk.js',
+        /*
+            only use these setting for library packing
+            //exposed library name
+            library: '[name]',
+            //imported library would be added to place like global, window or any node 
+            //or set this like commonjs or amd to import with certain syntax
+            libraryTarget: 'window'
+        */
     },
     module: {
         rules: [
@@ -68,7 +80,9 @@ module.exports = {
                         "extends": "airbnb-base"
                     }
                 */
-                //make sure js code go through eslint-loader first, then babel-loader
+                //only check code in folder src 
+                include: resolve(__dirname, 'src'),
+                //make sure js code go through js code in certain order, 'pre' first, 'post' last, default in code order
                 enforce: 'pre',
                 //install eslint-config-airbnb-base eslint-plugin-import eslint
                 loader: 'eslint-loader',
@@ -229,30 +243,89 @@ module.exports = {
             }
         )
     ],
-    /*
-        pack node_modules into one separate file
-    */
-    optimization: {
+    optimization: {        
+        //pack node_modules into one separate file
         splitChunks: {
-            chunks: 'all'
+            chunks: 'all',
+            /*
+                this part is default setting, normally don't need to change
+                //min chunk size 30kb
+                minSize: 30 * 1024,
+                //no max chunk size 
+                maxSize: 0,
+                //chunk being used at least 1 time  
+                minChunks: 1,
+                //max parallel loading number while doing load on demand 
+                maxAsyncRequests: 5,
+                //max parallel loading number while loading entry js code 
+                maxInitialRequests: 3,
+                //name connector
+                automaticNameDelimiter: '~',
+                //naming rules can be used
+                name: true,
+                //chunk group
+                cacheGroups: {
+                    vendors: {
+                        //node_modules files would be packed into vendors group named like vendors~xxx.js
+                        //inherit above rules
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10
+                    },
+                    default: {
+                        //this would override above rules
+                        minChunks: 2,
+                        //this has to be lower priority
+                        priority: -20,
+                        //if same module already been packed before, reuse instead of repack
+                        reuseExistingChunk: true
+                    }
+                }
+            */
+        },
+        runtimeChunk: {
+            
         }
     },
-    //compress js code use production mode,
     /*
-        production mode will do tree shaking in ES6, do not let them cut css/less file
+        compress js code use production mode,
+        production mode will do tree shaking in ES6,
+        do not let them cut css/less file,
         set package.json 
         "sideEffects": "sideEffects": ["*.css", "*.less"]
     */
     mode: 'development',
+    /*
+        Do not use this if you always make mistake with file path, this will mess up even more.
+        resolve: {
+            //set resolve module path alias, simplify path
+            alias: {
+                $css: resolve(__dirname, 'src/css')
+            },
+            //set path suffix, simplify path
+            extensions: ['.js', '.json', '.jsx'],
+            //set webpack module path, save time when looking for modules
+            modules: [resolve(__dirname, '../../node_modules'), 'node_modules']
+        },
+    */
     externals: {
         //ignore library while packing, need to import from public website in html file
         //Library name: package name in npm
         jquery: 'jQuery'
     },
     devServer: {
+        //running path
         contentBase: resolve(__dirname, 'build'),
+        //watch content base fold files, reload if anything changed
+        watchContentBase: true,
+        watchOptions: {
+            //ignore files
+            ignored: /node_modules/
+        },
+        //start gzip compress
         compress: true,
         port: 3000,
+        host: 'localhost',
+        //auto open browser
         open: true,
         /*
             turn on HMR(hot module replacement)
@@ -260,7 +333,24 @@ module.exports = {
             js: need to modify code with module.hot
             html: don't support HMR, need to modify entry point if hot is true
         */    
-        hot: ture
+        hot: ture,
+        //do not show server start log
+        clientLogLevel: 'none',
+        //do not show anything other than basic info
+        quiet: true,
+        //do not show full screen prompt if there is any error
+        overlay: false,
+        //server proxy
+        proxy: {
+            //if devServer get /api request(port 3000), forward it to another server below(port 5000)
+            '/api': {
+                target: 'http://localhost:5000',
+                //forward path rewrite, change '/api/xxx' to '/xxx' 
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        }
     },
     //development use eval-source-map(react recommended)/eval-cheap-module-source-map
     //production use source-map(react recommended)/cheap-module-source-map
