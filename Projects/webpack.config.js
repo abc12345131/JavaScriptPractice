@@ -13,6 +13,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 //install workbox-webpack-plugin for PWA(progressive web application) which could access offline
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+//install terser-webpack-plugin for production code (js and css) compression
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 //set package.json browserlist to development mode, default is production
 process.env.NODE_ENV = 'development';
 
@@ -54,19 +56,50 @@ module.exports = {
     output: {
         //could use [name] as file name, which is the entry point like main/test
         filename: 'js/build.[contenthash:10].js',
-        path: resolve(__dirname, 'build'),
+        path: resolve(__dirname, 'dist'),
         //html import path prefix 
         publicPath: '/',
         //non-entry chunk name
         chunkFilename: '[name]_chunk.js',
         /*
-            only use these setting for library packing
+            //only use these setting for library packing
             //exposed library name
             library: '[name]',
             //imported library would be added to place like global, window or any node 
             //or set this like commonjs or amd to import with certain syntax
             libraryTarget: 'window'
         */
+        /*
+            //output format setting, default is ES5
+            environment: {
+                // The environment supports arrow functions ('() => { ... }').
+                arrowFunction: true,
+                // The environment supports BigInt as literal (123n).
+                bigIntLiteral: false,
+                // The environment supports const and let for variable declarations.
+                const: true,
+                // The environment supports destructuring ('{ a, b } = obj').
+                destructuring: true,
+                // The environment supports an async import() function to import EcmaScript modules.
+                dynamicImport: false,
+                // The environment supports 'for of' iteration ('for (const x of array) { ... }').
+                forOf: true,
+                // The environment supports ECMAScript Module syntax to import ECMAScript modules (import ... from '...').
+                module: false,
+            }
+        */
+    },
+    cache: {
+        type: 'filesystem',
+        /*
+            //defaults to node_modules/.cache/webpack
+            cacheDirectory: resolve(__dirname, '.temp_cache')
+        */
+        buildDependencies: {
+            // This makes all dependencies of this file - build dependencies
+            config: [__filename],
+            // By default webpack and loaders are build dependencies
+        }
     },
     module: {
         rules: [
@@ -95,6 +128,7 @@ module.exports = {
                 oneOf: [
                     {
                         test: /\.css$/,
+                        //use loader array order is from bottom to top
                         use: [...commonCssLoader]
                     },
                     {
@@ -145,8 +179,11 @@ module.exports = {
                                             }
                                         ]
                                     ],
-                                    //start using babel cache to read cache if anything changed after first build
-                                    cacheDirectory: true        
+                                    /*
+                                        //webpack4 setting
+                                        //turn on babel cache to read cache if anything changed after first build
+                                        cacheDirectory: true
+                                    */        
                                 }
                             }
                         ]
@@ -250,7 +287,10 @@ module.exports = {
             /*
                 this part is default setting, normally don't need to change
                 //min chunk size 30kb
-                minSize: 30 * 1024,
+                minSize: {
+                    javascript: 30 * 1024,
+                    style: 50 * 1024
+                },
                 //no max chunk size 
                 maxSize: 0,
                 //chunk being used at least 1 time  
@@ -282,13 +322,28 @@ module.exports = {
                 }
             */
         },
+        //pack the hash record of other modules in current module into a file: runtime
+        //modified code contenthash changed, runtime resolve cache issue 
         runtimeChunk: {
-            
-        }
+            name: entrypoint => `runtime-${entrypoint}`
+        },
+        minimizer: [
+            //set production code compression config
+            new TerserWebpackPlugin(
+                {
+                    //turn on cache
+                    cache: true,
+                    //turn on multi-thread packing
+                    parallel: true,
+                    //turn on source-map
+                    sourceMap: true         
+                }
+            )
+        ]
     },
     /*
         compress js code use production mode,
-        production mode will do tree shaking in ES6,
+        production mode will do tree shaking,
         do not let them cut css/less file,
         set package.json 
         "sideEffects": "sideEffects": ["*.css", "*.less"]
@@ -321,7 +376,7 @@ module.exports = {
             //ignore files
             ignored: /node_modules/
         },
-        //start gzip compress
+        //turn on gzip compress
         compress: true,
         port: 3000,
         host: 'localhost',
