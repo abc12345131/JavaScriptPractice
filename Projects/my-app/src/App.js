@@ -2,7 +2,7 @@ import './App.css';
 import { Component } from 'react';
 import Component1 from './components/Component1';
 import Component2 from './components/Component2';
-import {NavLink, Route, Switch} from 'react-router-dom';
+import {NavLink, Route, Switch, Redirect} from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
 
@@ -22,6 +22,7 @@ export default class App extends Component {
           <Switch>
             <Route path="/about" component={About}/>
             <Route path="/home" component={Home}/>
+            <Redirect to="/about"/>
           </Switch>
         </div>
       </div>
