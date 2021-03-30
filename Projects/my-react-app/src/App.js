@@ -1,4 +1,4 @@
-import './App.css';
+import './App.less';
 import { Component } from 'react';
 import MyNavLink from './components/MyNavLink';
 import Header from './components/Header';
