@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.15.0",
     "axios": "^0.21.1",
+    "craco-less": "^1.17.1",
     "nanoid": "^3.1.22",
     "prop-types": "^15.7.2",
     "pubsub-js": "^1.9.3",
@@ -28,6 +29,11 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
     ]
   },
   "browserslist": {
