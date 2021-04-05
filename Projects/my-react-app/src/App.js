@@ -6,15 +6,14 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
 import { Button } from 'antd';
-import Count from './containers/Count';
-import store from './redux/store';
+import Count from './components/Count';
 
 export default class App extends Component {
   render(){
     return (
       <div className="App">
         <Header/>
-        <Count store={store}/>
+        <Count/>
         <Button type="primary">Button</Button>
         <div className="list-group">
           <MyNavLink to="/about">About</MyNavLink>

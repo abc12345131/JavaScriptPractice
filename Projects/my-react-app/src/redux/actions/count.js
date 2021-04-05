@@ -1,10 +1,10 @@
-import { CONST1 } from './constant';
-import store from './store';
+import { INCREMENT } from '../constant';
+import store from '../store';
 
-export const createAction = (data) => {({type: CONST1,data})};
+export const createAction = data => ({type:INCREMENT,data});
 
 export const createAsynAction = (data, time) => {
-    return () =>{
+    return () => {
         setTimeout(() => {
             store.dispatch(createAction(data))
         }, time);

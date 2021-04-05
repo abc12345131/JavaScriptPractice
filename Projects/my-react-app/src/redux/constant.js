@@ -1,2 +1,2 @@
 
-const CONST1 = 'const1';
+export const INCREMENT = 'add';

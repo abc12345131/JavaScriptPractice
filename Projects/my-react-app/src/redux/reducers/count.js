@@ -4,7 +4,7 @@ const initState = 0
 export default function countReducer (preState=initState,action) {
     const {type,data} = action;
     switch (type) {
-        case 'const1':
+        case 'add':
             return preState + data
         default:
             return preState
