@@ -7,6 +7,7 @@ import About from './pages/About';
 import Home from './pages/Home';
 import { Button } from 'antd';
 import Count from './components/Count';
+import Person from './components/Person';
 
 export default class App extends Component {
   render(){
@@ -14,6 +15,7 @@ export default class App extends Component {
       <div className="App">
         <Header/>
         <Count/>
+        <Person/>
         <Button type="primary">Button</Button>
         <div className="list-group">
           <MyNavLink to="/about">About</MyNavLink>

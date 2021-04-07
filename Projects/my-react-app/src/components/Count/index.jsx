@@ -39,7 +39,7 @@ class Count extends Component {
 
 //use connect create container
 export default connect(
-    state => ({count:state}),
+    state => ({count:state.count}),
     {   
         action1:createAction,
         action2:createAsynAction

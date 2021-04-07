@@ -1,3 +1,4 @@
+import { INCREMENT } from '../constant';
 
 const initState = 0
 
