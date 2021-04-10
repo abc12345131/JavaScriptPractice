@@ -1,16 +1,16 @@
-import { createAction, createAsynAction} from '../../redux/actions/count';
-import { connect } from 'react-redux';
+import { increment, incrementAsync } from '../../redux/actions/count'
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
 //UI component
 class Count extends Component {
     increment = () => {
         const {value} = this.inputNumber
-        this.props.action1(value*1)
+        this.props.increment(value*1)
     }
     incrementAsync = () => {
         const {value} = this.inputNumber
-        this.props.action2(value*1,1000)
+        this.props.incrementAsync(value*1,1000)
     }
     render() {
         return (
@@ -41,8 +41,8 @@ class Count extends Component {
 export default connect(
     state => ({count:state.count}),
     {   
-        action1:createAction,
-        action2:createAsynAction
+        increment,
+        incrementAsync
     }
 )(Count)
 

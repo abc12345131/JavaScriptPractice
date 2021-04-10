@@ -1,4 +1,4 @@
 
-export const INCREMENT = 'plus';
+export const INCREMENT = 'plus'
 
-export const ENTER = 'add';
+export const ENTER = 'add'

@@ -1,3 +1,3 @@
-import { ENTER } from '../constant';
+import { ENTER } from '../constant'
 
-export const createAction = (name, age) => ({type:ENTER,data:{name,age}})
+export const enter = (name, age) => ({type:ENTER,data:{name,age}})

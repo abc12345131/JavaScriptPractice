@@ -1,13 +1,13 @@
-import './App.less';
-import { Component } from 'react';
-import MyNavLink from './components/MyNavLink';
-import Header from './components/Header';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import About from './pages/About';
-import Home from './pages/Home';
-import { Button } from 'antd';
-import Count from './components/Count';
-import Person from './components/Person';
+import './App.less'
+import { Component } from 'react'
+import MyNavLink from './components/MyNavLink'
+import Header from './components/Header'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import About from './pages/About'
+import Home from './pages/Home'
+import { Button } from 'antd'
+import Count from './components/Count'
+import Person from './components/Person'
 
 export default class App extends Component {
   render(){
@@ -31,4 +31,4 @@ export default class App extends Component {
       </div>
     )
   }
-};
+}

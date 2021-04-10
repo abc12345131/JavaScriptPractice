@@ -1,4 +1,4 @@
-import { ENTER } from '../constant';
+import { ENTER } from '../constant'
 
 const initState = []
 

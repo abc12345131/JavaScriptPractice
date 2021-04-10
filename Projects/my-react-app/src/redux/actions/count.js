@@ -1,12 +1,12 @@
-import { INCREMENT } from '../constant';
-import store from '../store';
+import { INCREMENT } from '../constant'
+import store from '../store'
 
-export const createAction = data => ({type:INCREMENT,data});
+export const increment = data => ({type:INCREMENT,data});
 
-export const createAsynAction = (data, time) => {
+export const incrementAsync = (data, time) => {
     return () => {
         setTimeout(() => {
-            store.dispatch(createAction(data))
+            store.dispatch(increment(data))
         }, time);
     }
 }

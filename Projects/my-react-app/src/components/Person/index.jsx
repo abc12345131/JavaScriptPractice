@@ -1,5 +1,5 @@
-import { createAction} from '../../redux/actions/person';
-import { connect } from 'react-redux';
+import { enter } from '../../redux/actions/person'
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
 //UI component
@@ -7,7 +7,7 @@ class Person extends Component {
     enter = () => {
         const name = this.name.value
         const age = this.age.value
-        this.props.action1(name, age)
+        this.props.enter(name, age)
         this.name.value = ''
         this.age.value = ''
     }
@@ -33,7 +33,7 @@ class Person extends Component {
 export default connect(
     state => ({person:state.person}),
     {   
-        action1:createAction,
+        enter
     }
 )(Person)
 
