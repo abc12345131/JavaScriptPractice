@@ -1,13 +1,15 @@
 import './App.less'
-import { Component } from 'react'
+import { Component, lazy, Suspense } from 'react'
 import MyNavLink from './components/MyNavLink'
 import Header from './components/Header'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import About from './pages/About'
-import Home from './pages/Home'
 import { Button } from 'antd'
 import Count from './components/Count'
 import Person from './components/Person'
+import Loading from './pages/Loading'
+
+const Home = lazy(()=>{import('./pages/Home')})
+const About = lazy(()=>{import('./pages/About')})
 
 export default class App extends Component {
   render(){
@@ -22,11 +24,13 @@ export default class App extends Component {
           <MyNavLink to="/home">Home</MyNavLink>
         </div>
         <div className="panel">
-          <Switch>
-            <Route path="/about" component={About}/>
-            <Route path="/home" component={Home}/>
-            <Redirect to="/about"/>
-          </Switch>
+          <Suspense fallback={<Loading/>}>
+            <Switch>
+              <Route path="/about" component={About}/>
+              <Route path="/home" component={Home}/>
+              <Redirect to="/about"/>
+            </Switch>
+          </Suspense>
         </div>
       </div>
     )
