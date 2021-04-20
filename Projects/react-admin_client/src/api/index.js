@@ -1,5 +1,7 @@
-import { ajax } from "./ajax";
+import ajax from "./ajax.js";
 
-export const reqLogin = (username, password) => ajax('/login', {username, password}, 'POST')
+const Base = ''
 
-export const reqAddUser = (user) => ajax('/manage/user/add', user, 'POST')
+export const reqLogin = (username, password) => ajax(Base + '/login', {username, password}, 'POST')
+
+export const reqAddUser = (user) => ajax(Base + '/manage/user/add', user, 'POST')
