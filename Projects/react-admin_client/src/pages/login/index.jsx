@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.less'
 import logo from './images/logo.jpg'
 import { reqLogin } from "../../api";
+import memoryUtils from '../../utils/memoryUtils'
 
 export default class Login extends Component {
 
     render() {
         const onFinish = async (values) => {
             const { username, password } = values
-            try {
-                const response = await reqLogin(username, password)
-                console.log('Login succeed', response.data)
-            } catch(error) {
-                console.log('Login failed', error)
+            const result = await reqLogin(username, password)
+            if (result.status === 0) {
+                message.success('Login succeed')
+                const user = result.data
+                memoryUtils.user = user
+                this.props.history.replace('/admin')
+            } else {
+                message.error(result.message)
             }
         };
 

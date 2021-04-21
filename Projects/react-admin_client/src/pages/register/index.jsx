@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import './index.less'
 import logo from '../login/images/logo.jpg'
 import { reqAddUser } from "../../api";
@@ -45,11 +45,12 @@ export default class Register extends Component {
             const { username, password } = values
             const user = { username, password }
             console.log('Login failed', user)
-            try {
-                const response = await reqAddUser(user)
-                console.log('Login succeed', response.data)
-            } catch(error) {
-                console.log('Login failed', error)
+            const result = await reqAddUser(user)
+            if (result.status === 0) {
+                message.success('Register succeed')
+                this.props.history.replace('/login')
+            } else {
+                message.error(result.message)
             }
         };
 
