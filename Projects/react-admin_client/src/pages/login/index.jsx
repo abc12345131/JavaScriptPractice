@@ -5,17 +5,29 @@ import './index.less'
 import logo from './images/logo.jpg'
 import { reqLogin } from "../../api";
 import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
+import { Redirect } from 'react-router'
 
 export default class Login extends Component {
 
     render() {
+
+        //if user already login, redirect to admin
+        const user = memoryUtils.user
+        if(user && user._id) {
+            return <Redirect to='/admin' />
+        }
+
         const onFinish = async (values) => {
             const { username, password } = values
             const result = await reqLogin(username, password)
             if (result.status === 0) {
                 message.success('Login succeed')
                 const user = result.data
+                //save user in memory                
                 memoryUtils.user = user
+                //save user in localstorage
+                storageUtils.saveUser(user)
                 this.props.history.replace('/admin')
             } else {
                 message.error(result.message)
