@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { Layout } from 'antd'
 import memoryUtils from '../../utils/memoryUtils'
+import LeftNav from '../../components/left-nav'
+import Header from '../../components/header'
+
+
+const { Footer, Sider, Content } = Layout
 
 export default class Admin extends Component {
     render() {
@@ -9,9 +15,16 @@ export default class Admin extends Component {
             return <Redirect to='/login'/>
         }
         return (
-            <div>
-                Admin
-            </div>
+            <Layout style={{height:'100%'}}>
+                <Sider>
+                    <LeftNav/>
+                </Sider>
+                <Layout>
+                    <Header/>
+                    <Content>Content</Content>
+                    <Footer style={{textAlign: 'center', color: '#cccccc'}}>Use Google Chrome for better performance</Footer>
+                </Layout>
+            </Layout>
         )
     }
 }
