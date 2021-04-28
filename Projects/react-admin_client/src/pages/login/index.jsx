@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.less'
-import logo from './images/logo.jpg'
+import logo from '../../assets/images/logo.jpg'
 import { reqLogin } from "../../api";
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
@@ -15,7 +15,7 @@ export default class Login extends Component {
         //if user already login, redirect to admin
         const user = memoryUtils.user
         if(user && user._id) {
-            return <Redirect to='/admin' />
+            return <Redirect to='/' />
         }
 
         const onFinish = async (values) => {

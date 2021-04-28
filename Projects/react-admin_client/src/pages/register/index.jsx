@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd'
 import './index.less'
-import logo from '../login/images/logo.jpg'
+import logo from '../../assets/images/logo.jpg'
 import { reqAddUser } from "../../api";
 
 
