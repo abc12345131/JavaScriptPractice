@@ -35,8 +35,6 @@ export default class LeftNav extends Component {
                     <SubMenu key="sub1" icon={<MailOutlined />} title="Commodity">
                         <Menu.Item key="5" icon={<MailOutlined />}>Category Management</Menu.Item>
                         <Menu.Item key="6" icon={<MailOutlined />}>Product Management</Menu.Item>
-                        <Menu.Item key="7">Option 7</Menu.Item>
-                        <Menu.Item key="8">Option 8</Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
                         <Menu.Item key="9">Option 9</Menu.Item>
