@@ -1,25 +1,38 @@
+import {
+  HomeOutlined,
+  AppstoreOutlined,
+  BarsOutlined,
+  BarcodeOutlined,
+  UserOutlined,
+  SafetyOutlined,
+  AreaChartOutlined,
+  BarChartOutlined,
+  LineChartOutlined,
+  PieChartOutlined,
+  OrderedListOutlined,
+} from '@ant-design/icons';
 
 const  menuList = [
   {
     title: 'Home', 
     key: '/home', 
-    icon: 'home', 
+    icon: <HomeOutlined />, 
     isPublic: true, 
   },
   {
     title: 'Commodity',
     key: '/products',
-    icon: 'appstore',
+    icon: <AppstoreOutlined />,
     children: [
       {
         title: 'Category Management',
         key: '/category',
-        icon: 'bars'
+        icon: <BarsOutlined />,
       },
       {
         title: 'Product Management',
         key: '/product',
-        icon: 'tool'
+        icon: <BarcodeOutlined />,
       },
     ]
   },
@@ -27,33 +40,33 @@ const  menuList = [
   {
     title: 'User Management',
     key: '/user',
-    icon: 'user'
+    icon: <UserOutlined />,
   },
   {
     title: 'Role Management',
     key: '/role',
-    icon: 'safety',
+    icon: <SafetyOutlined />,
   },
 
   {
     title: 'Charts',
     key: '/charts',
-    icon: 'area-chart',
+    icon: <AreaChartOutlined />,
     children: [
       {
         title: 'Bar',
         key: '/charts/bar',
-        icon: 'bar-chart'
+        icon: <BarChartOutlined />,
       },
       {
         title: 'Line',
         key: '/charts/line',
-        icon: 'line-chart'
+        icon: <LineChartOutlined />,
       },
       {
         title: 'Pie',
         key: '/charts/pie',
-        icon: 'pie-chart'
+        icon: <PieChartOutlined />,
       },
     ]
   },
@@ -61,7 +74,7 @@ const  menuList = [
   {
     title: 'Order',
     key: '/order',
-    icon: 'windows',
+    icon: <OrderedListOutlined />,
   },
 ]
 

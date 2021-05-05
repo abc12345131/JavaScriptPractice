@@ -1,30 +1,50 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom' 
+import { Link, withRouter } from 'react-router-dom' 
 import { Menu } from 'antd';
-import {
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
 import menuList from '../../config/menuConfig'
 import logo from '../../assets/images/logo.jpg'
 import './index.less'
 
-export default class LeftNav extends Component {
+const { SubMenu } = Menu
+
+class LeftNav extends Component {
     
-    getMenuNodes = () => {
-        return menuList.map(item => {
-            if (!item.chirdren)
-            return 
+    getMenuNodes = (menuList) => {
+
+        const path = this.props.location.pathname
+
+        return menuList.map((item) => {
+            if (!item.children) {
+                return (
+                    <Menu.Item key={item.key} icon={item.icon}>
+                        <Link to={item.key}>{item.title}</Link>
+                    </Menu.Item>
+                )
+            } 
+            else {
+
+                if(item.children.find(c => c.key===path))
+                    this.openkey = item.key
+
+                return (
+                    <SubMenu key={item.key} icon={item.icon} title={item.title}>
+                        {this.getMenuNodes(item.children)}
+                    </SubMenu>
+                )
+            }
         })
     }
 
+    //run getMenuNodes once before render to get openkey
+    constructor(props){
+        super(props)
+        this.menuNodes = this.getMenuNodes(menuList)
+    }
+
     render() {
-        const { SubMenu } = Menu;
+
+        const path = this.props.location.pathname
+        const openkey = this.openkey
 
         return (
             <div  className="left-nav">
@@ -33,40 +53,17 @@ export default class LeftNav extends Component {
                     <h1>React BackStage</h1>
                 </Link>
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
+                    selectedKeys={[path]}
+                    defaultOpenKeys={[openkey]}
                     mode="inline"
                     theme="dark"
                 >
-                    { this. getMenuNodes(menuList) }
-                    
-                    <Menu.Item key="1" icon={<AppstoreOutlined />}>
-                        <Link to="/home">Home</Link>
-                    </Menu.Item>
-                    <SubMenu key="sub1" icon={<MailOutlined />} title="Commodity">
-                        <Menu.Item key="2" icon={<MailOutlined />}>
-                            <Link to="/category">Category Management</Link>
-                        </Menu.Item>
-                        <Menu.Item key="3" icon={<MailOutlined />}>
-                            <Link to="/product">Product Management</Link>
-                        </Menu.Item>
-                    </SubMenu>
-                    <Menu.Item key="4" icon={<PieChartOutlined />}>
-                        <Link to="/user">User Management</Link>
-                    </Menu.Item>
-                    <Menu.Item key="5" icon={<PieChartOutlined />}>
-                        <Link to="/role">Role Management</Link>
-                    </Menu.Item>
-                    <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-                        <Menu.Item key="6">Option 9</Menu.Item>
-                        <Menu.Item key="10">Option 10</Menu.Item>
-                        <SubMenu key="sub3" title="Submenu">
-                        <Menu.Item key="11">Option 11</Menu.Item>
-                        <Menu.Item key="12">Option 12</Menu.Item>
-                        </SubMenu>
-                    </SubMenu>
+                    { this.menuNodes }
+
                 </Menu>
             </div>
         )
     }
 }
+
+export default withRouter(LeftNav)
