@@ -23,6 +23,4 @@ export default function ajax (url, data={}, type='GET' ){
             message.error('Request failed'+error.message)
         })
     })
-
-
 }
