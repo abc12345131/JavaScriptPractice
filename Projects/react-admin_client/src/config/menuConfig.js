@@ -10,7 +10,7 @@ import {
   LineChartOutlined,
   PieChartOutlined,
   OrderedListOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 
 const  menuList = [
   {
