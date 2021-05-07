@@ -25,8 +25,10 @@ class Header extends Component {
 
     getWeather = async () => {
         const result = await reqWeather('Toronto')
+        const { name, region, country } = result.location
+        const { temp_c, humidity } = result.current
         const { icon, text } = result.current.condition
-        this.setState({ icon, text })
+        this.setState({ name, region, country, icon, text, temp_c, humidity})
     }
 
     getTitle = () => {
@@ -72,7 +74,7 @@ class Header extends Component {
 
     render() {
 
-        const { currentTime, icon, text} = this.state
+        const { currentTime, name, region, country, temp_c, humidity, icon, text} = this.state
 
         const username = memoryUtils.user.username
 
@@ -87,9 +89,9 @@ class Header extends Component {
                 <div className="header-bottom">
                     <div className="header-bottom-left">{title}</div>
                     <div className="header-bottom-right">
-                        <span>{currentTime}</span>
+                        <span>{currentTime}-{name},{region},{country}</span>
                         <img src={icon} alt="weather"/>
-                        <span>{text}</span>
+                        <span>{text},TEMP:{temp_c}°C,RH:{humidity}%</span>
                     </div>
                 </div>
             </div>
