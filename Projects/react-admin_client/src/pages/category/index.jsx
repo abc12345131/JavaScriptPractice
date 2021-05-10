@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Card, Table, Button, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons'
+import { Card, Table, Button, Modal, message } from 'antd';
+import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { reqCategories } from '../../api';
+import './index.less'
 
 export default class Category extends Component {
 
@@ -62,7 +63,14 @@ export default class Category extends Component {
             parentName: category.name
         }, () => {            
             this.getCategories()
-            console.log('xxx:', this.state.parentId)
+        })
+    }
+
+    showCategories = () => {
+        this.setState({
+            subCategories: [],
+            parentId: '0',
+            parentName: '',
         })
     }
 
@@ -81,7 +89,13 @@ export default class Category extends Component {
 
         const category = this.category || {}
 
-        const title = 'Primary classification, Secondary classification'
+        const title = parentId==='0' ? 'Primary classification' : (
+            <span>
+                <Button type="link" onClick={this.showCategories}>Primary classification</Button>
+                <ArrowRightOutlined style={{marginRight:10}}/>
+                <span>{parentName}</span>
+            </span>
+        )
 
         const extra = (
             <Button type='primary' >
@@ -97,7 +111,21 @@ export default class Category extends Component {
                     loading={loading}
                     dataSource={parentId==='0' ? categories: subCategories}
                     columns={this.columns}
-                    pagination={{defaultPageSize: 5, showQuickJumper: true}}/>
+                    pagination={{defaultPageSize: 5, showQuickJumper: true}}
+                />
+
+                <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
+
+                <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
+            
             </Card>
         )
     }
