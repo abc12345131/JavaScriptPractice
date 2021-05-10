@@ -28,7 +28,7 @@ export default class Login extends Component {
                 memoryUtils.user = user
                 //save user in localstorage
                 storageUtils.saveUser(user)
-                this.props.history.replace('/admin')
+                this.props.history.replace('/')
             } else {
                 message.error(result.message)
             }
