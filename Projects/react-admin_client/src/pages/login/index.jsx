@@ -8,6 +8,8 @@ import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import { Redirect } from 'react-router'
 
+const Item = Form.Item
+
 export default class Login extends Component {
 
     render() {
@@ -54,31 +56,31 @@ export default class Login extends Component {
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                     >
-                        <Form.Item
+                        <Item
                             name="username"
                             rules={[
                                 {required: true, message: 'Username is required' }
                             ]}
                         >
                             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                        </Form.Item>
-                        <Form.Item
+                        </Item>
+                        <Item
                             name="password"
                             rules={[
                                 {required: true, message: 'Password is required' },                               
                             ]}
                         >
                             <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
-                        </Form.Item>
-                        <Form.Item>
-                            <Form.Item name="remember" valuePropName="checked" noStyle>
+                        </Item>
+                        <Item>
+                            <Item name="remember" valuePropName="checked" noStyle>
                                 <Checkbox>Remember me</Checkbox>
-                            </Form.Item>
-                        </Form.Item>
-                        <Form.Item>
+                            </Item>
+                        </Item>
+                        <Item>
                             <Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
                             Or <a href="/register">register now!</a>
-                        </Form.Item>
+                        </Item>
                     </Form>
                 </section>
             </div>

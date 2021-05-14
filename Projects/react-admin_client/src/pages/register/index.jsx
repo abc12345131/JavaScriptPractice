@@ -4,6 +4,7 @@ import './index.less'
 import logo from '../../assets/images/logo.jpg'
 import { reqAddUser } from "../../api";
 
+const Item = Form.Item
 
 export default class Register extends Component {
 
@@ -71,13 +72,9 @@ export default class Register extends Component {
                         name="register"
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        initialValues={{
-                            residency: [],
-                            prefix: '+1',
-                        }}
                         scrollToFirstError
                     >
-                        <Form.Item
+                        <Item
                             name="username"
                             label="Username"
                             rules={[
@@ -88,8 +85,8 @@ export default class Register extends Component {
                             ]}
                         >
                             <Input />
-                        </Form.Item>
-                        <Form.Item
+                        </Item>
+                        <Item
                             name="password"
                             label="Password"
                             rules={[
@@ -99,8 +96,8 @@ export default class Register extends Component {
                             hasFeedback
                         >
                             <Input.Password />
-                        </Form.Item>
-                        <Form.Item
+                        </Item>
+                        <Item
                             name="confirm"
                             label="Confirm Password"
                             dependencies={['password']}
@@ -122,10 +119,10 @@ export default class Register extends Component {
                             ]}
                         >
                             <Input.Password />
-                        </Form.Item>
-                        <Form.Item {...tailFormItemLayout}>
+                        </Item>
+                        <Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">Register</Button>
-                        </Form.Item>
+                        </Item>
                     </Form>
                 </section>
             </div>

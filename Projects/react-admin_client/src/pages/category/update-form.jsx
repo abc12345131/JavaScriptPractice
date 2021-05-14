@@ -24,7 +24,12 @@ export default class UpdateForm extends Component {
 
         return (
             <Form initialValues={{category: categoryName}} ref={this.formRef}>
-                <Item name='category'>
+                <Item 
+                    name='category'
+                    rules={[
+                        {required: true, message: 'category is required' }
+                    ]}
+                >
                     <Input placeholder='Please input claasification name'></Input>
                 </Item>
             </Form>

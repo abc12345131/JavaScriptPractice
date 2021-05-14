@@ -34,7 +34,12 @@ export default class AddForm extends Component {
                         }
                     </Select>
                 </Item>
-                <Item name='category'>
+                <Item 
+                    name='category'
+                    rules={[
+                        {required: true, message: 'category is required'}
+                    ]}
+                >
                     <Input placeholder='Please input claasification name'></Input>
                 </Item>
             </Form>
