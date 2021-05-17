@@ -5,7 +5,7 @@ export default class Home extends Component {
     render() {
         return (
             <div className="home">
-                Welcome to React Backstage Management System
+                Welcome to BW Backstage Management System
             </div>
         )
     }

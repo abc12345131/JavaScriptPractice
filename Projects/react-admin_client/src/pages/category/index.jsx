@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Card, Table, Button, Modal, message } from 'antd';
+import { Card, Table, Button, Modal, message } from 'antd'
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
-import { reqAddCategories, reqCategories, reqUpdateCategories } from '../../api';
+import { reqAddCategories, reqCategories, reqUpdateCategories } from '../../api'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 
@@ -19,18 +19,18 @@ export default class Category extends Component {
     initColumns = () => {
         this.columns = [
             {
-            title: 'Class Name',
-            dataIndex: 'name',
+                title: 'Class Name',
+                dataIndex: 'name',
             },
             {
-            title: 'Action',
-            width: 300,
-            render: (category) => (
-                <span>
-                    <Button type="link" onClick={() => this.showUpdate(category)}>Modify</Button>
-                    {this.state.parentId==='0' ? <Button type="link" onClick={()=>{this.showSubCategories(category)}}>View</Button>: null}
-                </span>
-            )
+                title: 'Action',
+                width: 300,
+                render: (category) => (
+                    <span>
+                        <Button type="link" onClick={() => this.showUpdate(category)}>Modify</Button>
+                        {this.state.parentId==='0' ? <Button type="link" onClick={()=>{this.showSubCategories(category)}}>View</Button>: null}
+                    </span>
+                )
             }
         ];
 
@@ -151,7 +151,7 @@ export default class Category extends Component {
 
     render() {
 
-        const {categories, subCategories, parentId, parentName, showStatus, loading, } = this.state
+        const {categories, subCategories, parentId, parentName, showStatus, loading } = this.state
 
         const category = this.category || {}
 
@@ -193,7 +193,6 @@ export default class Category extends Component {
                         setFormRef={(formRef) => this.formRef=formRef}
                     />
                 </Modal>
-            
             </Card>
         )
     }

@@ -50,7 +50,7 @@ class LeftNav extends Component {
             <div  className="left-nav">
                 <Link to="/" className="left-nav-header">
                     <img src={logo} alt="logo" />
-                    <h1>React BackStage</h1>
+                    <h1>BW BackStage</h1>
                 </Link>
                 <Menu
                     selectedKeys={[path]}
