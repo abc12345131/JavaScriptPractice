@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Card, Select, Input, Table, Button } from 'antd'
+import { Card, Select, Input, Table, Button, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { reqProducts, reqSearchProducts } from '../../api'
+import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../api'
 import { PAGE_SIZE } from '../../utils/constants'
 
 const Option = Select.Option
@@ -38,12 +38,16 @@ export default class ProductHome extends Component {
                 title: 'Status',
                 width: 150,
                 dataIndex: 'status',
-                render: (status) => (
-                    <span>
-                        <Button type="primary" onClick={() => this.showUpdate()}>下架</Button>
-                        <span>在售</span>
-                    </span> 
-                )
+                render: (product) => {
+                    const {status, _id} = product
+                    const newStatus = status===1 ? 2:1
+                    return (
+                        <span>
+                            <Button type="primary" onClick={() => this.updateStatus(_id, newStatus)}>{status===1 ? 'Withdraw':'Launch'}</Button>
+                            <span>{status===1 ? 'Available':'Unavailable'}</span>
+                        </span> 
+                    )
+                }
             },
             {
                 title: 'Action',
@@ -51,7 +55,7 @@ export default class ProductHome extends Component {
                 render: (product) => (
                     <span>
                         <Button type="link" onClick={() => this.props.history.push('/product/addupdate')}>Modify</Button>
-                        <Button type="link" onClick={() => this.props.history.push('/product/detail', product)}>View</Button>
+                        <Button type="link" onClick={() => this.props.history.push('/product/detail', {product})}>View</Button>
                     </span>
                 )
             }
@@ -59,7 +63,8 @@ export default class ProductHome extends Component {
     }
 
     getProducts = async (pageNum) => {
-
+        //save pageNum for other method
+        this.pageNum = pageNum
         this.setState({loading:true})
         const {searchType, keywords} = this.state
         let result
@@ -75,6 +80,14 @@ export default class ProductHome extends Component {
             //get product data by page            
             const { list, total } = result.data
             this.setState({total, products: list})
+        }
+    }
+
+    updateStatus = async (productId, newStatus) => {
+        const result = await reqUpdateStatus(productId, newStatus)
+        if (result.status===0) {
+            message.success('Update succeed')
+            this.getProducts(this.pageNum)
         }
     }
 

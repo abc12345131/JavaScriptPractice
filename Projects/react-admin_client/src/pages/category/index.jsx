@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Table, Button, Modal, message } from 'antd'
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
-import { reqAddCategories, reqCategories, reqUpdateCategories } from '../../api'
+import { reqAddCategory, reqCategories, reqUpdateCategory } from '../../api'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 
@@ -98,7 +98,7 @@ export default class Category extends Component {
             const parentId = values.classification
             const categoryName = values.category
 
-            const result = await reqAddCategories(categoryName, parentId)
+            const result = await reqAddCategory(categoryName, parentId)
             if (result.status===0) {
                 //refresh the data
                 if(parentId===this.state.parentId) {
@@ -129,7 +129,7 @@ export default class Category extends Component {
             })
             const categoryId = this.category._id
             const categoryName = values.category
-            const result = await reqUpdateCategories(categoryId, categoryName)
+            const result = await reqUpdateCategory(categoryId, categoryName)
             if (result.status===0) {
                 //refresh the data
                 this.getCategories()

@@ -20,7 +20,7 @@ export default function ajax (url, data={}, type='GET' ){
             resolve(response.data)
         }).catch(error => {
             //use antd message collect error
-            message.error('Request failed'+error.message)
+            message.error(error.message)
         })
     })
 }
