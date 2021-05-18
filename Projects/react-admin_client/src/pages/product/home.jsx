@@ -50,8 +50,8 @@ export default class ProductHome extends Component {
                 width: 150,
                 render: (product) => (
                     <span>
-                        <Button type="link" onClick={() => this.showUpdate()}>Modify</Button>
-                        <Button type="link" onClick={() => this.showUpdate()}>View</Button>
+                        <Button type="link" onClick={() => this.props.history.push('/product/addupdate')}>Modify</Button>
+                        <Button type="link" onClick={() => this.props.history.push('/product/detail', product)}>View</Button>
                     </span>
                 )
             }

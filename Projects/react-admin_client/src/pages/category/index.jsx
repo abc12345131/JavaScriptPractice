@@ -157,7 +157,7 @@ export default class Category extends Component {
 
         const title = parentId==='0' ? 'Primary Classification' : (
             <span>
-                <Button type="link" onClick={this.showCategories}>Primary classification</Button>
+                <Button type="link" onClick={this.showCategories} style={{fontSize:16, fontWeight:'inherit', marginLeft: -15}}>Primary classification</Button>
                 <ArrowRightOutlined style={{marginRight:10}}/>
                 <span>{parentName}</span>
             </span>
