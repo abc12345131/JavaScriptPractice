@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Card, Form, Input, Cascader, Upload, Button, message } from 'antd'
+import { Card, Form, Input, Cascader, Button, message } from 'antd'
+import PicturesWall from './pictures-wall'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { reqCategories, reqAddProduct } from '../../api'
+
 
 const {Item} = Form
 const {TextArea} = Input
@@ -11,8 +13,8 @@ export default class ProductAddUpdate extends Component {
     formRef = React.createRef();
 
     onFinish = (values) => {
+        const form = this.formRef.current
         console.log(values)
-        console.log(this.props)
     }
 
     onFinishFailed = (errorInfo) => {
@@ -20,10 +22,10 @@ export default class ProductAddUpdate extends Component {
     }
     
     state = {
-        options: []
+        options: [],
     }
 
-    initOptions = (categories) => {
+    initOptions = async (categories) => {
         const options = categories.map(c => {
             return {
                 value: c._id,
@@ -31,6 +33,26 @@ export default class ProductAddUpdate extends Component {
                 isLeaf: false
             }
         })
+
+        const { isUpdate, product } = this
+        const { pCategoryId } = product
+        if (isUpdate && pCategoryId!=='0') {
+            const subCategories = await this.getCategories(pCategoryId)
+ 
+            const childOptions = subCategories.map(c => (
+                {
+                    value: c._id,
+                    label: c.name,
+                    isLeaf: true
+                }
+            ))
+            //find classification the product 
+            const targetOption = options.find(option => option.value===pCategoryId)
+            if (targetOption) {
+                targetOption.children = childOptions
+            }
+        }
+
         this.setState({options})
     }
 
@@ -55,13 +77,13 @@ export default class ProductAddUpdate extends Component {
         const subCategories = await this.getCategories(targetOption.value)
         targetOption.loading = false
         if (subCategories && subCategories.length>0) {
-            const childOptions = subCategories.map(c => {
-                return {
+            const childOptions = subCategories.map(c => (
+                {
                     value: c._id,
                     label: c.name,
                     isLeaf: true
                 }
-            })
+            ))
             targetOption.children = childOptions
         } else {
             targetOption.isLeaf = true
@@ -71,11 +93,34 @@ export default class ProductAddUpdate extends Component {
         })
     }
 
+    constructor (props) {
+        super(props)
+        const product = this.props.location.state
+        //save add/update
+        this.isUpdate = !! product
+        //if product is undefined set product {}
+        this.product = product || {}
+    }
+
     componentDidMount () {
         this.getCategories('0')
     }
+
     render() {
-        
+
+        const { isUpdate, product } = this
+        const { categoryId, pCategoryId } = product
+        //cascader accept array as initialvalue
+        const categoryIds = []
+        if(isUpdate) {
+            if(pCategoryId==='0') {
+                categoryIds.push(categoryId)
+            } else {
+                categoryIds.push(pCategoryId)
+                categoryIds.push(categoryId)
+            }
+        }
+
         const formItemLayout = {
             labelCol: {
               span: 3 
@@ -103,7 +148,7 @@ export default class ProductAddUpdate extends Component {
                 <Button type='link'>
                     <ArrowLeftOutlined style={{fontSize:20}} onClick={() =>this.props.history.goBack()}/>
                 </Button>
-                Add Product              
+                {isUpdate ? 'Modify Product' : 'Add Product'}             
             </span>
         )
                 
@@ -111,14 +156,19 @@ export default class ProductAddUpdate extends Component {
             <Card title={title}>
                 <Form
                     {...formItemLayout}
-                    initialValues={{'Product Name':''}}
+                    initialValues={{
+                        ProductName: product.name,
+                        ProductDescription: product.desc,
+                        ProductPrice: product.price,
+                        ProductCategory: categoryIds
+                    }}
                     ref={this.formRef}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     scrollToFirstError
                 >
                     <Item
-                        name ='Product Name'
+                        name ='ProductName'
                         label='Product Name'
                         rules={[
                             {
@@ -130,7 +180,7 @@ export default class ProductAddUpdate extends Component {
                         <Input placeholder='Please input product name' />
                     </Item>
                     <Item 
-                        name ='Product Description'
+                        name ='ProductDescription'
                         label='Product Description'
                         rules={[
                             {
@@ -145,12 +195,12 @@ export default class ProductAddUpdate extends Component {
                         />
                     </Item>
                     <Item
-                        name='Product Price'
+                        name='ProductPrice'
                         label='Product Price'
                         rules={[
                             {
                                 required: true,
-                                message: 'Product description is required'
+                                message: 'Product price is required'
                             },
                             {
                                 validator: (_, value) => {
@@ -166,7 +216,7 @@ export default class ProductAddUpdate extends Component {
                         <Input type='number' placeholder='Please input product price' addonBefore='$'/>
                     </Item>
                     <Item
-                        name='Product Category'
+                        name='ProductCategory'
                         label='Product Category'
                         rules={[
                             {
@@ -181,13 +231,13 @@ export default class ProductAddUpdate extends Component {
                         />
                     </Item>
                     <Item
-                        name='Product Picture'
+                        name='ProductPicture'
                         label='Product Picture'
                     >
-                        <Input placeholder='Please input product name' />
+                        <PicturesWall />
                     </Item>
                     <Item
-                        name='Product Detail'
+                        name='ProductDetail'
                         label='Product Detail'
                     >
                         <Input placeholder='Please input product name' />
