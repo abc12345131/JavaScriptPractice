@@ -22,8 +22,8 @@ class LeftNav extends Component {
                 )
             } 
             else {
-
-                if(item.children.find(c => c.key===path))
+                //submenu need to be open if any chird match beginning of the path
+                if(item.children.find(c => path.indexOf(c.key)===0))
                     this.openkey = item.key
 
                 return (
@@ -43,7 +43,10 @@ class LeftNav extends Component {
 
     render() {
 
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
+        if (path.indexOf('/product')===0) {
+            path = '/product'
+        }
         const openkey = this.openkey
 
         return (

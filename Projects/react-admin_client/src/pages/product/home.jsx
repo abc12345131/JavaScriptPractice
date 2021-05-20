@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../api'
 import { PAGE_SIZE } from '../../utils/constants'
 
-const Option = Select.Option
+const {Option} = Select
 
 export default class ProductHome extends Component {
 
@@ -125,7 +125,7 @@ export default class ProductHome extends Component {
         ) 
 
         const extra = (
-            <Button type='primary'>
+            <Button type='primary' onClick={() => this.props.history.push('/product/addupdate')}>
                 <PlusOutlined />Add
             </Button>
         )

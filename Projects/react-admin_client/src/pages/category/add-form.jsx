@@ -2,16 +2,14 @@ import React, { Component } from 'react'
 import { Form, Select, Input } from 'antd'
 import PropTypes from 'prop-types'
 
-const Item = Form.Item
-const Option = Select.Option
+const {Item} = Form
+const {Option} = Select
 
 export default class AddForm extends Component {
 
     formRef = React.createRef()
 
     static propTypes = {
-        categories: PropTypes.array.isRequired,
-        parentId: PropTypes.string.isRequired,
         setFormRef: PropTypes.func.isRequired
     }
 

@@ -30,6 +30,6 @@ export const reqSearchProducts = (pageNum, pageSize, searchType, keywords ) => a
 //update product status (available/unavailable)
 export const reqUpdateStatus = (productId, newStatus) => ajax(Base + '/manage/product/updateStatus', {productId, newStatus}, 'POST')
 //add product
-export const reqAddProduct = (categoryName, parentId) => ajax(Base + '/manage/product/add', {categoryName, parentId}, 'POST')
+export const reqAddProduct = () => ajax(Base + '/manage/product/add', {}, 'POST')
 //update product
 export const reqUpdateProduct = (categoryId, categoryName) => ajax(Base + '/manage/product/update', {categoryId, categoryName}, 'POST')

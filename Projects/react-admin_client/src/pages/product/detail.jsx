@@ -5,7 +5,7 @@ import { Base_IMG_URL } from '../../utils/constants'
 import { reqIdentifyCategory } from '../../api'
 
 
-const Item = List.Item
+const {Item} = List
 
 export default class ProductDetail extends Component {
     
@@ -38,9 +38,9 @@ export default class ProductDetail extends Component {
         const { name, desc, price, detail, imgs, status } = this.props.location.state.product
         const { classification, category } = this.state
         const title = (
-            <span>
+            <span style={{fontSize:20, fontWeight:'bold'}}>
                 <Button type='link'>
-                    <ArrowLeftOutlined onClick={() =>this.props.history.goBack()}/>
+                    <ArrowLeftOutlined style={{fontSize:20}} onClick={() =>this.props.history.goBack()}/>
                 </Button>
                 Product Detail               
             </span>

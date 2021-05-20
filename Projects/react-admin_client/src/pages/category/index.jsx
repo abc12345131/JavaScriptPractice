@@ -107,9 +107,7 @@ export default class Category extends Component {
                     this.getCategories('0')
                 }
             }
-        }).catch(
-            message.error('Input is not valid!')
-        )
+        })
     }
 
     showUpdate = (category) => {
@@ -134,9 +132,7 @@ export default class Category extends Component {
                 //refresh the data
                 this.getCategories()
             }
-        }).catch(
-            message.error('Input is not valid!')
-        )
+        })
     }
 
 
@@ -155,11 +151,11 @@ export default class Category extends Component {
 
         const category = this.category || {}
 
-        const title = parentId==='0' ? 'Primary Classification' : (
+        const title = parentId==='0' ? <span style={{fontSize:20, fontWeight:'bold'}}>Primary Classification</span> : (
             <span>
-                <Button type="link" onClick={this.showCategories} style={{fontSize:16, fontWeight:'inherit', marginLeft: -15}}>Primary classification</Button>
+                <Button type="link" onClick={this.showCategories} style={{fontSize:20, fontWeight:'bold', marginLeft: -15}}>Primary classification</Button>
                 <ArrowRightOutlined style={{marginRight:10}}/>
-                <span>{parentName}</span>
+                <span style={{fontSize:20, fontWeight:'bold'}}>{parentName}</span>
             </span>
         )
 

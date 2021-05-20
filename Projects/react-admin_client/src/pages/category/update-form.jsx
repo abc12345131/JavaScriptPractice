@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { Form, Input } from 'antd'
 import PropTypes from 'prop-types'
 
-const Item = Form.Item
+const {Item} = Form
 
 export default class UpdateForm extends Component {
 
     formRef = React.createRef()
 
     static propTypes = {
-        categoryName: PropTypes.string.isRequired,
         setFormRef: PropTypes.func.isRequired
     }
 

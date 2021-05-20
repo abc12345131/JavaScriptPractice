@@ -8,6 +8,23 @@ const Item = Form.Item
 
 export default class Register extends Component {
 
+    onFinish = async (values) => {
+        console.log(values)
+        const { username, password } = values
+        const user = { username, password }
+        const result = await reqAddUser(user)
+        if (result.status === 0) {
+            message.success('Register succeed')
+            this.props.history.replace('/login')
+        } else {
+            message.error(result.message)
+        }
+    }
+    
+    onFinishFailed = (errorInfo) => {
+        message.error('Register failed!')
+    }
+
     render() {
     
         const formItemLayout = {
@@ -25,9 +42,9 @@ export default class Register extends Component {
                 },
                 sm: {
                     span: 16,
-                },
-            },
-        };
+                }
+            }
+        }
 
         const tailFormItemLayout = {
             wrapperCol: {
@@ -38,26 +55,9 @@ export default class Register extends Component {
                 sm: {
                     span: 16,
                     offset: 8,
-                },
-            },
-        };
-  
-        const onFinish = async (values) => {
-            const { username, password } = values
-            const user = { username, password }
-            console.log('Login failed', user)
-            const result = await reqAddUser(user)
-            if (result.status === 0) {
-                message.success('Register succeed')
-                this.props.history.replace('/login')
-            } else {
-                message.error(result.message)
+                }
             }
-        };
-
-        const onFinishFailed = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
+        }
 
         return (
             <div className="register">
@@ -70,8 +70,8 @@ export default class Register extends Component {
                     <Form
                         {...formItemLayout}
                         name="register"
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
+                        onFinish={this.onFinish}
+                        onFinishFailed={this.onFinishFailed}
                         scrollToFirstError
                     >
                         <Item
@@ -122,6 +122,7 @@ export default class Register extends Component {
                         </Item>
                         <Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">Register</Button>
+                            Or <a href="/login">Log in</a>
                         </Item>
                     </Form>
                 </section>

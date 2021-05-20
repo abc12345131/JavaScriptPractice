@@ -12,6 +12,26 @@ const Item = Form.Item
 
 export default class Login extends Component {
 
+    onFinish = async (values) => {
+        const { username, password } = values
+        const result = await reqLogin(username, password)
+        if (result.status === 0) {
+            message.success('Login succeed')
+            const user = result.data
+            //save user in memory                
+            memoryUtils.user = user
+            //save user in localstorage
+            storageUtils.saveUser(user)
+            this.props.history.replace('/')
+        } else {
+            message.error(result.message)
+        }
+    }
+
+    onFinishFailed = (errorInfo) => {
+        message.error('Login failed!')
+    }
+
     render() {
 
         //if user already login, redirect to admin
@@ -20,25 +40,6 @@ export default class Login extends Component {
             return <Redirect to='/' />
         }
 
-        const onFinish = async (values) => {
-            const { username, password } = values
-            const result = await reqLogin(username, password)
-            if (result.status === 0) {
-                message.success('Login succeed')
-                const user = result.data
-                //save user in memory                
-                memoryUtils.user = user
-                //save user in localstorage
-                storageUtils.saveUser(user)
-                this.props.history.replace('/')
-            } else {
-                message.error(result.message)
-            }
-        };
-
-        const onFinishFailed = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
         return (
             <div className="login">
                 <header className="login-header">
@@ -53,8 +54,8 @@ export default class Login extends Component {
                         initialValues={{
                             remember: true,
                         }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
+                        onFinish={this.onFinish}
+                        onFinishFailed={this.onFinishFailed}
                     >
                         <Item
                             name="username"
