@@ -10,11 +10,11 @@ const {TextArea} = Input
 
 export default class ProductAddUpdate extends Component {
     
-    formRef = React.createRef();
-
     onFinish = (values) => {
         const form = this.formRef.current
-        console.log(values)
+        const pw = this.pwRef.current
+        const imgs = pw.getImgs()
+        console.log(value,form, imgs)
     }
 
     onFinishFailed = (errorInfo) => {
@@ -95,6 +95,8 @@ export default class ProductAddUpdate extends Component {
 
     constructor (props) {
         super(props)
+        this.formRef = React.createRef()
+        this.pwRef = React.createRef()
         const product = this.props.location.state
         //save add/update
         this.isUpdate = !! product
@@ -234,7 +236,7 @@ export default class ProductAddUpdate extends Component {
                         name='ProductPicture'
                         label='Product Picture'
                     >
-                        <PicturesWall />
+                        <PicturesWall ref={this.pwRef}/>
                     </Item>
                     <Item
                         name='ProductDetail'
