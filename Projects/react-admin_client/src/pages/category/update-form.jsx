@@ -9,7 +9,8 @@ export default class UpdateForm extends Component {
     formRef = React.createRef()
 
     static propTypes = {
-        setFormRef: PropTypes.func.isRequired
+        setFormRef: PropTypes.func.isRequired,
+        categoryName: PropTypes.string
     }
 
     constructor (props) {

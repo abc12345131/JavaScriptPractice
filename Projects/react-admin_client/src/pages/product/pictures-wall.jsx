@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Upload, Modal, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import PropTypes from 'prop-types'
+import { reqDeleteImg } from '../../api'
+import { Base_IMG_URL } from '../../utils/constants'
 
 
 function getBase64(file) {
@@ -13,48 +16,56 @@ function getBase64(file) {
 }
       
 export default class PicturesWall extends React.Component {
+
+    static propTypes = {
+        imgs: PropTypes.array
+    }
+
+    constructor (props) {
+        super(props)
+        let fileList= [
+            // each item should be like this
+            // {
+            //     uid: '-1',
+            //     name: 'image.png',
+            //     status: 'done',
+            //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            // }
+        ]
+
+        const {imgs} = this.props
+        if (imgs && imgs.length>0) {
+            fileList = imgs.map((img,index) => ({
+                uid:-index,
+                name: img,
+                status: 'done',
+                url: Base_IMG_URL+img
+            }))
+        }
+
+        this.state = {
+            previewVisible: false,
+            //image url
+            previewImage: '',
+            previewTitle: '',
+            fileList
+        }
+
+    }
+
     state = {    
         previewVisible: false,
         //image url
         previewImage: '',
         previewTitle: '',
         fileList: [
-        {
-            uid: '-1',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-2',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-3',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-4',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-xxx',
-            percent: 50,
-            name: 'image.png',
-            status: 'uploading',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-5',
-            name: 'image.png',
-            status: 'error',
-        },
+        // each item is like this
+        // {
+        //     uid: '-1',
+        //     name: 'image.png',
+        //     status: 'done',
+        //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        // },
         ],
     }
     
@@ -73,9 +84,9 @@ export default class PicturesWall extends React.Component {
         })
     }
     
-    handleChange = ({ file, fileList }) => {
+    handleChange = async ({ file, fileList }) => {
         
-        if (file.status===0) {
+        if (file.status==='done') {
             const result = file.response
             if (result.status===0) {
                 message.success('Upload succeed!')
@@ -85,6 +96,13 @@ export default class PicturesWall extends React.Component {
                 newFile.url = url
             } else {
                 message.error('Upload failed!')
+            }
+        } else if (file.status==='removed') {
+            const result = await reqDeleteImg(file.name)
+            if (result.status===0) {
+                message.success('Delete image succeed!')
+            } else {
+                message.error('Delete image failed!')
             }
         }
                 

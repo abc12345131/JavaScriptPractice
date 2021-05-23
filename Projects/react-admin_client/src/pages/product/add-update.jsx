@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Form, Input, Cascader, Button, message } from 'antd'
-import PicturesWall from './pictures-wall'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import PicturesWall from './pictures-wall'
+import RichTextEditor from './rich-text-editor'
 import { reqCategories, reqAddProduct } from '../../api'
 
 
@@ -14,7 +15,7 @@ export default class ProductAddUpdate extends Component {
         const form = this.formRef.current
         const pw = this.pwRef.current
         const imgs = pw.getImgs()
-        console.log(value,form, imgs)
+        console.log('values:',values,'form:',form,'imgs:',imgs)
     }
 
     onFinishFailed = (errorInfo) => {
@@ -111,7 +112,7 @@ export default class ProductAddUpdate extends Component {
     render() {
 
         const { isUpdate, product } = this
-        const { categoryId, pCategoryId } = product
+        const { categoryId, pCategoryId, imgs } = product
         //cascader accept array as initialvalue
         const categoryIds = []
         if(isUpdate) {
@@ -236,13 +237,13 @@ export default class ProductAddUpdate extends Component {
                         name='ProductPicture'
                         label='Product Picture'
                     >
-                        <PicturesWall ref={this.pwRef}/>
+                        <PicturesWall ref={this.pwRef} imgs={imgs}/>
                     </Item>
                     <Item
                         name='ProductDetail'
                         label='Product Detail'
                     >
-                        <Input placeholder='Please input product name' />
+                        <RichTextEditor />
                     </Item>
                     <Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Submit</Button>

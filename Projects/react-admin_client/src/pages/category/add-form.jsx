@@ -10,7 +10,10 @@ export default class AddForm extends Component {
     formRef = React.createRef()
 
     static propTypes = {
-        setFormRef: PropTypes.func.isRequired
+        setFormRef: PropTypes.func.isRequired,
+        categories: PropTypes.array.isRequired,
+        parentId: PropTypes.string.isRequired
+
     }
 
     constructor (props) {
@@ -26,9 +29,9 @@ export default class AddForm extends Component {
             <Form initialValues={{classification: parentId}} ref={this.formRef}>
                 <Item name='classification'>
                     <Select>
-                        <Option value='0'>Primary Classification</Option>
+                        <Option key='0' value='0'>Primary Classification</Option>
                         {
-                            categories.map(c => (<Option value={c._id}>{c.name}</Option>))
+                            categories.map(c => (<Option key={c._id} value={c._id}>{c.name}</Option>))
                         }
                     </Select>
                 </Item>

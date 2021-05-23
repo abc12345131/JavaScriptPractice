@@ -33,3 +33,6 @@ export const reqUpdateStatus = (productId, newStatus) => ajax(Base + '/manage/pr
 export const reqAddProduct = () => ajax(Base + '/manage/product/add', {}, 'POST')
 //update product
 export const reqUpdateProduct = (categoryId, categoryName) => ajax(Base + '/manage/product/update', {categoryId, categoryName}, 'POST')
+
+//delete image
+export const reqDeleteImg = (name) => ajax(Base + '/manage/img/delete', {name}, 'POST')
