@@ -3,7 +3,7 @@ import { Card, Form, Input, Cascader, Button, message } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import PicturesWall from './pictures-wall'
 import RichTextEditor from './rich-text-editor'
-import { reqCategories, reqAddProduct } from '../../api'
+import { reqCategories, reqAddOrUpdateProduct } from '../../api'
 
 
 const {Item} = Form
@@ -11,11 +11,40 @@ const {TextArea} = Input
 
 export default class ProductAddUpdate extends Component {
     
-    onFinish = (values) => {
-        const form = this.formRef.current
+    onFinish = async (values) => {
         const pw = this.pwRef.current
+        const rte = this.rteRef.current
+
         const imgs = pw.getImgs()
-        console.log('values:',values,'form:',form,'imgs:',imgs)
+        const detail = rte.getDetail()
+        const { ProductName, ProductDescription, ProductPrice, ProductCategory } =  values
+        let pCategoryId, categoryId
+        if (ProductCategory.length===1) {
+            pCategoryId = '0'
+            categoryId = ProductCategory[0]
+        } else {
+            pCategoryId = ProductCategory[0]
+            categoryId = ProductCategory[1]
+        }
+        const product = {
+            name: ProductName,
+            desc: ProductDescription,
+            price: ProductPrice,
+            imgs,
+            detail,
+            pCategoryId,
+            categoryId
+        }
+
+        if (this.isUpdate) {
+            product._id = this.product._id
+        }
+        const result = await reqAddOrUpdateProduct(product)
+        if (result.status===0) {
+            message.success(`${this.isUpdate ? 'Update':'Add'} succeed!`)
+        } else {
+            message.error(`${this.isUpdate ? 'Update':'Add'} failed!`)
+        }
     }
 
     onFinishFailed = (errorInfo) => {
@@ -96,8 +125,8 @@ export default class ProductAddUpdate extends Component {
 
     constructor (props) {
         super(props)
-        this.formRef = React.createRef()
         this.pwRef = React.createRef()
+        this.rteRef = React.createRef()
         const product = this.props.location.state
         //save add/update
         this.isUpdate = !! product
@@ -112,7 +141,7 @@ export default class ProductAddUpdate extends Component {
     render() {
 
         const { isUpdate, product } = this
-        const { categoryId, pCategoryId, imgs } = product
+        const { categoryId, pCategoryId, imgs, detail } = product
         //cascader accept array as initialvalue
         const categoryIds = []
         if(isUpdate) {
@@ -126,10 +155,10 @@ export default class ProductAddUpdate extends Component {
 
         const formItemLayout = {
             labelCol: {
-              span: 3 
+              span: 2 
             },
             wrapperCol: {
-              span: 9 
+              span: 8 
             }
         }
 
@@ -165,7 +194,6 @@ export default class ProductAddUpdate extends Component {
                         ProductPrice: product.price,
                         ProductCategory: categoryIds
                     }}
-                    ref={this.formRef}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     scrollToFirstError
@@ -242,8 +270,10 @@ export default class ProductAddUpdate extends Component {
                     <Item
                         name='ProductDetail'
                         label='Product Detail'
+                        labelCol={{span: 2}}
+                        wrapperCol={{span: 18}}
                     >
-                        <RichTextEditor />
+                        <RichTextEditor ref={this.rteRef} detail={detail}/>
                     </Item>
                     <Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Submit</Button>

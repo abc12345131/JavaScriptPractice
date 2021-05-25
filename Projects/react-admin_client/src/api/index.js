@@ -28,11 +28,9 @@ export const reqProducts = (pageNum, pageSize) => ajax(Base + '/manage/product/l
 //search product by name/description
 export const reqSearchProducts = (pageNum, pageSize, searchType, keywords ) => ajax(Base + '/manage/product/search', {pageNum, pageSize, [searchType]:keywords})
 //update product status (available/unavailable)
-export const reqUpdateStatus = (productId, newStatus) => ajax(Base + '/manage/product/updateStatus', {productId, newStatus}, 'POST')
-//add product
-export const reqAddProduct = () => ajax(Base + '/manage/product/add', {}, 'POST')
-//update product
-export const reqUpdateProduct = (categoryId, categoryName) => ajax(Base + '/manage/product/update', {categoryId, categoryName}, 'POST')
+export const reqUpdateStatus = (productId, status) => ajax(Base + '/manage/product/updateStatus', {productId, status}, 'POST')
+//add product or update product
+export const reqAddOrUpdateProduct = (product) => ajax(Base + '/manage/product/'+(product._id ? 'update': 'add'), product, 'POST')
 
 //delete image
 export const reqDeleteImg = (name) => ajax(Base + '/manage/img/delete', {name}, 'POST')

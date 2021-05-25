@@ -37,10 +37,9 @@ export default class ProductHome extends Component {
             {
                 title: 'Status',
                 width: 150,
-                dataIndex: 'status',
                 render: (product) => {
                     const {status, _id} = product
-                    const newStatus = status===1 ? 2:1
+                    const newStatus = (status===1 ? 2:1)
                     return (
                         <span>
                             <Button type="primary" onClick={() => this.updateStatus(_id, newStatus)}>{status===1 ? 'Withdraw':'Launch'}</Button>
@@ -83,8 +82,8 @@ export default class ProductHome extends Component {
         }
     }
 
-    updateStatus = async (productId, newStatus) => {
-        const result = await reqUpdateStatus(productId, newStatus)
+    updateStatus = async (productId, status) => {
+        const result = await reqUpdateStatus(productId, status)
         if (result.status===0) {
             message.success('Update succeed')
             this.getProducts(this.pageNum)
