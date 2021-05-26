@@ -6,8 +6,6 @@ const {Item} = Form
 
 export default class UpdateForm extends Component {
 
-    formRef = React.createRef()
-
     static propTypes = {
         setFormRef: PropTypes.func.isRequired,
         categoryName: PropTypes.string
@@ -15,6 +13,7 @@ export default class UpdateForm extends Component {
 
     constructor (props) {
         super(props)
+        this.formRef = React.createRef()
         this.props.setFormRef(this.formRef)
     }
 
@@ -30,7 +29,7 @@ export default class UpdateForm extends Component {
                         {required: true, message: 'category is required' }
                     ]}
                 >
-                    <Input placeholder='Please input claasification name'></Input>
+                    <Input placeholder='Please input category name'></Input>
                 </Item>
             </Form>
         )

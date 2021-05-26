@@ -4,6 +4,7 @@ import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { reqAddCategory, reqCategories, reqUpdateCategory } from '../../api'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
+import { PAGE_SIZE } from '../../utils/constants'
 
 export default class Category extends Component {
 
@@ -173,14 +174,15 @@ export default class Category extends Component {
                     loading={loading}
                     dataSource={parentId==='0' ? categories: subCategories}
                     columns={this.columns}
-                    pagination={{defaultPageSize: 5, showQuickJumper: true}}
+                    pagination={{defaultPageSize: PAGE_SIZE, showQuickJumper: true}}
                 />
 
                 <Modal title="Add classification" visible={showStatus===1} onOk={this.addCategory} onCancel={this.handleCancel} getContainer={false}>
                     <AddForm
                         categories={categories}
                         parentId={parentId}
-                        setFormRef={(formRef) => this.formRef=formRef}/>
+                        setFormRef={(formRef) => this.formRef=formRef}
+                    />
                 </Modal>
 
                 <Modal title="Update classification" visible={showStatus===2} onOk={this.updateCategory} onCancel={this.handleCancel} getContainer={false}>

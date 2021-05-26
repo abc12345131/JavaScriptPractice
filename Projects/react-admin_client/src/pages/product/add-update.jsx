@@ -17,19 +17,19 @@ export default class ProductAddUpdate extends Component {
 
         const imgs = pw.getImgs()
         const detail = rte.getDetail()
-        const { ProductName, ProductDescription, ProductPrice, ProductCategory } =  values
+        const { productName, productDescription, productPrice, productCategory } =  values
         let pCategoryId, categoryId
-        if (ProductCategory.length===1) {
+        if (productCategory.length===1) {
             pCategoryId = '0'
-            categoryId = ProductCategory[0]
+            categoryId = productCategory[0]
         } else {
-            pCategoryId = ProductCategory[0]
-            categoryId = ProductCategory[1]
+            pCategoryId = productCategory[0]
+            categoryId = productCategory[1]
         }
         const product = {
-            name: ProductName,
-            desc: ProductDescription,
-            price: ProductPrice,
+            name: productName,
+            desc: productDescription,
+            price: productPrice,
             imgs,
             detail,
             pCategoryId,
@@ -178,7 +178,7 @@ export default class ProductAddUpdate extends Component {
         const title = (
             <span style={{fontSize:20, fontWeight:'bold'}}>
                 <Button type='link'>
-                    <ArrowLeftOutlined style={{fontSize:20}} onClick={() =>this.props.history.goBack()}/>
+                    <ArrowLeftOutlined style={{fontSize:20}} onClick={() =>{console.log(this.props.history); return this.props.history.goBack()}}/>
                 </Button>
                 {isUpdate ? 'Modify Product' : 'Add Product'}             
             </span>
@@ -189,17 +189,17 @@ export default class ProductAddUpdate extends Component {
                 <Form
                     {...formItemLayout}
                     initialValues={{
-                        ProductName: product.name,
-                        ProductDescription: product.desc,
-                        ProductPrice: product.price,
-                        ProductCategory: categoryIds
+                        productName: product.name,
+                        productDescription: product.desc,
+                        productPrice: product.price,
+                        productCategory: categoryIds
                     }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     scrollToFirstError
                 >
                     <Item
-                        name ='ProductName'
+                        name ='productName'
                         label='Product Name'
                         rules={[
                             {
@@ -211,7 +211,7 @@ export default class ProductAddUpdate extends Component {
                         <Input placeholder='Please input product name' />
                     </Item>
                     <Item 
-                        name ='ProductDescription'
+                        name ='productDescription'
                         label='Product Description'
                         rules={[
                             {
@@ -226,7 +226,7 @@ export default class ProductAddUpdate extends Component {
                         />
                     </Item>
                     <Item
-                        name='ProductPrice'
+                        name='productPrice'
                         label='Product Price'
                         rules={[
                             {
@@ -247,7 +247,7 @@ export default class ProductAddUpdate extends Component {
                         <Input type='number' placeholder='Please input product price' addonBefore='$'/>
                     </Item>
                     <Item
-                        name='ProductCategory'
+                        name='productCategory'
                         label='Product Category'
                         rules={[
                             {
@@ -262,13 +262,13 @@ export default class ProductAddUpdate extends Component {
                         />
                     </Item>
                     <Item
-                        name='ProductPicture'
+                        name='productPicture'
                         label='Product Picture'
                     >
                         <PicturesWall ref={this.pwRef} imgs={imgs}/>
                     </Item>
                     <Item
-                        name='ProductDetail'
+                        name='productDetail'
                         label='Product Detail'
                         labelCol={{span: 2}}
                         wrapperCol={{span: 18}}
