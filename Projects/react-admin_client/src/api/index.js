@@ -14,7 +14,7 @@ export const reqWeather = (city) => {
     return ajax(apiUrl)}
 
 
-//get category
+//get categories
 export const reqCategories = (parentId) => ajax(Base + '/manage/category/list', {parentId})
 //add category
 export const reqAddCategory = (categoryName, parentId) => ajax(Base + '/manage/category/add', {categoryName, parentId}, 'POST')
@@ -23,9 +23,9 @@ export const reqUpdateCategory = (categoryId, categoryName) => ajax(Base + '/man
 //identify category
 export const reqIdentifyCategory = (categoryId) => ajax(Base + '/manage/category/info', {categoryId})
 
-//get product(by page)
+//get products(by page)
 export const reqProducts = (pageNum, pageSize) => ajax(Base + '/manage/product/list', {pageNum, pageSize})
-//search product by name/description
+//search products by name/description
 export const reqSearchProducts = (pageNum, pageSize, searchType, keywords ) => ajax(Base + '/manage/product/search', {pageNum, pageSize, [searchType]:keywords})
 //update product status (available/unavailable)
 export const reqUpdateStatus = (productId, status) => ajax(Base + '/manage/product/updateStatus', {productId, status}, 'POST')
@@ -34,3 +34,10 @@ export const reqAddOrUpdateProduct = (product) => ajax(Base + '/manage/product/'
 
 //delete image
 export const reqDeleteImg = (name) => ajax(Base + '/manage/img/delete', {name}, 'POST')
+
+//get roles
+export const reqRoles = () => ajax(Base + '/manage/role/list')
+//add role
+export const reqAddRole = (roleName) => ajax(Base + '/manage/role/add', {roleName}, 'POST')
+//set role permission
+export const reqSetRole = (roleName) => ajax(Base + '/manage/role/add', {roleName}, 'POST')
