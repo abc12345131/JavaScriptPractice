@@ -39,5 +39,5 @@ export const reqDeleteImg = (name) => ajax(Base + '/manage/img/delete', {name}, 
 export const reqRoles = () => ajax(Base + '/manage/role/list')
 //add role
 export const reqAddRole = (roleName) => ajax(Base + '/manage/role/add', {roleName}, 'POST')
-//set role permission
-export const reqSetRole = (roleName) => ajax(Base + '/manage/role/add', {roleName}, 'POST')
+//update role
+export const reqUpdateRole = (role) => ajax(Base + '/manage/role/update', role, 'POST')
