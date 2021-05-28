@@ -41,9 +41,9 @@ export default class ProductAddUpdate extends Component {
         }
         const result = await reqAddOrUpdateProduct(product)
         if (result.status===0) {
-            message.success(`${this.isUpdate ? 'Update':'Add'} succeed!`)
+            message.success(`Product ${this.isUpdate ? 'updated':'added'} successfully!`)
         } else {
-            message.error(`${this.isUpdate ? 'Update':'Add'} failed!`)
+            message.error(`Failed to ${this.isUpdate ? 'update':'add'}!`)
         }
     }
 

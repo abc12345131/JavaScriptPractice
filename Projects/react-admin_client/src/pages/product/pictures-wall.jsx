@@ -89,20 +89,20 @@ export default class PicturesWall extends React.Component {
         if (file.status==='done') {
             const result = file.response
             if (result.status===0) {
-                message.success('Upload succeed!')
+                message.success('Picture uploaded successfully!')
                 const {name, url} = result.data
                 const newFile = fileList[fileList.length-1]
                 newFile.name = name
                 newFile.url = url
             } else {
-                message.error('Upload failed!')
+                message.error('Failed to upload!')
             }
         } else if (file.status==='removed') {
             const result = await reqDeleteImg(file.name)
             if (result.status===0) {
-                message.success('Delete image succeed!')
+                message.success('Image deleted successfully!')
             } else {
-                message.error('Delete image failed!')
+                message.error('Failed to delete image!')
             }
         }
                 

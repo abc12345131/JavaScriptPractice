@@ -85,7 +85,7 @@ export default class ProductHome extends Component {
     updateStatus = async (productId, status) => {
         const result = await reqUpdateStatus(productId, status)
         if (result.status===0) {
-            message.success('Update succeed')
+            message.success('Product status updated successfully!')
             this.getProducts(this.pageNum)
         }
     }
