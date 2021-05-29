@@ -29,11 +29,11 @@ export default class Category extends Component {
                 render: (category) => (
                     <span>
                         <Button type="link" onClick={() => this.showUpdate(category)}>Modify</Button>
-                        {this.state.parentId==='0' ? <Button type="link" onClick={()=>{this.showSubCategories(category)}}>View</Button>: null}
+                        {this.state.parentId==='0' ? <Button type="link" onClick={()=> this.showSubCategories(category)}>View</Button>: null}
                     </span>
                 )
             }
-        ];
+        ]
 
     }
 

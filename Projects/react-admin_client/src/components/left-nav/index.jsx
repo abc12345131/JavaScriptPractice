@@ -62,7 +62,6 @@ class LeftNav extends Component {
                     theme="dark"
                 >
                     { this.menuNodes }
-
                 </Menu>
             </div>
         )

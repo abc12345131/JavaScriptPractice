@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Form, Input, Tree } from 'antd'
 import PropTypes from 'prop-types'
 import menuList from '../../config/menuConfig'
 
 const {Item} = Form
 
-export default class UpdateForm extends Component {
+export default class UpdateForm extends PureComponent {
 
     static propTypes = {
         setFormRef: PropTypes.func.isRequired,

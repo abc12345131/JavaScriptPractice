@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Modal, Button } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { formateDate } from '../../utils/dateUtils'
+import { formatTime } from '../../utils/timeUtils'
 import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
 import menuList from '../../config/menuConfig'
@@ -11,14 +11,14 @@ import './index.less'
 
 class Header extends Component {
     state = {
-        currentTime: formateDate(Date.now()),
+        currentTime: formatTime(Date.now()),
         icon: '',
         text: '',
     }
 
     getTime = () => {
         this.intervalId = setInterval(() => {
-            const currentTime = formateDate(Date.now())
+            const currentTime = formatTime(Date.now())
             this.setState({currentTime})
         }, 1000)
     }
@@ -59,7 +59,7 @@ class Header extends Component {
                 //redirect to login
                 this.props.history.replace('/login')
             }
-          });
+          })
     }
 
     componentDidMount() {

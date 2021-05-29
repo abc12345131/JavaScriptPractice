@@ -20,7 +20,7 @@ const  menuList = [
     isPublic: true, 
   },
   {
-    title: 'Commodity',
+    title: 'Commodity Management',
     key: '/products',
     icon: <AppstoreOutlined />,
     children: [

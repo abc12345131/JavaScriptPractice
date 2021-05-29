@@ -1,5 +1,5 @@
 
-export function formateDate(time) {
+export function formatTime(time) {
   if (!time) return ''
   let date = new Date(time)
   const hour=date.getHours()

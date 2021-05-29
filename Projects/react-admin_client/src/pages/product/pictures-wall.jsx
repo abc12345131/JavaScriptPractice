@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Upload, Modal, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
@@ -15,7 +15,7 @@ function getBase64(file) {
     });
 }
       
-export default class PicturesWall extends React.Component {
+export default class PicturesWall extends PureComponent {
 
     static propTypes = {
         imgs: PropTypes.array

@@ -1,17 +1,16 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Form, Select, Input } from 'antd'
 import PropTypes from 'prop-types'
 
 const {Item} = Form
 const {Option} = Select
 
-export default class AddForm extends Component {
+export default class AddForm extends PureComponent {
 
     static propTypes = {
         setFormRef: PropTypes.func.isRequired,
         categories: PropTypes.array.isRequired,
         parentId: PropTypes.string.isRequired
-
     }
 
     constructor (props) {

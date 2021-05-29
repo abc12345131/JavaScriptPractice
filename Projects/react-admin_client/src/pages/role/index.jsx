@@ -3,7 +3,7 @@ import { Card, Button, Table, Modal, message } from 'antd'
 import { PAGE_SIZE } from '../../utils/constants'
 import { reqRoles, reqAddRole, reqUpdateRole } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
-import {formateDate} from '../../utils/dateUtils'
+import {formatTime} from '../../utils/timeUtils'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 
@@ -24,12 +24,12 @@ export default class Role extends Component {
             {
                 title: 'Creation Time',
                 dataIndex: 'create_time',
-                render: formateDate
+                render: formatTime
             },
             {
                 title: 'Authorization Time',
                 dataIndex: 'auth_time',
-                render: formateDate
+                render: formatTime
             },
             {
                 title: 'Authorized By',
