@@ -16,7 +16,7 @@ export default class Login extends Component {
         const { username, password } = values
         const result = await reqLogin(username, password)
         if (result.status === 0) {
-            message.success('Login succeed!')
+            message.success('Log in succeed!')
             const user = result.data
             //save user in memory                
             memoryUtils.user = user
@@ -29,12 +29,12 @@ export default class Login extends Component {
     }
 
     onFinishFailed = (errorInfo) => {
-        message.error('Login failed!')
+        message.error('Log in failed!')
     }
 
     render() {
 
-        //if user already login, redirect to admin
+        //if user already log in, redirect to admin
         const user = memoryUtils.user
         if(user && user._id) {
             return <Redirect to='/' />

@@ -3,6 +3,7 @@ import { Card, Button, Table, Modal, message } from 'antd'
 import { PAGE_SIZE } from '../../utils/constants'
 import { reqRoles, reqAddRole, reqUpdateRole } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
 import {formatTime} from '../../utils/timeUtils'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
@@ -99,10 +100,17 @@ export default class Role extends Component {
             role.auth_time=Date.now()
             const result = await reqUpdateRole(role)
             if (result.status===0) {
-                message.success('Role updated successfully!')
-                this.setState({
-                    roles: [...this.state.roles]
-                })            
+                if (role._id===memoryUtils.user.role_id) {
+                    memoryUtils.user={}
+                    storageUtils.removeUser()
+                    this.props.history.replace('/login')
+                    message.success('Permission modified, please log in again!')
+                } else {
+                    message.success('Role updated successfully!')
+                    this.setState({
+                        roles: [...this.state.roles]
+                    })
+                }
             } else {
                 message.error('Failed to update role!')
             } 
@@ -147,7 +155,15 @@ export default class Role extends Component {
                 <Table
                     bordered
                     onRow={this.onRow}
-                    rowSelection={{type: 'radio',selectedRowKeys: [role._id]}}
+                    rowSelection={{
+                        type: 'radio',
+                        selectedRowKeys: [role._id],
+                        onSelect: (role) => {
+                            this.setState({
+                                role
+                            })
+                        }
+                    }}
                     rowKey='_id'
                     dataSource={roles}
                     columns={this.columns}
