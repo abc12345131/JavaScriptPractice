@@ -73,15 +73,16 @@ export default class User extends Component {
             this.setState({
                 showStatus: false
             })
-
-            const result = await reqAddOrUpdateUser()
+            const user = values
+            if (this.state.user._id) {
+                user._id = this.state.user._id
+            }
+            const result = await reqAddOrUpdateUser(user)
             if (result.status===0) {
-                message.success('Role updated successfully!')
-                this.setState({
-
-                })            
+                message.success(`User ${user._id? 'updated':'added'} successfully!`)
+                this.getUsers()
             } else {
-                message.error('Failed to update role!')
+                message.error(`Failed to ${user._id? 'update':'add'} user!`)
             } 
         })
     }

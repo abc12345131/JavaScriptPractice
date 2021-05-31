@@ -4,9 +4,6 @@ const Base = ''
 
 //login
 export const reqLogin = (username, password) => ajax(Base + '/login', {username, password}, 'POST')
-//register&&add user
-export const reqAddUser = (user) => ajax(Base + '/manage/user/add', user, 'POST')
-
 
 //weather api
 export const reqWeather = (city) => {
@@ -44,5 +41,7 @@ export const reqUpdateRole = (role) => ajax(Base + '/manage/role/update', role, 
 
 //get Users
 export const reqUsers = () => ajax(Base + '/manage/user/list')
-//delete Users
+//delete User
 export const reqDeleteUser = (userId) => ajax(Base + '/manage/user/delete', {userId}, 'POST')
+//add or update User
+export const reqAddOrUpdateUser = (user) => ajax(Base + '/manage/user/'+(user._id ? 'update': 'add'), user, 'POST')

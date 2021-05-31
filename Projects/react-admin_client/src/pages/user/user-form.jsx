@@ -55,7 +55,7 @@ export default class UserForm extends PureComponent {
 
         return (
             <Form
-                initialValues={{username: user.username, phone: user.phone, email: user.email, role: user.role_id, prefix:'1'}}
+                initialValues={{username: user.username, phone: user.phone, email: user.email, role_id: user.role_id, prefix:'1'}}
                 ref={this.formRef}
                 {...formItemLayout}
             >
@@ -130,7 +130,7 @@ export default class UserForm extends PureComponent {
                     <Input placeholder='Please input email address'/>
                 </Item>
                 <Item 
-                    name='role'
+                    name='role_id'
                     label='Role'
                     rules={[
                         {required: true, message: 'Email is required'}
