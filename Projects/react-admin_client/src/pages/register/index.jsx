@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, message } from 'antd'
+import { Form, Select, Input, Button, message } from 'antd'
 import './index.less'
 import logo from '../../assets/images/logo.jpg'
-import { reqAddUser } from "../../api";
+import { reqAddOrUpdateUser } from "../../api";
 
-const Item = Form.Item
+const {Item} = Form
+const {Option} = Select
 
 export default class Register extends Component {
 
     onFinish = async (values) => {
         console.log(values)
-        const { username, password } = values
-        const user = { username, password }
-        const result = await reqAddUser(user)
+        const user = values
+        const result = await reqAddOrUpdateUser(user)
         if (result.status === 0) {
             message.success('Register succeed')
             this.props.history.replace('/login')
@@ -59,6 +59,18 @@ export default class Register extends Component {
             }
         }
 
+        const prefixSelector = (
+            <Item name="prefix" noStyle>
+              <Select
+                style={{
+                  width: 70,
+                }}
+              >
+                <Option value="1">+1</Option>
+              </Select>
+            </Item>
+        )
+
         return (
             <div className="register">
                 <header className="register-header">
@@ -68,6 +80,7 @@ export default class Register extends Component {
                 <section className="register-content">
                     <h2>User Register</h2>
                     <Form
+                        initialValues={{prefix:'1'}}
                         {...formItemLayout}
                         name="register"
                         onFinish={this.onFinish}
@@ -119,6 +132,31 @@ export default class Register extends Component {
                             ]}
                         >
                             <Input.Password />
+                        </Item>
+                        <Item 
+                            name='phone'
+                            label='Phone Number'
+                            rules={[
+                                {required: true, message: 'Phone Number is required'},
+                                {pattern: /^[0-9]{10}$/, message: 'Please enter your 10 digits phone number' }
+                            ]}
+                        >
+                            <Input
+                                type='number'
+                                placeholder='Please input phone number'
+                                addonBefore={prefixSelector}
+                                style={{width: '100%'}}
+                            />
+                        </Item>
+                        <Item 
+                            name='email'
+                            label='Email'
+                            rules={[
+                                {type: 'email', message: 'The input is not valid E-mail!'},
+                                {required: true, message: 'Please input your E-mail!'}
+                            ]}
+                        >
+                            <Input placeholder='Please input email address'/>
                         </Item>
                         <Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">Register</Button>
