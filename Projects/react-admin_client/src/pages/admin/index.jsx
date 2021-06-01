@@ -45,7 +45,7 @@ class Admin extends Component {
                             <Redirect to="/home"/>
                         </Switch>
                     </Content>
-                    <Footer style={{textAlign: 'center', color: '#cccccc'}}>Use Google Chrome for better performance</Footer>
+                    <Footer style={{textAlign: 'center', color: '#cccccc'}}>This website is for learning and communication only, not for commercial use.</Footer>
                 </Layout>
             </Layout>
         )
