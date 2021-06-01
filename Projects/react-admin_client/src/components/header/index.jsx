@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Modal, Button } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { formatTime } from '../../utils/timeUtils'
-import storageUtils from '../../utils/storageUtils'
-import memoryUtils from '../../utils/memoryUtils'
-import menuList from '../../config/menuConfig'
+// without redex
+// import storageUtils from '../../utils/storageUtils'
+// import memoryUtils from '../../utils/memoryUtils'
+// import menuList from '../../config/menuConfig'
+import { logout } from '../../redux/actions'
 import { reqWeather } from '../../api'
 import './index.less'
 
@@ -30,34 +33,37 @@ class Header extends Component {
         const { icon, text } = result.current.condition
         this.setState({ name, region, country, icon, text, temp_c, humidity})
     }
+    
+    // without redux
+    // getTitle = () => {
+    //     const path = this.props.location.pathname
+    //     let title = null
+    //     menuList.forEach( item => {
+    //         if (item.key===path) {
+    //             title=item.title
+    //         } else if (item.children) {
+    //             const cItem=item.children.find(c => path.indexOf(c.key)===0)
+    //             if (cItem) {
+    //                 title=cItem.title
+    //             }
+    //         }
+    //     })
+    //     return title
+    // }
 
-    getTitle = () => {
-        const path = this.props.location.pathname
-        let title = null
-        menuList.forEach( item => {
-            if (item.key===path) {
-                title=item.title
-            } else if (item.children) {
-                const cItem=item.children.find(c => path.indexOf(c.key)===0)
-                if (cItem) {
-                    title=cItem.title
-                }
-            }
-        })
-        return title
-    }
-
-    signout = () => {
+    logout = () => {
         const { confirm } = Modal
         confirm({
             title: 'Do you want to sign out?',
             icon: <ExclamationCircleOutlined />,
             onOk: () => {
-                //remove user data
-                storageUtils.removeUser()
-                memoryUtils.user = {}
-                //redirect to login
-                this.props.history.replace('/login')
+                // without redux
+                // //remove user data
+                // storageUtils.removeUser()
+                // memoryUtils.user = {}
+                // //redirect to login
+                //this.props.history.replace('/login')
+                this.props.logout()
             }
           })
     }
@@ -75,16 +81,18 @@ class Header extends Component {
     render() {
 
         const { currentTime, name, region, country, temp_c, humidity, icon, text} = this.state
+        //without redux
+        //const username = memoryUtils.user.username
+        const username = this.props.user.username
 
-        const username = memoryUtils.user.username
-
-        const title=this.getTitle()
+        //without redux const title=this.getTitle()
+        const title=this.props.headTitle
 
         return (
             <div className="header">
                 <div className="header-top">
                     <span>Hello, {username}</span>
-                    <Button type="primary" shape="round" onClick={this.signout}>Sign Out</Button>
+                    <Button type="primary" shape="round" onClick={this.logout}>Log out</Button>
                 </div>
                 <div className="header-bottom">
                     <div className="header-bottom-left">{title}</div>
@@ -99,4 +107,7 @@ class Header extends Component {
     }
 }
 
-export default withRouter(Header)
+export default connect(
+    state => ({headTitle: state.headTitle, user: state.user}),
+    {logout}
+) (withRouter(Header))

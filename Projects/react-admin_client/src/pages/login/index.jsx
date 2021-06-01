@@ -1,31 +1,38 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.less'
 import logo from '../../assets/images/logo.jpg'
-import { reqLogin } from "../../api";
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils'
-import { Redirect } from 'react-router'
+// without redux
+// import { reqLogin } from "../../api";
+// import memoryUtils from '../../utils/memoryUtils'
+// import storageUtils from '../../utils/storageUtils'
+import { login } from '../../redux/actions'
+
 
 const Item = Form.Item
 
-export default class Login extends Component {
+class Login extends Component {
 
     onFinish = async (values) => {
         const { username, password } = values
-        const result = await reqLogin(username, password)
-        if (result.status === 0) {
-            message.success('Log in succeed!')
-            const user = result.data
-            //save user in memory                
-            memoryUtils.user = user
-            //save user in localstorage
-            storageUtils.saveUser(user)
-            this.props.history.replace('/')
-        } else {
-            message.error(result.message)
-        }
+        // without redux
+        // const result = await reqLogin(username, password)
+        // if (result.status === 0) {
+        //     message.success('Log in succeed!')
+        //     const user = result.data
+        //     //save user in memory                
+        //     memoryUtils.user = user
+        //     //save user in localstorage
+        //     storageUtils.saveUser(user)
+        //     this.props.history.replace('/home')
+        // } else {
+        //     message.error(result.message)
+        // }
+
+        this.props.login(username, password)
     }
 
     onFinishFailed = (errorInfo) => {
@@ -35,10 +42,14 @@ export default class Login extends Component {
     render() {
 
         //if user already log in, redirect to admin
-        const user = memoryUtils.user
+        // without redux
+        // const user = memoryUtils.user
+        const user = this.props.user
         if(user && user._id) {
-            return <Redirect to='/' />
+            return <Redirect to='/home' />
         }
+
+        const errorMsg = user.errorMsg
 
         return (
             <div className="login">
@@ -47,6 +58,7 @@ export default class Login extends Component {
                     <h1>React Backstage Management System</h1>
                 </header>
                 <section className="login-content">
+                    <div className={errorMsg ? "error-msg show": "error-msg"}>{errorMsg}</div>
                     <h2>User Login</h2>
                     <Form
                         name="normal_login"
@@ -88,3 +100,8 @@ export default class Login extends Component {
         )
     }
 }
+
+export default connect(
+    state => ({user: state.user}),
+    {login}
+) (Login)

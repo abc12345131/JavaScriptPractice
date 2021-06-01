@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Card, Button, Table, Modal, message } from 'antd'
 import { PAGE_SIZE } from '../../utils/constants'
 import { reqRoles, reqAddRole, reqUpdateRole } from '../../api'
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils'
+//without redux
+//import memoryUtils from '../../utils/memoryUtils'
+//import storageUtils from '../../utils/storageUtils'
+import { logout } from '../../redux/actions'
 import {formatTime} from '../../utils/timeUtils'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 
-export default class Role extends Component {
+class Role extends Component {
     
     state = {
         roles: [],
@@ -96,14 +99,18 @@ export default class Role extends Component {
             const role=this.state.role
             role.name=values.roleName
             role.menus=uf.getMenus()
-            role.auth_name=memoryUtils.user.username
+            // without redux
+            // role.auth_name=memoryUtils.user.username
+            role.auth_name=this.props.user.username
             role.auth_time=Date.now()
             const result = await reqUpdateRole(role)
             if (result.status===0) {
-                if (role._id===memoryUtils.user.role_id) {
-                    memoryUtils.user={}
-                    storageUtils.removeUser()
-                    this.props.history.replace('/login')
+                if (role._id===this.props.user.role_id) {
+                    // without redux
+                    // memoryUtils.user={}
+                    // storageUtils.removeUser()
+                    // this.props.history.replace('/login')
+                    this.props.logout()
                     message.success('Permission modified, please log in again!')
                 } else {
                     message.success('Role updated successfully!')
@@ -185,3 +192,8 @@ export default class Role extends Component {
         )
     }
 }
+
+export default connect(
+    state => ({user: state.user}),
+    {logout}
+) (Role)

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom' 
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Menu } from 'antd'
 import menuList from '../../config/menuConfig'
 import logo from '../../assets/images/logo.jpg'
-import memoryUtils from '../../utils/memoryUtils'
+// without redux
+// import memoryUtils from '../../utils/memoryUtils'
+import { setHeadTitle } from '../../redux/actions'
 import './index.less'
 
 
@@ -18,9 +21,15 @@ class LeftNav extends Component {
         return menuList.map((item) => {
             if (this.hasAuth(item)) {
                 if (!item.children) {
+                    //if the item is current item
+                    if (item.key===path || path.indexOf(item.key)===0) {
+                        this.props.setHeadTitle(item.title)
+                    }
                     return (
                         <Menu.Item key={item.key} icon={item.icon}>
-                            <Link to={item.key}>{item.title}</Link>
+                            <Link to={item.key} onClick={() => this.props.setHeadTitle(item.title)}>
+                                {item.title}
+                            </Link>
                         </Menu.Item>
                     )
                 } 
@@ -41,8 +50,11 @@ class LeftNav extends Component {
 
     hasAuth = (item) => {
         const {key,isPublic} = item
-        const username = memoryUtils.user.username
-        const menus = memoryUtils.user.role.menus
+        // without redux
+        // const username = memoryUtils.user.username
+        // const menus = memoryUtils.user.role.menus
+        const username = this.props.user.username
+        const menus = this.props.user.role.menus
 
         if (username==='admin' || isPublic || menus.includes(key)) {
             return true
@@ -85,4 +97,7 @@ class LeftNav extends Component {
     }
 }
 
-export default withRouter(LeftNav)
+export default connect(
+    state => ({user: state.user}),
+    {setHeadTitle}
+) (withRouter(LeftNav))
