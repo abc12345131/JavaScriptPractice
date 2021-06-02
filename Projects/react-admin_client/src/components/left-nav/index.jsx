@@ -26,7 +26,11 @@ class LeftNav extends Component {
                         this.props.setHeadTitle(item.title)
                     }
                     return (
-                        <Menu.Item key={item.key} icon={item.icon}>
+                        <Menu.Item
+                            style={{height: 46, fontSize: 20}}
+                            key={item.key}
+                            icon={item.icon}
+                        >
                             <Link to={item.key} onClick={() => this.props.setHeadTitle(item.title)}>
                                 {item.title}
                             </Link>
@@ -39,7 +43,12 @@ class LeftNav extends Component {
                         this.openkey = item.key
 
                     return (
-                        <SubMenu key={item.key} icon={item.icon} title={item.title}>
+                        <SubMenu
+                            style={{fontSize: 20}} 
+                            key={item.key}
+                            icon={item.icon}
+                            title={item.title}
+                        >
                             {this.getMenuNodes(item.children)}
                         </SubMenu>
                     )
@@ -84,7 +93,7 @@ class LeftNav extends Component {
                     <img src={logo} alt="logo" />
                     <h1>BW BackStage</h1>
                 </Link>
-                <Menu
+                <Menu 
                     selectedKeys={[path]}
                     defaultOpenKeys={[openkey]}
                     mode="inline"

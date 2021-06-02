@@ -129,7 +129,7 @@ export default class ProductAddUpdate extends Component {
         this.rteRef = React.createRef()
         const product = this.props.location.state
         //save add/update
-        this.isUpdate = !! product
+        this.isUpdate = !! product._id
         //if product is undefined set product {}
         this.product = product || {}
     }

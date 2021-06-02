@@ -1,81 +1,73 @@
 import {
-  HomeOutlined,
-  AppstoreOutlined,
-  BarsOutlined,
-  BarcodeOutlined,
-  UserOutlined,
-  SafetyOutlined,
-  AreaChartOutlined,
-  BarChartOutlined,
-  LineChartOutlined,
-  PieChartOutlined,
-  OrderedListOutlined,
+    HomeOutlined,
+    AppstoreOutlined,
+    BarsOutlined,
+    BarcodeOutlined,
+    UserOutlined,
+    SafetyOutlined,
+    AreaChartOutlined,
+    BarChartOutlined,
+    LineChartOutlined,
+    PieChartOutlined,
+    OrderedListOutlined,
 } from '@ant-design/icons'
-
-const  menuList = [
-  {
-    title: 'Home', 
-    key: '/home', 
-    icon: <HomeOutlined />, 
-    isPublic: true, 
-  },
-  {
-    title: 'Commodity Management',
-    key: '/products',
-    icon: <AppstoreOutlined />,
-    children: [
-      {
-        title: 'Category Management',
-        key: '/category',
-        icon: <BarsOutlined />,
-      },
-      {
-        title: 'Product Management',
-        key: '/product',
-        icon: <BarcodeOutlined />,
-      },
-    ]
-  },
-
-  {
-    title: 'User Management',
-    key: '/user',
-    icon: <UserOutlined />,
-  },
-  {
-    title: 'Role Management',
-    key: '/role',
-    icon: <SafetyOutlined />,
-  },
-
-  {
-    title: 'Charts',
-    key: '/charts',
-    icon: <AreaChartOutlined />,
-    children: [
-      {
-        title: 'Bar',
-        key: '/charts/bar',
-        icon: <BarChartOutlined />,
-      },
-      {
-        title: 'Line',
-        key: '/charts/line',
-        icon: <LineChartOutlined />,
-      },
-      {
-        title: 'Pie',
-        key: '/charts/pie',
-        icon: <PieChartOutlined />,
-      },
-    ]
-  },
-
-  {
-    title: 'Order',
-    key: '/order',
-    icon: <OrderedListOutlined />,
-  },
+  
+const menuList = [
+    {
+        title: 'Home', 
+        key: '/home', 
+        icon: <HomeOutlined style={{fontSize: 20}}/>, 
+        isPublic: true, 
+    },
+    {
+        title: 'Commodity',
+        key: '/products',
+        icon: <AppstoreOutlined style={{fontSize: 20}}/>,
+        children: [
+            {
+                title: 'Category',
+                key: '/category',
+                icon: <BarsOutlined style={{fontSize: 20}}/>,
+            },
+            {
+                title: 'Product',
+                key: '/product',
+                icon: <BarcodeOutlined style={{fontSize: 20}}/>,
+            },
+        ]
+    },  
+    {
+        title: 'User',
+        key: '/user',
+        icon: <UserOutlined style={{fontSize: 20}}/>,
+    },
+    {
+        title: 'Role',
+        key: '/role',
+        icon: <SafetyOutlined style={{fontSize: 20}}/>,
+    },  
+    {
+        title: 'Charts',
+        key: '/charts',
+        icon: <AreaChartOutlined style={{fontSize: 20}}/>,
+        children: [
+            {
+                title: 'Bar',
+                key: '/charts/bar',
+                icon: <BarChartOutlined style={{fontSize: 20}}/>,
+            },
+            {
+                title: 'Line',
+                key: '/charts/line',
+                icon: <LineChartOutlined style={{fontSize: 20}}/>,
+            },
+            {
+                title: 'Pie',
+                key: '/charts/pie',
+                icon: <PieChartOutlined style={{fontSize: 20}}/>,
+            },
+        ]
+    }
 ]
-
+  
 export default menuList

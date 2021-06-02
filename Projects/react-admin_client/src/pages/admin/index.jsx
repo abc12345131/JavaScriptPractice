@@ -14,6 +14,7 @@ import User from '../../pages/user'
 import Bar from '../../pages/charts/bar'
 import Line from '../../pages/charts/line'
 import Pie from '../../pages/charts/pie'
+import NotFound from '../../pages/not-found'
 
 const { Footer, Sider, Content } = Layout
 
@@ -28,12 +29,13 @@ class Admin extends Component {
         return (
             <Layout style={{minHeight:'100%'}}>
                 <Sider>
-                    <LeftNav/>
+                    <LeftNav />
                 </Sider>
                 <Layout>
                     <Header/>
                     <Content style={{margin:20, backgroundColor:'#fff'}}>
                         <Switch>
+                            <Redirect exact from='/' to="/home"/>
                             <Route path="/home" component={Home}/>
                             <Route path="/category" component={Category}/>
                             <Route path="/product" component={Product}/>
@@ -42,7 +44,7 @@ class Admin extends Component {
                             <Route path="/charts/bar" component={Bar}/>
                             <Route path="/charts/line" component={Line}/>
                             <Route path="/charts/pie" component={Pie}/>
-                            <Redirect to="/home"/>
+                            <Route component={NotFound}/>
                         </Switch>
                     </Content>
                     <Footer style={{textAlign: 'center', color: '#cccccc'}}>This website is for learning and communication only, not for commercial use.</Footer>
