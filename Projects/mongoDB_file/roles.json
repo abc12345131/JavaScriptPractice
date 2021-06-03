@@ -2,96 +2,111 @@
   "_id": {
     "$oid": "5e0d7292bd72914ee8e714d4"
   },
-  "name": "测试",
-  "auth_time": 1607481252131,
+  "name": "Manager",
+  "auth_time": 1622375857520,
   "auth_name": "admin",
   "create_time": 1554639521749,
   "menus": [
     "/category",
-    "/home"
-  ]
-},{
-  "_id": {
-    "$oid": "5e171d55d59eb648d4ed66a8"
-  },
-  "menus": [
     "/home",
-    "/products",
-    "/category",
     "/product",
-    "/charts/pie"
-  ],
-  "name": "测试",
-  "create_time": 1578573141547,
-  "auth_name": "admin",
-  "auth_time": 1607406938634
+    "/products",
+    "/charts",
+    "/charts/bar",
+    "/charts/line",
+    "/charts/pie",
+    "/order"
+  ]
 },{
   "_id": {
     "$oid": "5e175a134bce5e36d48fb4db"
   },
   "menus": [
-    "all",
+    "/home",
+    "/user"
+  ],
+  "name": "HR",
+  "create_time": 1578588691768,
+  "auth_name": "admin",
+  "auth_time": 1622375331642
+},{
+  "_id": {
+    "$oid": "60b37bc7f583ad832848e4d9"
+  },
+  "menus": [
+    "/home",
+    "/charts",
+    "/charts/bar",
+    "/charts/line",
+    "/charts/pie",
+    "/product",
+    "/category",
+    "/products"
+  ],
+  "name": "Sales",
+  "create_time": 1622375367189,
+  "__v": 0,
+  "auth_name": "admin",
+  "auth_time": 1622375888532
+},{
+  "_id": {
+    "$oid": "60b37d0cf583ad832848e4da"
+  },
+  "menus": [
     "/home",
     "/products",
+    "/charts",
+    "/order",
     "/category",
     "/product",
+    "/charts/bar",
+    "/charts/line",
+    "/charts/pie",
     "/user",
     "/role",
+    "all"
+  ],
+  "name": "Director and above",
+  "create_time": 1622375692448,
+  "__v": 0,
+  "auth_name": "admin",
+  "auth_time": 1622438167549
+},{
+  "_id": {
+    "$oid": "60b37de0f583ad832848e4db"
+  },
+  "menus": [
+    "/home",
     "/charts",
     "/charts/bar",
     "/charts/line",
     "/charts/pie"
   ],
-  "name": "管理员",
-  "create_time": 1578588691768,
+  "name": "Supervisor",
+  "create_time": 1622375904211,
+  "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1578588698490
+  "auth_time": 1622375933818
 },{
   "_id": {
-    "$oid": "5e188bb874c89321209fedda"
+    "$oid": "60b806621e48781b64ad3c94"
   },
   "menus": [
+    "all",
     "/home",
-    "/charts/bar",
+    "/products",
+    "/user",
+    "/role",
     "/charts",
+    "/category",
+    "/product",
+    "/charts/bar",
     "/charts/line",
-    "/charts/pie",
-    "/role"
+    "/charts/pie"
   ],
-  "name": "员工",
-  "create_time": 1578666936202,
+  "name": "admin",
+  "create_time": 1622672994452,
+  "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1607330722391
-},{
-  "_id": {
-    "$oid": "5fcdca798e518d46807aa484"
-  },
-  "menus": [
-    "/category"
-  ],
-  "name": "你好",
-  "create_time": 1607322233401,
-  "auth_time": 1607411041057,
-  "auth_name": "admin"
-},{
-  "_id": {
-    "$oid": "5fcdcb428e518d46807aa485"
-  },
-  "menus": [],
-  "name": "哈哈哈",
-  "create_time": 1607322434116
-},{
-  "_id": {
-    "$oid": "5fcdcb528e518d46807aa486"
-  },
-  "menus": [],
-  "name": "哈哈啊",
-  "create_time": 1607322450051
-},{
-  "_id": {
-    "$oid": "5fcdcd638e518d46807aa488"
-  },
-  "menus": [],
-  "name": "123",
-  "create_time": 1607322979807
+  "auth_time": 1622673007337
 }]

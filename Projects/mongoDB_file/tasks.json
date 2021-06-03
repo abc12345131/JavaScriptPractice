@@ -1,0 +1,213 @@
+[{
+  "_id": {
+    "$oid": "60b726fb420f5a0d7f27fa19"
+  },
+  "user_id": "5fd06aaf97daee1b6c09b1cd",
+  "tasks": [
+    {
+      "task": "Perform daily maintenance of the system",
+      "status": 0
+    },
+    {
+      "task": "Analyze system performance capacity, reliability and security",
+      "status": 0
+    },
+    {
+      "task": "Provide suggestions for system optimization",
+      "status": 0
+    },
+    {
+      "task": "Perform system optimization work",
+      "status": 0
+    },
+    {
+      "task": "Compile and organize system documents",
+      "status": 1
+    },
+    {
+      "task": "Provide training in terms of system application",
+      "status": 2
+    },
+    {
+      "task": "Provide technical support",
+      "status": 2
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60b726fb420f5a0d7f27fa20"
+  },
+  "user_id": "60b319c0f583ad832848e4d7",
+  "tasks": [
+    {
+      "task": "New version iteration meeting",
+      "status": 0
+    },
+    {
+      "task": "Project Initiation",
+      "status": 0
+    },
+    {
+      "task": "Project Planning",
+      "status": 0
+    },
+    {
+      "task": "Project Execution",
+      "status": 0
+    },
+    {
+      "task": "Project Performance/Monitoring",
+      "status": 1
+    },
+    {
+      "task": "Project Closure",
+      "status": 2
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60b726fb420f5a0d7f27fa21"
+  },
+  "user_id": "60b31a52f583ad832848e4d8",
+  "tasks": [
+    {
+      "task": "Evaluate what positions you need",
+      "status": 0
+    },
+    {
+      "task": "Write the job description",
+      "status": 0
+    },
+    {
+      "task": "Interview qualified candidates",
+      "status": 0
+    },
+    {
+      "task": "Follow up with the interviewees",
+      "status": 0
+    },
+    {
+      "task": "Extend the job offer",
+      "status": 1
+    },
+    {
+      "task": "Conduct a background check",
+      "status": 2
+    },
+    {
+      "task": "Bringing on your new employee",
+      "status": 2
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60b726fb420f5a0d7f27fa22"
+  },
+  "user_id": "60b37ea5f583ad832848e4dc",
+  "tasks": [
+    {
+      "task": "Prospecting customer",
+      "status": 0
+    },
+    {
+      "task": "Prepare sals plan",
+      "status": 0
+    },
+    {
+      "task": "Approach customer",
+      "status": 0
+    },
+    {
+      "task": "Making presentation",
+      "status": 0
+    },
+    {
+      "task": "Handling objections",
+      "status": 1
+    },
+    {
+      "task": "Closing the deal",
+      "status": 2
+    },
+    {
+      "task": "Follow-up with customer",
+      "status": 2
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60b726fb420f5a0d7f27fa23"
+  },
+  "user_id": "60b37ec4f583ad832848e4dd",
+  "tasks": [
+    {
+      "task": "Formulate company development strategic",
+      "status": 0
+    },
+    {
+      "task": "Build departmental framework",
+      "status": 0
+    },
+    {
+      "task": "Build departmental culture",
+      "status": 0
+    },
+    {
+      "task": "Formulate the overall work plan",
+      "status": 0
+    },
+    {
+      "task": "Instruct and review technical plan",
+      "status": 0
+    },
+    {
+      "task": "Final quality assessment",
+      "status": 1
+    },
+    {
+      "task": "Achieve the task goals",
+      "status": 2
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60b726fb420f5a0d7f27fa24"
+  },
+  "user_id": "60b37ec4f583ad832848e4de",
+  "tasks": [
+    {
+      "task": "Identify project requirements",
+      "status": 0
+    },
+    {
+      "task": "Architecture design",
+      "status": 0
+    },
+    {
+      "task": "User experience design",
+      "status": 0
+    },
+    {
+      "task": "Function design",
+      "status": 0
+    },
+    {
+      "task": "Test acceptance",
+      "status": 1
+    },
+    {
+      "task": "Online launch",
+      "status": 2
+    },
+    {
+      "task": "Technical maintenance, continuous follow-up",
+      "status": 2
+    }
+  ],
+  "__v": 0
+}]

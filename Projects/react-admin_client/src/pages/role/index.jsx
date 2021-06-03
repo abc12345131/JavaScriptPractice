@@ -153,7 +153,7 @@ class Role extends Component {
         const title = (
             <span>
                 <Button type='primary' onClick={this.showAdd} >Add Role</Button>&nbsp;&nbsp;
-                <Button type='primary' disabled={!role._id} onClick={this.showUpdate}>Permission Setting</Button>
+                <Button type='primary' disabled={!role._id | role.name==='admin'} onClick={this.showUpdate}>Permission Setting</Button>
             </span>
         )
 

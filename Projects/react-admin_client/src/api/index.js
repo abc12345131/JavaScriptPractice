@@ -1,6 +1,6 @@
 import ajax from './ajax';
 
-const Base = ''
+const Base = '/api'
 
 //login
 export const reqLogin = (username, password) => ajax(Base + '/login', {username, password}, 'POST')
@@ -45,3 +45,6 @@ export const reqUsers = () => ajax(Base + '/manage/user/list')
 export const reqDeleteUser = (userId) => ajax(Base + '/manage/user/delete', {userId}, 'POST')
 //add or update User
 export const reqAddOrUpdateUser = (user) => ajax(Base + '/manage/user/'+(user._id ? 'update': 'add'), user, 'POST')
+
+//get current user's task
+export const reqTask = (userId) => ajax(Base + '/manage/task/list', {userId}, 'POST')

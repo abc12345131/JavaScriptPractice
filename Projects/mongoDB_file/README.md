@@ -5,3 +5,5 @@ mongoimport --db react-app --collection products --drop --file mongoDB_file\prod
 mongoimport --db react-app --collection roles --drop --file mongoDB_file\roles.json --jsonArray
 
 mongoimport --db react-app --collection categories --drop --file mongoDB_file\categories.json --jsonArray
+
+mongoimport --db react-app --collection categories --drop --file mongoDB_file\tasks.json --jsonArray

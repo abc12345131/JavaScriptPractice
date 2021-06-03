@@ -19,10 +19,16 @@ import NotFound from '../../pages/not-found'
 const { Footer, Sider, Content } = Layout
 
 class Admin extends Component {
+
+    routeNodes = this.props.user.role.menus.map((item) => {
+        return 
+    })
+
     render() {
         //without redux
         //const user = memoryUtils.user
         const user = this.props.user
+        console.log(":", user.role.menus)
         if(!user || !user._id) {
             return <Redirect to='/login'/>
         }
@@ -36,6 +42,7 @@ class Admin extends Component {
                     <Content style={{margin:20, backgroundColor:'#fff'}}>
                         <Switch>
                             <Redirect exact from='/' to="/home"/>
+                            {/* {this.routeNodes} */}
                             <Route path="/home" component={Home}/>
                             <Route path="/category" component={Category}/>
                             <Route path="/product" component={Product}/>
