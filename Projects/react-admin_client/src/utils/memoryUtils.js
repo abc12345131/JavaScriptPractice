@@ -1,4 +1,6 @@
 // with redux, this module has no use 
-export default {
+const memoryUtils = {
     user: {}
 }
+
+export default memoryUtils

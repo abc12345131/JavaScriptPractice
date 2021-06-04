@@ -3,19 +3,18 @@
     "$oid": "5e0d7292bd72914ee8e714d4"
   },
   "name": "Manager",
-  "auth_time": 1622375857520,
+  "auth_time": 1622777465782,
   "auth_name": "admin",
   "create_time": 1554639521749,
   "menus": [
-    "/category",
     "/home",
+    "/commodity",
+    "/category",
     "/product",
-    "/products",
     "/charts",
     "/charts/bar",
     "/charts/line",
-    "/charts/pie",
-    "/order"
+    "/charts/pie"
   ]
 },{
   "_id": {
@@ -28,7 +27,7 @@
   "name": "HR",
   "create_time": 1578588691768,
   "auth_name": "admin",
-  "auth_time": 1622375331642
+  "auth_time": 1622777474111
 },{
   "_id": {
     "$oid": "60b37bc7f583ad832848e4d9"
@@ -39,38 +38,35 @@
     "/charts/bar",
     "/charts/line",
     "/charts/pie",
-    "/product",
-    "/category",
-    "/products"
+    "/product"
   ],
   "name": "Sales",
   "create_time": 1622375367189,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622375888532
+  "auth_time": 1622777516878
 },{
   "_id": {
     "$oid": "60b37d0cf583ad832848e4da"
   },
   "menus": [
     "/home",
-    "/products",
-    "/charts",
-    "/order",
+    "/commodity",
     "/category",
     "/product",
+    "/user",
+    "/role",
+    "/charts",
     "/charts/bar",
     "/charts/line",
     "/charts/pie",
-    "/user",
-    "/role",
     "all"
   ],
   "name": "Director and above",
   "create_time": 1622375692448,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622438167549
+  "auth_time": 1622777547089
 },{
   "_id": {
     "$oid": "60b37de0f583ad832848e4db"
@@ -86,7 +82,7 @@
   "create_time": 1622375904211,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622375933818
+  "auth_time": 1622777556665
 },{
   "_id": {
     "$oid": "60b806621e48781b64ad3c94"
@@ -94,7 +90,7 @@
   "menus": [
     "all",
     "/home",
-    "/products",
+    "/commodity",
     "/user",
     "/role",
     "/charts",
@@ -108,5 +104,5 @@
   "create_time": 1622672994452,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622673007337
+  "auth_time": 1622777564109
 }]
