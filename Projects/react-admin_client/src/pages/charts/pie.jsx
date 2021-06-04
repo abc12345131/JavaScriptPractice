@@ -5,16 +5,21 @@ import ReactECharts from 'echarts-for-react'
 export default class Line extends Component {
 
     state = {
-        dateList: [1,2,3,4,5,6,7,8],
-        clicks: [1,2,3,4,5,1,3,5],
-        visits: [2,3,7,4,9,4,2,1]
+        data: [
+            {value: 40, name: 'rose 1'},
+            {value: 38, name: 'rose 2'},
+            {value: 32, name: 'rose 3'},
+            {value: 30, name: 'rose 4'},
+            {value: 28, name: 'rose 5'},
+            {value: 26, name: 'rose 6'},
+            {value: 22, name: 'rose 7'},
+            {value: 18, name: 'rose 8'}
+        ]
     }
 
     update = () => {
         this.setState(state => ({
-            clicks: state.clicks,
-            visits: state.visits,
-            dateList: state.dateList
+            data: state.data,
         }))
     }
 
@@ -50,22 +55,13 @@ export default class Line extends Component {
                 itemStyle: {
                     borderRadius: 8
                 },
-                data: [
-                    {value: 40, name: 'rose 1'},
-                    {value: 38, name: 'rose 2'},
-                    {value: 32, name: 'rose 3'},
-                    {value: 30, name: 'rose 4'},
-                    {value: 28, name: 'rose 5'},
-                    {value: 26, name: 'rose 6'},
-                    {value: 22, name: 'rose 7'},
-                    {value: 18, name: 'rose 8'}
-                ]
+                data: this.state.data
             }
         }
     }
 
     render() {
-        const { clicks, visits, dateList } = this.state
+        
         return (
             <div>
                 <Card>
