@@ -15,6 +15,9 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 //install terser-webpack-plugin for production code (js and css) compression
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+//install clean-webpack-plugin for delete old code before packing
+const { CleanWWebpackPlugin } = require('clean-webpack-plugin');
+
 //set package.json browserlist to development mode, default is production
 process.env.NODE_ENV = 'development';
 
@@ -47,6 +50,55 @@ const commonCssLoader = [
                 //help plugin find setting of browserlist in package.json
                 require('postcss-preset-env')()
             ]
+        }
+    }
+]
+
+const commonJsLoader = [
+    /*
+        pack with multi-thread, start would take roughly 600ms
+        communication between threads also take time, so only use for really huge job like babel
+    */
+    {
+        loader: 'thread-loader',
+        options: {
+            //thread number
+            workers: 2
+        }
+    },
+    {
+        //install babel-loader @babel/core @babel/preset-env
+        loader: 'babel-loader',
+        options: {
+            //1.set compatibility options (only use @babel/preset-env only for basic compatibility)
+            //2.for full compatibility install and import @babel/polyfill in js code, but the file will be huge
+            //3.load on demand, install core-js
+            presets: [
+                [
+                    '@babel/preset-env',
+                    {
+                        //load on demand
+                        useBuiltIns: 'usage',
+                        //core-js version
+                        corejs: {
+                            version: 3
+                        },
+                        //target compatibility version
+                        targets: {
+                            chrome: '60',
+                            firefox: '60',
+                            ie: '9',
+                            safari: '10',
+                            edge: '17'
+                        }
+                    }
+                ]
+            ],
+            /*
+                //webpack4 setting
+                //turn on babel cache to read cache if anything changed after first build
+                cacheDirectory: true
+            */        
         }
     }
 ]
@@ -102,7 +154,7 @@ module.exports = {
         }
     },
     module: {
-        rules: [
+        rules: [ 
             {
                 test: /\.js$/,
                 //do not check imported node_modules 
@@ -139,56 +191,17 @@ module.exports = {
                         test: /\.js$/,
                         //do not check imported node_modules 
                         exclude: /node_modules/,
-                        use: [
-                            /*
-                                pack with multi-thread, start would take roughly 600ms
-                                communication between threads also take time, so only use for really huge job like babel
-                            */
-                            {
-                                loader: 'thread-loader',
-                                options: {
-                                    //thread number
-                                    workers: 2
-                                }
-                            },
-                            {
-                                //install babel-loader @babel/core @babel/preset-env
-                                loader: 'babel-loader',
-                                options: {
-                                    //1.set compatibility options (only use @babel/preset-env only for basic compatibility)
-                                    //2.for full compatibility install and import @babel/polyfill in js code, but the file will be huge
-                                    //3.load on demand, install core-js
-                                    presets: [
-                                        [
-                                            '@babel/preset-env',
-                                            {
-                                                //load on demand
-                                                useBuiltIns: 'usage',
-                                                //core-js version
-                                                corejs: {
-                                                    version: 3
-                                                },
-                                                //target compatibility version
-                                                targets: {
-                                                    chrome: '60',
-                                                    firefox: '60',
-                                                    ie: '9',
-                                                    safari: '10',
-                                                    edge: '17'
-                                                }
-                                            }
-                                        ]
-                                    ],
-                                    /*
-                                        //webpack4 setting
-                                        //turn on babel cache to read cache if anything changed after first build
-                                        cacheDirectory: true
-                                    */        
-                                }
-                            }
-                        ]
+                        use: [...commonJsLoader]
                         
-                    },            
+                    },
+                    {
+                        test: /\.ts$/,
+                        //do not check imported node_modules 
+                        exclude: /node_modules/,
+                        //install typescript ts-loader
+                        use: [...commonJsLoader,'ts-loader']
+                        
+                    },              
                     {
                         test: /\.(jpg|png|gif)$/,
                         //install url-loader
@@ -220,8 +233,11 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWWebpackPlugin(),
         new HtmlWebpackPlugin(
             {
+                //self defined title
+                title:"my title",
                 //auto import packed js/css based on template
                 template:'./src/index.html',
                 //compress html code
@@ -349,19 +365,21 @@ module.exports = {
         "sideEffects": "sideEffects": ["*.css", "*.less"]
     */
     mode: 'development',
-    /*
-        Do not use this if you always make mistake with file path, this will mess up even more.
-        resolve: {
-            //set resolve module path alias, simplify path
-            alias: {
-                $css: resolve(__dirname, 'src/css')
-            },
-            //set path suffix, simplify path
-            extensions: ['.js', '.json', '.jsx'],
-            //set webpack module path, save time when looking for modules
-            modules: [resolve(__dirname, '../../node_modules'), 'node_modules']
+
+    //Do not use this if you always make mistake with file path, this will mess up even more.
+    resolve: {
+        /*
+        //set resolve module path alias, simplify path
+        alias: {
+            $css: resolve(__dirname, 'src/css')
         },
-    */
+        */
+        //set path suffix, simplify path
+        extensions: ['.ts', '.js', '.json', '.jsx'],
+        //set webpack module path, save time when looking for modules
+        modules: [resolve(__dirname, '../../node_modules'), 'node_modules']
+    },
+
     externals: {
         //ignore library while packing, need to import from public website in html file
         //Library name: package name in npm
