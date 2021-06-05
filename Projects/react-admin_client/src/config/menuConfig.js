@@ -8,8 +8,7 @@ import {
     AreaChartOutlined,
     BarChartOutlined,
     LineChartOutlined,
-    PieChartOutlined,
-    OrderedListOutlined,
+    PieChartOutlined
 } from '@ant-design/icons'
   
 const menuList = [
@@ -21,7 +20,7 @@ const menuList = [
     },
     {
         title: 'Commodity',
-        key: '/products',
+        key: '/commodity',
         icon: <AppstoreOutlined style={{fontSize: 20}}/>,
         children: [
             {

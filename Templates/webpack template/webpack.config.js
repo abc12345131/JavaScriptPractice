@@ -16,7 +16,7 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 //install terser-webpack-plugin for production code (js and css) compression
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 //install clean-webpack-plugin for delete old code before packing
-const { CleanWWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 //set package.json browserlist to development mode, default is production
 process.env.NODE_ENV = 'development';
@@ -59,12 +59,41 @@ const commonJsLoader = [
         pack with multi-thread, start would take roughly 600ms
         communication between threads also take time, so only use for really huge job like babel
     */
-    {
+    {   
+        //install thread-loader
         loader: 'thread-loader',
+        // loaders with equal options will share worker pools
         options: {
-            //thread number
-            workers: 2
-        }
+            // the number of spawned workers, defaults to (number of cpus - 1) or
+            // fallback to 1 when require('os').cpus() is undefined
+            workers: 2,
+    
+            // number of jobs a worker processes in parallel
+            // defaults to 20
+            workerParallelJobs: 50,
+    
+            // additional node.js arguments
+            workerNodeArgs: ['--max-old-space-size=1024'],
+    
+            // Allow to respawn a dead worker pool
+            // respawning slows down the entire compilation
+            // and should be set to false for development
+            poolRespawn: false,
+    
+            // timeout for killing the worker processes when idle
+            // defaults to 500 (ms)
+            // can be set to Infinity for watching builds to keep workers alive
+            poolTimeout: 2000,
+    
+            // number of jobs the poll distributes to the workers
+            // defaults to 200
+            // decrease of less efficient but more fair distribution
+            poolParallelJobs: 50,
+    
+            // name of the pool
+            // can be used to create different pools with elsewise identical options
+            name: 'my-pool',
+        },
     },
     {
         //install babel-loader @babel/core @babel/preset-env
@@ -199,8 +228,14 @@ module.exports = {
                         //do not check imported node_modules 
                         exclude: /node_modules/,
                         //install typescript ts-loader
-                        use: [...commonJsLoader,'ts-loader']
-                        
+                        use: [...commonJsLoader,
+                            {
+                                loader: 'ts-loader', 
+                                options: {
+                                    happyPackMode: true
+                                }
+                            }
+                        ], 
                     },              
                     {
                         test: /\.(jpg|png|gif)$/,
@@ -233,7 +268,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWWebpackPlugin(),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin(
             {
                 //self defined title
@@ -406,7 +441,7 @@ module.exports = {
             js: need to modify code with module.hot
             html: don't support HMR, need to modify entry point if hot is true
         */    
-        hot: ture,
+        hot: true,
         //do not show server start log
         clientLogLevel: 'none',
         //do not show anything other than basic info

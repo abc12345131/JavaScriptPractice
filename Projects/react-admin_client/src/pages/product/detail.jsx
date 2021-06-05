@@ -70,14 +70,14 @@ export default class ProductDetail extends Component {
                         <span className='right'>
                             {
                                 imgs.map(img => (
-                                    <img key={img} src={Base_IMG_URL+img} alt="picture"/>
+                                    <img key={img} src={Base_IMG_URL+img} alt="Product"/>
                                 ))
                             }
                         </span>
                     </Item>
                     <Item>
                         <span className='left'>Product Detail:</span>
-                        <span dangerouslySetInnerHTML={{__html: detail}}></span>
+                        <span className='right' dangerouslySetInnerHTML={{__html: detail}}></span>
                     </Item>
                     <Item>
                         <span className='left'>Product Status:</span>

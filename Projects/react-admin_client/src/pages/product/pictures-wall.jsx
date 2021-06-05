@@ -74,13 +74,13 @@ export default class PicturesWall extends PureComponent {
     //show big picture of the file
     handlePreview = async file => {
         if (!file.url && !file.preview) {
-        file.preview = await getBase64(file.originFileObj);
+            file.preview = await getBase64(file.originFileObj);
         }
     
         this.setState({
-        previewImage: file.url || file.preview,
-        previewVisible: true,
-        previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+            previewImage: file.url || file.preview,
+            previewVisible: true,
+            previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
         })
     }
     
@@ -125,7 +125,7 @@ export default class PicturesWall extends PureComponent {
             <div>
                 <Upload
                     //accept location
-                    action='/manage/img/upload'
+                    action='/api/manage/img/upload'
                     //accept format
                     accept='image/*'
                     //uploaded file name

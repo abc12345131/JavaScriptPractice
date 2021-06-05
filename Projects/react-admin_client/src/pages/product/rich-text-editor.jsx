@@ -58,7 +58,7 @@ export default class RichTextEditor extends PureComponent {
         } else {
             this.state = {
                 editorState: EditorState.createEmpty(),
-                textarea: null
+                textarea: ''
             }
         }
     }

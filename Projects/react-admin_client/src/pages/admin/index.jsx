@@ -20,18 +20,39 @@ const { Footer, Sider, Content } = Layout
 
 class Admin extends Component {
 
-    routeNodes = this.props.user.role.menus.map((item) => {
-        return 
-    })
+
+
+    routeList = {
+        "/home": Home,
+        "/category": Category,
+        "/product": Product,
+        "/role": Role,
+        "/user": User,
+        "/charts/bar": Bar,
+        "/charts/line": Line,
+        "/charts/pie": Pie
+    }
+
+    getRouteNodes = (user) => {
+        return user.role.menus.map((item) => {
+            if (this.routeList[item]) {
+                return (<Route key={item} path={item} component={this.routeList[item]}/>)
+            } else {
+                return null
+            }
+        })
+    }
 
     render() {
         //without redux
         //const user = memoryUtils.user
         const user = this.props.user
-        console.log(":", user.role.menus)
         if(!user || !user._id) {
             return <Redirect to='/login'/>
+        } else {
+            this.routeNodes = this.getRouteNodes(user)
         }
+
         return (
             <Layout style={{minHeight:'100%'}}>
                 <Sider>
@@ -42,15 +63,7 @@ class Admin extends Component {
                     <Content style={{margin:20, backgroundColor:'#fff'}}>
                         <Switch>
                             <Redirect exact from='/' to="/home"/>
-                            {/* {this.routeNodes} */}
-                            <Route path="/home" component={Home}/>
-                            <Route path="/category" component={Category}/>
-                            <Route path="/product" component={Product}/>
-                            <Route path="/role" component={Role}/>
-                            <Route path="/user" component={User}/>
-                            <Route path="/charts/bar" component={Bar}/>
-                            <Route path="/charts/line" component={Line}/>
-                            <Route path="/charts/pie" component={Pie}/>
+                            {this.routeNodes}
                             <Route component={NotFound}/>
                         </Switch>
                     </Content>

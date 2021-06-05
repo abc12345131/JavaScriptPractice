@@ -42,6 +42,7 @@ export default class ProductAddUpdate extends Component {
         const result = await reqAddOrUpdateProduct(product)
         if (result.status===0) {
             message.success(`Product ${this.isUpdate ? 'updated':'added'} successfully!`)
+            this.props.history.goBack()
         } else {
             message.error(`Failed to ${this.isUpdate ? 'update':'add'}!`)
         }
@@ -129,7 +130,7 @@ export default class ProductAddUpdate extends Component {
         this.rteRef = React.createRef()
         const product = this.props.location.state
         //save add/update
-        this.isUpdate = !! product._id
+        this.isUpdate = !! product
         //if product is undefined set product {}
         this.product = product || {}
     }
