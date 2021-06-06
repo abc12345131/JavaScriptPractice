@@ -12,6 +12,11 @@ export default class RichTextEditor extends PureComponent {
         detail: PropTypes.string
     }
 
+    state = {
+        editorState: EditorState.createEmpty(),
+        textarea:''
+    }
+
     onEditorStateChange = (editorState) => {
         this.setState({
             editorState,
@@ -54,11 +59,6 @@ export default class RichTextEditor extends PureComponent {
                     editorState,
                     textarea: html
                 }
-            }
-        } else {
-            this.state = {
-                editorState: EditorState.createEmpty(),
-                textarea: ''
             }
         }
     }

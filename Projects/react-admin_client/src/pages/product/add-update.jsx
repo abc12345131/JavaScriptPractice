@@ -10,6 +10,10 @@ const {Item} = Form
 const {TextArea} = Input
 
 export default class ProductAddUpdate extends Component {
+
+    state = {
+        options: [],
+    }
     
     onFinish = async (values) => {
         const pw = this.pwRef.current
@@ -50,10 +54,6 @@ export default class ProductAddUpdate extends Component {
 
     onFinishFailed = (errorInfo) => {
         message.error('Submit failed!')
-    }
-    
-    state = {
-        options: [],
     }
 
     initOptions = async (categories) => {
@@ -179,7 +179,7 @@ export default class ProductAddUpdate extends Component {
         const title = (
             <span style={{fontSize:20, fontWeight:'bold'}}>
                 <Button type='link'>
-                    <ArrowLeftOutlined style={{fontSize:20}} onClick={() =>{console.log(this.props.history); return this.props.history.goBack()}}/>
+                    <ArrowLeftOutlined style={{fontSize:20}} onClick={() =>this.props.history.goBack()}/>
                 </Button>
                 {isUpdate ? 'Modify Product' : 'Add Product'}             
             </span>
