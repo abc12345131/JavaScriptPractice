@@ -11,8 +11,7 @@ export default class Register extends Component {
 
     onFinish = async (values) => {
         console.log(values)
-        const user = values
-        const result = await reqAddOrUpdateUser(user)
+        const result = await reqAddOrUpdateUser(values)
         if (result.status === 0) {
             message.success('Register succeed')
             this.props.history.replace('/login')

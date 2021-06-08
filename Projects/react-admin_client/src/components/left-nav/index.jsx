@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { Menu } from 'antd'
 import menuList from '../../config/menuConfig'
 import logo from '../../assets/images/logo.jpg'
-// without redux
+// use localstorage
 // import memoryUtils from '../../utils/memoryUtils'
+import cookieUtils from '../../utils/cookieUtils'
 import { setHeadTitle } from '../../redux/actions'
 import './index.less'
 
@@ -61,11 +62,11 @@ class LeftNav extends Component {
 
     hasAuth = (item) => {
         const {key,isPublic} = item
-        // without redux
+        // use localstorage
         // const username = memoryUtils.user.username
         // const menus = memoryUtils.user.role.menus
-        const username = this.props.user.username
-        const menus = this.props.user.role.menus
+        const username = cookieUtils.getUser().username
+        const menus = cookieUtils.getUser().role.menus
 
         if (username==='admin' || isPublic || menus.includes(key)) {
             return true
@@ -109,6 +110,6 @@ class LeftNav extends Component {
 }
 
 export default connect(
-    state => ({user: state.user}),
+    state => ({}),
     {setHeadTitle}
 ) (withRouter(LeftNav))

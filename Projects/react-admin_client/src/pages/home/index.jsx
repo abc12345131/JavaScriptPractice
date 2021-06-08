@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+//use redux
+//import { connect } from 'react-redux'
+import cookieUtils from '../../utils/cookieUtils'
 import { Card, Statistic, DatePicker, Timeline, message } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined, QuestionCircleOutlined, ReloadOutlined } from '@ant-design/icons'
 import moment from 'moment'
@@ -11,7 +13,7 @@ import './index.less'
 const dateFormat = 'YYYY/MM/DD'
 const {RangePicker} = DatePicker
 
-class Home extends Component {
+export default class Home extends Component {
 
     state = {
         task: {},
@@ -19,7 +21,10 @@ class Home extends Component {
     }
 
     update = () => {
-        const userId = this.props.user._id
+        //use redux
+        //const userId = this.props.user._id
+        
+        const userId = cookieUtils.getUser()._id
         this.initTask(userId)
     }
 
@@ -125,8 +130,8 @@ class Home extends Component {
         )
     }
 }
-
-export default connect(
-    state => ({user: state.user}),
-    {}
-) (Home)
+// use redux
+// export default connect(
+//     state => ({user: state.user}),
+//     {}
+// ) (Home)

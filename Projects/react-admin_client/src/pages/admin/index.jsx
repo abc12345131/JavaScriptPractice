@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import cookieUtils from '../../utils/cookieUtils'
+// use redux
+// import { connect } from 'react-redux'
 import { Layout } from 'antd'
-// without redux
+// use localstorage
 // import memoryUtils from '../../utils/memoryUtils'
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
@@ -18,7 +20,7 @@ import NotFound from '../../pages/not-found'
 
 const { Footer, Sider, Content } = Layout
 
-class Admin extends Component {
+export default class Admin extends Component {
 
     routeList = {
         "/home": Home,
@@ -42,9 +44,13 @@ class Admin extends Component {
     }
 
     render() {
-        //without redux
+        // use localstorage
         //const user = memoryUtils.user
-        const user = this.props.user
+
+        // use redux
+        // const user = this.props.user
+
+        const user = cookieUtils.getUser()
         if(!user || !user._id) {
             return <Redirect to='/login'/>
         } else {
@@ -71,8 +77,8 @@ class Admin extends Component {
         )
     }
 }
-
-export default connect(
-    state => ({user: state.user}),
-    {}
-) (Admin)
+// use redux
+// export default connect(
+//     state => ({user: state.user}),
+//     {}
+// ) (Admin)

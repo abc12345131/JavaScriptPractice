@@ -4,11 +4,13 @@ import { connect } from 'react-redux'
 import { Modal, Button } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { formatTime } from '../../utils/timeUtils'
-// without redex
+// use localstorage
 // import storageUtils from '../../utils/storageUtils'
 // import memoryUtils from '../../utils/memoryUtils'
 // import menuList from '../../config/menuConfig'
-import { logout } from '../../redux/actions'
+import cookieUtils from '../../utils/cookieUtils'
+// use redux
+//import { logout } from '../../redux/actions'
 import { reqWeather } from '../../api'
 import './index.less'
 
@@ -34,7 +36,7 @@ class Header extends Component {
         this.setState({ name, region, country, icon, text, temp_c, humidity})
     }
     
-    // without redux
+    // use localstorage
     // getTitle = () => {
     //     const path = this.props.location.pathname
     //     let title = null
@@ -57,13 +59,17 @@ class Header extends Component {
             title: 'Do you want to sign out?',
             icon: <ExclamationCircleOutlined />,
             onOk: () => {
-                // without redux
+                // use localstorage
                 // //remove user data
                 // storageUtils.removeUser()
                 // memoryUtils.user = {}
                 // //redirect to login
-                //this.props.history.replace('/login')
-                this.props.logout()
+
+
+                // use redux
+                //this.props.logout()
+                cookieUtils.removeUser()
+                this.props.history.replace('/login')
             }
           })
     }
@@ -81,9 +87,9 @@ class Header extends Component {
     render() {
 
         const { currentTime, name, region, country, temp_c, humidity, icon, text} = this.state
-        //without redux
+        //use localstorage
         //const username = memoryUtils.user.username
-        const username = this.props.user.username
+        const username = cookieUtils.getUser().username
 
         //without redux const title=this.getTitle()
         const title=this.props.headTitle
@@ -108,6 +114,6 @@ class Header extends Component {
 }
 
 export default connect(
-    state => ({headTitle: state.headTitle, user: state.user}),
-    {logout}
+    state => ({headTitle: state.headTitle}),
+    {}
 ) (withRouter(Header))

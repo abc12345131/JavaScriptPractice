@@ -1,38 +1,42 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// use redux
+// import { connect } from 'react-redux'
+//import { login } from '../../redux/actions'
+import cookieUtils from '../../utils/cookieUtils'
+import { reqLogin } from "../../api"
 import { Redirect } from 'react-router'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.less'
 import logo from '../../assets/images/logo.jpg'
-// without redux
-// import { reqLogin } from "../../api";
+// use localstorage
 // import memoryUtils from '../../utils/memoryUtils'
 // import storageUtils from '../../utils/storageUtils'
-import { login } from '../../redux/actions'
 
 
 const Item = Form.Item
 
-class Login extends Component {
+export default class Login extends Component {
 
     onFinish = async (values) => {
         const { username, password } = values
-        // without redux
-        // const result = await reqLogin(username, password)
-        // if (result.status === 0) {
-        //     message.success('Log in succeed!')
-        //     const user = result.data
-        //     //save user in memory                
-        //     memoryUtils.user = user
-        //     //save user in localstorage
-        //     storageUtils.saveUser(user)
-        //     this.props.history.replace('/home')
-        // } else {
-        //     message.error(result.message)
-        // }
+        
+        const result = await reqLogin(username, password)
+        if (result.status === 0) {
+            message.success('Log in succeed!')
+            //use localstorage   
+            //save user in memory 
+            //memoryUtils.user = user
+            //save user in localstorage
+            //storageUtils.saveUser(user)
+            //redirect to home
+            this.props.history.replace('/home')
+        } else {
+            message.error(result.message)
+        }
 
-        this.props.login(username, password)
+        // use redux
+        //this.props.login(username, password)
     }
 
     onFinishFailed = (errorInfo) => {
@@ -42,9 +46,13 @@ class Login extends Component {
     render() {
 
         //if user already log in, redirect to admin
-        // without redux
+        // use localstorage
         // const user = memoryUtils.user
-        const user = this.props.user
+
+        // use redux
+        //const user = this.props.user
+
+        const user = cookieUtils.getUser()
         if(user && user._id) {
             return <Redirect to='/home' />
         }
@@ -100,8 +108,8 @@ class Login extends Component {
         )
     }
 }
-
-export default connect(
-    state => ({user: state.user}),
-    {login}
-) (Login)
+// use redux
+// export default connect(
+//     state => ({user: state.user}),
+//     {login}
+// ) (Login)

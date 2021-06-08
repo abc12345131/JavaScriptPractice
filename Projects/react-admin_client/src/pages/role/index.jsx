@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+//use redux
+//import { connect } from 'react-redux'
+//import { logout } from '../../redux/actions'
+import cookieUtils from '../../utils/cookieUtils'
 import { Card, Button, Table, Modal, message } from 'antd'
 import { PAGE_SIZE } from '../../utils/constants'
 import { reqRoles, reqAddRole, reqUpdateRole } from '../../api'
-//without redux
+//use localstorage
 //import memoryUtils from '../../utils/memoryUtils'
 //import storageUtils from '../../utils/storageUtils'
-import { logout } from '../../redux/actions'
+
 import {formatTime} from '../../utils/timeUtils'
 import AddForm from './add-form'
 import UpdateForm from './update-form'
 
-class Role extends Component {
+export default class Role extends Component {
     
     state = {
         roles: [],
@@ -99,18 +102,26 @@ class Role extends Component {
             const role=this.state.role
             role.name=values.roleName
             role.menus=uf.getMenus()
-            // without redux
+            //use localstorage
             // role.auth_name=memoryUtils.user.username
-            role.auth_name=this.props.user.username
-            role.auth_time=Date.now()
+
+            //use redux
+            //const user = this.props.user
+            const user = cookieUtils.getUser()
+            role.auth_name = user.username
+            role.auth_time = Date.now()
             const result = await reqUpdateRole(role)
             if (result.status===0) {
-                if (role._id===this.props.user.role_id) {
-                    // without redux
+                if (role._id===user.role_id) {
+                    //use localstorage
                     // memoryUtils.user={}
                     // storageUtils.removeUser()
                     // this.props.history.replace('/login')
-                    this.props.logout()
+
+                    //use redux
+                    //this.props.logout()
+
+                    cookieUtils.removeUser()
                     message.success('Permission modified, please log in again!')
                 } else {
                     message.success('Role updated successfully!')
@@ -192,8 +203,8 @@ class Role extends Component {
         )
     }
 }
-
-export default connect(
-    state => ({user: state.user}),
-    {logout}
-) (Role)
+// use redux
+// export default connect(
+//     state => ({user: state.user}),
+//     {logout}
+// ) (Role)
