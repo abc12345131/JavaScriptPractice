@@ -1,6 +1,7 @@
 import { SET_HEAD_TITLE, RECEIVE_USER, SHOW_ERROR_MSG, RESET_USER } from './action-types'
 import { reqLogin } from '../api'
-import storageUtils from '../utils/storageUtils'
+//import storageUtils from '../utils/storageUtils'
+import cookieUtils from '../utils/cookieUtils'
 
 export const setHeadTitle = (headTitle) => ({
     type: SET_HEAD_TITLE,
@@ -18,7 +19,8 @@ export const showErrorMsg = (errorMsg) => ({
 })
 
 export const logout = () => {
-    storageUtils.removeUser()
+    //storageUtils.removeUser()
+    cookieUtils.removeUser()
     return {type: RESET_USER}
 }
 
@@ -26,9 +28,11 @@ export const login = (username, password) => {
     return async dispatch => {
         const result = await reqLogin(username, password)
         if (result.status === 0) {
-            const user = result.data
+            //const user = result.data
             //save user locally
-            storageUtils.saveUser(user)
+            //storageUtils.saveUser(user)
+            const user = cookieUtils.getUser()
+            console.log('cookie', user)
             dispatch(receiveUser(user))
         } else {
             const errorMsg = result.msg

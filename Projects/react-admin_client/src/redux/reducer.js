@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux'
-import storageUtils from '../utils/storageUtils'
+//import storageUtils from '../utils/storageUtils'
+import cookieUtils from '../utils/cookieUtils'
 import { SET_HEAD_TITLE, RECEIVE_USER, SHOW_ERROR_MSG, RESET_USER } from './action-types'
 
 const initialState = {
     headTitle: '',
-    user: storageUtils.getUser()
+    //user: storageUtils.getUser()
+    user: cookieUtils.getUser()
 }
 
 function headTitle (state = initialState.headTitle, action) {

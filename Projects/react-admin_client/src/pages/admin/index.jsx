@@ -20,8 +20,6 @@ const { Footer, Sider, Content } = Layout
 
 class Admin extends Component {
 
-
-
     routeList = {
         "/home": Home,
         "/category": Category,

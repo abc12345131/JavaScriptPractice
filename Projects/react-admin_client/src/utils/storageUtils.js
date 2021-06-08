@@ -1,7 +1,6 @@
-
 import store from 'store'
+import { USER_KEY } from './constants'
 
-const USER_KEY = 'user_key'
 const storageUtils = {
     saveUser(user) {
         //localStorage.setItem(USER_KEY, JSON.stringify(user))
