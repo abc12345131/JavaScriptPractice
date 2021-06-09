@@ -7,7 +7,7 @@ import { ArrowUpOutlined, ArrowDownOutlined, QuestionCircleOutlined, ReloadOutli
 import moment from 'moment'
 import LineChart from './line-chart'
 import BarChart from './bar-chart'
-import { reqTask } from '../../api'
+import { reqWork } from '../../api'
 import './index.less'
 
 const dateFormat = 'YYYY/MM/DD'
@@ -16,7 +16,7 @@ const {RangePicker} = DatePicker
 export default class Home extends Component {
 
     state = {
-        task: {},
+        work: {},
         isVisited: true
     }
 
@@ -29,19 +29,19 @@ export default class Home extends Component {
     }
 
     initTask = async (userId) => {
-        const result = await reqTask(userId)
+        const result = await reqWork(userId)
         if (result.status===0) {            
-            const task = result.data
-            this.taskNodes = this.getTaskNodes(task)
-            this.setState({task})
+            const work = result.data
+            this.taskNodes = this.getTaskNodes(work)
+            this.setState({work})
         } else {
             message.error('Get tasks failed!')
         }
     }
 
-    getTaskNodes = (task) => {
-        if (task.tasks) {
-            return task.tasks.map((item) =>{
+    getTaskNodes = (work) => {
+        if (work) {
+            return work.tasks.map((item) =>{
                 if (item.status===0) {
                     return (<Timeline.Item key={item.task} color="green">{item.task}</Timeline.Item>)
                 } else if (item.status===1) {

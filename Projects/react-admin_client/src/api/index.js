@@ -46,5 +46,5 @@ export const reqDeleteUser = (userId) => ajax(Base + '/manage/user/delete', {use
 //add or update User
 export const reqAddOrUpdateUser = (user) => ajax(Base + '/manage/user/'+(user._id ? 'update': 'add'), user, 'POST')
 
-//get current user's task
-export const reqTask = (userId) => ajax(Base + '/manage/task/list', {userId}, 'POST')
+//get current user's work
+export const reqWork = (userId) => ajax(Base + '/manage/work/list', {userId}, 'POST')

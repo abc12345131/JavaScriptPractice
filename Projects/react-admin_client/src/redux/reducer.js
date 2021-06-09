@@ -1,6 +1,11 @@
-import {combineReducers} from 'redux'
+//import {combineReducers} from 'redux'
 //import storageUtils from '../utils/storageUtils'
-import { SET_HEAD_TITLE, RECEIVE_USER, SHOW_ERROR_MSG, RESET_USER } from './action-types'
+import { 
+    SET_HEAD_TITLE, 
+    //RECEIVE_USER, 
+    //SHOW_ERROR_MSG, 
+    //RESET_USER 
+} from './action-types'
 
 const initialState = {
     headTitle: '',

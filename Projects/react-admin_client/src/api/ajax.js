@@ -22,6 +22,8 @@ export default function ajax (url, data={}, type='GET' ){
             case 'DELETE': 
                 promise = axios.delete(url,data)
                 break
+            default:
+                console.log('Request type is wrong!' )
         }
 
         promise.then(response => {
