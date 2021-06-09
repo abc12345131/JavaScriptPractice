@@ -1,18 +1,27 @@
 import axios from 'axios'
 import { message } from 'antd'
 
+
+//axios.defaults.withCredentials = true
+
 export default function ajax (url, data={}, type='GET' ){
     //collecting error within the function instead of rejecting the error
     return new Promise((resolve, reject) => {
         let promise = null
 
-        if(type==='GET') {
-            promise = axios.get(url,{
-                params: data
-            })
-        }
-        else {
-            promise = axios.post(url,data)
+        switch (type) {
+            case 'GET':
+                promise = axios.get(url,{params: data})
+                break
+            case 'POST': 
+                promise = axios.post(url,data)
+                break
+            case 'PUT': 
+                promise = axios.put(url,data)
+                break
+            case 'DELETE': 
+                promise = axios.delete(url,data)
+                break
         }
 
         promise.then(response => {
