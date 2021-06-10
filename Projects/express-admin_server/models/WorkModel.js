@@ -6,6 +6,6 @@ const workSchema = new mongoose.Schema({
   tasks: {type: Array, default: []},
 })
 
-const WorkModel = mongoose.model('work', workSchema)
+const WorkModel = mongoose.model('work', workSchema, 'work')
 
 module.exports = WorkModel
