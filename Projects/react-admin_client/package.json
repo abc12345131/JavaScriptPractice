@@ -18,6 +18,7 @@
     "draftjs-to-html": "^0.9.1",
     "echarts": "^5.1.1",
     "echarts-for-react": "^3.0.1",
+    "http-proxy-middleware": "^2.0.0",
     "jsonp": "^0.2.1",
     "less": "^4.1.1",
     "less-loader": "7.3.0",
@@ -61,7 +62,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
   "author": "abc12345131",
   "license": "ISC"
 }

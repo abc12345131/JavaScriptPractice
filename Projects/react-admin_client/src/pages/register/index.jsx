@@ -10,13 +10,12 @@ const {Option} = Select
 export default class Register extends Component {
 
     onFinish = async (values) => {
-        console.log(values)
         const result = await reqAddOrUpdateUser(values)
         if (result.status === 0) {
             message.success('Register succeed')
             this.props.history.replace('/login')
         } else {
-            message.error(result.message)
+            message.error(result.msg)
         }
     }
     
