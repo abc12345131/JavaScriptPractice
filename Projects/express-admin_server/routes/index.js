@@ -1,11 +1,8 @@
-var express = require('express')
+const express = require('express')
 const md5 = require('blueimp-md5')
 
-const UserModel = require('../models/UserModel')
-const CategoryModel = require('../models/CategoryModel')
-const ProductModel = require('../models/ProductModel')
-const RoleModel = require('../models/RoleModel')
-const WorkModel = require('../models/WorkModel')
+
+
 
 var router = express.Router()
 
