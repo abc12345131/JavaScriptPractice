@@ -6,7 +6,7 @@ import Admin from './pages/admin'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/'>
       <Switch>
         <Route path='/login' component={Login}></Route>
         <Route path='/register' component={Register}></Route>
