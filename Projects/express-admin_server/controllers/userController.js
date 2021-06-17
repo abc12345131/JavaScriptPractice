@@ -38,16 +38,20 @@ exports.readUser = (req, res, next) => {
                             user._doc.role = role
                             // create resonse cookie with role information
                             res.cookie('user_key', user, { expires: new Date(Date.now() + 3600000) })
+                            //use session
+                            //req.session.user = user
                             res.send({status: 0})
                         })
                 } else {
                     user._doc.role = {menus: []}
                     // create resonse cookie with role information
                     res.cookie('user_key', user, { expires: new Date(Date.now() + 3600000) })
+                    //use session
+                    //req.session.user = user
                     res.send({status: 0})
                 }  
             } else {
-                res.send({status: 1, msg: 'Username or passwoed is incorrect!'})
+                res.send({status: 1, msg: 'Username or password is incorrect!'})
             }
         })
         .catch(error => {
@@ -72,7 +76,7 @@ exports.updateUser = (req, res, next) => {
 
 //delete user
 exports.deleteUser = (req, res, next) => {
-    const {userId} = req.body
+    const {userId} = req.query
     UserModel.deleteOne({_id: userId})
         .then((doc) => {
             res.send({status: 0})

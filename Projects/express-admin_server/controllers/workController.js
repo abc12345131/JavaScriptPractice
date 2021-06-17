@@ -3,7 +3,7 @@ const WorkModel = require('../models/WorkModel')
 
 //get work
 exports.readWork = (req, res, next) => {
-    const {userId} = req.body
+    const {userId} = req.query
     WorkModel.findOne({user_id: userId})
         .then(work => {
             res.send({status: 0, data: work})
