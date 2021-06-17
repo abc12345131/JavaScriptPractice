@@ -3,7 +3,7 @@ import ajax from './ajax';
 const Base = '/api'
 
 //login
-export const reqLogin = (username, password) => ajax(Base + '/login', {username, password}, 'POST')
+export const reqLogin = (username, password) => ajax(Base + '/user', {username, password})
 
 //weather api
 export const reqWeather = (city) => {
@@ -12,39 +12,39 @@ export const reqWeather = (city) => {
 
 
 //get categories
-export const reqCategories = (parentId) => ajax(Base + '/manage/category/list', {parentId})
+export const reqCategories = (parentId) => ajax(Base + '/categories', {parentId})
 //add category
-export const reqAddCategory = (categoryName, parentId) => ajax(Base + '/manage/category/add', {categoryName, parentId}, 'POST')
+export const reqAddCategory = (categoryName, parentId) => ajax(Base + '/category', {categoryName, parentId}, 'POST')
 //update category
-export const reqUpdateCategory = (categoryId, categoryName) => ajax(Base + '/manage/category/update', {categoryId, categoryName}, 'POST')
+export const reqUpdateCategory = (categoryId, categoryName) => ajax(Base + '/category', {categoryId, categoryName}, 'PUT')
 //identify category
-export const reqIdentifyCategory = (categoryId) => ajax(Base + '/manage/category/info', {categoryId})
+export const reqIdentifyCategory = (categoryId) => ajax(Base + '/category', {categoryId})
 
 //get products(by page)
-export const reqProducts = (pageNum, pageSize) => ajax(Base + '/manage/product/list', {pageNum, pageSize})
+export const reqProducts = (pageNum, pageSize) => ajax(Base + '/products', {pageNum, pageSize})
 //search products by name/description
-export const reqSearchProducts = (pageNum, pageSize, searchType, keywords ) => ajax(Base + '/manage/product/search', {pageNum, pageSize, [searchType]:keywords})
+export const reqSearchProducts = (pageNum, pageSize, searchType, keywords ) => ajax(Base + '/productsearch', {pageNum, pageSize, [searchType]:keywords})
 //update product status (available/unavailable)
-export const reqUpdateStatus = (productId, status) => ajax(Base + '/manage/product/updateStatus', {productId, status}, 'POST')
+export const reqUpdateStatus = (productId, status) => ajax(Base + '/productstatus', {productId, status}, 'PUT')
 //add product or update product
-export const reqAddOrUpdateProduct = (product) => ajax(Base + '/manage/product/'+(product._id ? 'update': 'add'), product, 'POST')
+export const reqAddOrUpdateProduct = (product) => ajax(Base + '/product', product, (product._id ? 'PUT': 'POST'))
 
 //delete image
-export const reqDeleteImg = (name) => ajax(Base + '/manage/img/delete', {name}, 'POST')
+export const reqDeleteImg = (name) => ajax(Base + '/img', {name}, 'DELETE')
 
 //get roles
-export const reqRoles = () => ajax(Base + '/manage/role/list')
+export const reqRoles = () => ajax(Base + '/roles')
 //add role
-export const reqAddRole = (roleName) => ajax(Base + '/manage/role/add', {roleName}, 'POST')
+export const reqAddRole = (roleName) => ajax(Base + '/role', {roleName}, 'POST')
 //update role
-export const reqUpdateRole = (role) => ajax(Base + '/manage/role/update', role, 'POST')
+export const reqUpdateRole = (role) => ajax(Base + '/role', role, 'PUT')
 
 //get Users
-export const reqUsers = () => ajax(Base + '/manage/user/list')
+export const reqUsers = () => ajax(Base + '/users')
 //delete User
-export const reqDeleteUser = (userId) => ajax(Base + '/manage/user/delete', {userId}, 'POST')
+export const reqDeleteUser = (userId) => ajax(Base + '/user', {userId}, 'DELETE')
 //add or update User
-export const reqAddOrUpdateUser = (user) => ajax(Base + '/manage/user/'+(user._id ? 'update': 'add'), user, 'POST')
+export const reqAddOrUpdateUser = (user) => ajax(Base + '/user', user, (user._id ? 'PUT': 'POST'))
 
 //get current user's work
-export const reqWork = (userId) => ajax(Base + '/manage/work/list', {userId}, 'POST')
+export const reqWork = (userId) => ajax(Base + '/work', {userId})
