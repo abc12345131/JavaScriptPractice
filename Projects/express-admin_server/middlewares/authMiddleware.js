@@ -1,11 +1,14 @@
 const protect = (req, res, next) => {
-    
-    const user = req.cookies.get('user_key')
+    //use cookie
+    const user = req.cookies.user_key
+    //use session
+    //const {user} = req.session
+
     if(!user) {
         return res.status(401).json({status: 'fail', message: 'Unauthorized'})
     }
-    req.user = user
+
     next()
 }
 
-module.export = protect 
+module.exports = protect 
