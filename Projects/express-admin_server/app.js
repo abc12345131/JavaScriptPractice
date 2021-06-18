@@ -9,7 +9,15 @@ const mongoose = require('mongoose')
 // const redis = require('redis')
 // const session = require('express-session')
 const indexRouter = require('./routes/index');
-const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, REDIS_IP, REDIS_PORT, SESSION_SECRET } = require('./config/config')
+const { 
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_IP,
+  MONGO_PORT,
+  //REDIS_IP,
+  //REDIS_PORT,
+  //SESSION_SECRET
+} = require('./config/config')
 
 
 const app = express();
