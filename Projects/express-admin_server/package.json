@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www.js",
-    "dev": "cross-env NODE_ENV=development MONGO_USER=admin MONGO_PASSWORD=admin SESSION_SECRET=secret nodemon -L ./bin/www.js"
+    "dev": "nodemon -L ./bin/www.js"
   },
   "dependencies": {
     "blueimp-md5": "^2.18.0",
@@ -21,7 +21,6 @@
     "redis": "^3.1.2"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "nodemon": "^2.0.7"
   },
   "author": "abc12345131",
