@@ -42,8 +42,8 @@ app.use(express.json());
 
 //mongoose
 //dev url
-//const mongoUrl = 'mongodb://localhost:27017/react-app'
-const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
+const mongoUrl = 'mongodb://localhost:27017/react-app'
+//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
