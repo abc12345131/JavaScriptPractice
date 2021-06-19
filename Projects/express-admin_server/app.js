@@ -42,8 +42,8 @@ app.use(express.json());
 
 //mongoose
 //dev url
-const mongoUrl = 'mongodb://localhost:27017/react-app'
-//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
+//const mongoUrl = 'mongodb://localhost:27017/react-app'
+const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -93,6 +93,21 @@ connectWithRetry()
 
 //api router
 app.use('/api', indexRouter);
+
+// if frontend and backend project deployed together, incase of frontend router not working
+// app.use((req, res) => {
+//   fs.readFile(__dirname + '/public/index.html', (err, data)=>{
+//     if(err){
+//       console.log(err)
+//       res.send('Server error')
+//     } else {
+//       res.writeHead(200, {
+//         'Content-Type': 'text/html; charset=utf-8',
+//       });
+//       res.send(data)
+//     }
+//   })
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
