@@ -1,8 +1,18 @@
 .register {
     width: 100%;
     height: 100%;
-    background-image: url('../../assets/images/background.jpeg');
-    background-size: 100% 100%;
+    .bgvid { 
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 2160px;
+        min-height: 1440px;
+        z-index: -100;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+    }
     .register-header {
         display: flex;
         align-items: center;
@@ -22,9 +32,27 @@
     .register-content {
         height: 450px;
         width: 500px;
-        background-color: white;
-        margin: 100px auto;
+        background-color: rgb(211, 252, 255);
+        margin: 50px auto;
         padding: 20px 40px;
+        .error-msg {
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            height: 30px;
+            width: 100%;
+            background-color: red;
+            color:white;
+            font-size: 16px;
+            transform: translateY(-30px);
+            transition: all 0.3s;
+            &.show{
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
         h2 {
             font-size: 30px;
             text-align: center;

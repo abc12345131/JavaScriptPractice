@@ -9,6 +9,8 @@ import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.less'
 import logo from '../../assets/images/logo.jpg'
+import backgroundimage from '../../assets/images/background1.jpg' 
+import backgroundvideo from '../../assets/videos/waterfall-in-forest.mp4'
 // use localstorage
 // import memoryUtils from '../../utils/memoryUtils'
 // import storageUtils from '../../utils/storageUtils'
@@ -17,6 +19,10 @@ import logo from '../../assets/images/logo.jpg'
 const Item = Form.Item
 
 export default class Login extends Component {
+
+    state = {
+        errorMsg: ''
+    }
 
     onFinish = async (values) => {
         const { username, password } = values
@@ -32,7 +38,7 @@ export default class Login extends Component {
             //redirect to home
             this.props.history.replace('/home')
         } else {
-            message.error(result.message)
+            this.setState({errorMsg: result.msg})
         }
 
         // use redux
@@ -56,11 +62,14 @@ export default class Login extends Component {
         if(user && user._id) {
             return <Redirect to='/home' />
         }
-
-        const errorMsg = user.errorMsg
+        
+        const {errorMsg} = this.state
 
         return (
             <div className="login">
+                <video autoPlay loop muted poster={backgroundimage} className="bgvid">
+                    <source src={backgroundvideo} type="video/mp4"/>
+                </video>
                 <header className="login-header">
                     <img src={logo} alt="logo"/>
                     <h1>React Backstage Management System</h1>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Form, Select, Input, Button, message } from 'antd'
 import './index.less'
 import logo from '../../assets/images/logo.jpg'
+import backgroundimage from '../../assets/images/background2.jpg' 
+import backgroundvideo from '../../assets/videos/stars-in-space.mp4'
 import { reqAddOrUpdateUser } from "../../api";
 
 const {Item} = Form
@@ -9,13 +11,17 @@ const {Option} = Select
 
 export default class Register extends Component {
 
+    state = {
+        errorMsg: ''
+    }
+
     onFinish = async (values) => {
         const result = await reqAddOrUpdateUser(values)
         if (result.status === 0) {
             message.success('Register succeed')
             this.props.history.replace('/login')
         } else {
-            message.error(result.msg)
+            this.setState({errorMsg: result.msg})
         }
     }
     
@@ -69,13 +75,19 @@ export default class Register extends Component {
             </Item>
         )
 
+        const {errorMsg} = this.state
+
         return (
             <div className="register">
+                <video autoPlay loop muted poster={backgroundimage} className="bgvid">
+                    <source src={backgroundvideo} type="video/mp4"/>
+                </video>
                 <header className="register-header">
                     <img src={logo} alt="logo"/>
                     <h1>React Backstage Management System</h1>
                 </header>
                 <section className="register-content">
+                    <div className={errorMsg ? "error-msg show": "error-msg"}>{errorMsg}</div>
                     <h2>User Register</h2>
                     <Form
                         initialValues={{prefix:'1'}}
@@ -102,7 +114,7 @@ export default class Register extends Component {
                             label="Password"
                             rules={[
                                 {required: true, message: 'Password is required' },
-                                {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/, message: 'Password must include 8 to 16 digits and at least two of the following character types: letters, numbers and special characters.' },
+                                {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/, message: 'Password should include 8 to 16 digits and at least two of the following character types: letters, numbers and special characters.' },
                             ]}
                             hasFeedback
                         >
@@ -124,7 +136,7 @@ export default class Register extends Component {
                                         return Promise.resolve();
                                     }
 
-                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                    return Promise.reject(new Error('Passwords do not match!'));
                                     },
                                 }),
                             ]}

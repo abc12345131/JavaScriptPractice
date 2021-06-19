@@ -29,8 +29,8 @@ export default function headTitle (state = initialState.headTitle, action) {
 //             const errorMsg = action.data
 //             //do not modify origin state!
 //             return {...state, errorMsg}
-//         // case RESET_USER:
-//         //     return {}
+//         case RESET_USER:
+//             return {}
 //         default:
 //             return state
 //     }
