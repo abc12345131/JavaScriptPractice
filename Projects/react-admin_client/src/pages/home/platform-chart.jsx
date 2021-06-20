@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Chart, Line, Axis, Point, Tooltip } from 'bizcharts'
 
-export default class LineChart extends PureComponent {
+export default class PlatformChart extends PureComponent {
 
     render() {
 
@@ -191,7 +191,7 @@ export default class LineChart extends PureComponent {
         const scale = {
             visit: { 
                 min: 0,
-                alias:'visitors'
+                alias:'Users'
             },
 
         }

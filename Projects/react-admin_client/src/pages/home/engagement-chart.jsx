@@ -1,58 +1,58 @@
 import React, { PureComponent } from 'react'
 import { Chart, Interval, Tooltip } from 'bizcharts'
 
-export default class BarChart extends PureComponent {
+export default class EngagementChart extends PureComponent {
 
     render() {
 
         const data = [
             {
             year: "1月",
-            sales: 38
+            engagements: 38
             },
             {
             year: "2月",
-            sales: 52
+            engagements: 52
             },
             {
             year: "3月",
-            sales: 61
+            engagements: 61
             },
             {
             year: "4月",
-            sales: 145
+            engagements: 145
             },
             {
             year: "5月",
-            sales: 48
+            engagements: 48
             },
             {
             year: "6月",
-            sales: 38
+            engagements: 38
             },
             {
             year: "7月",
-            sales: 28
+            engagements: 28
             },
             {
             year: "8月",
-            sales: 38
+            engagements: 38
             },
             {
             year: "9月",
-            sales: 68
+            engagements: 68
             },
             {
             year: "10月",
-            sales: 38
+            engagements: 38
             },
             {
             year: "11月",
-            sales: 58
+            engagements: 58
             },
             {
             year: "12月",
-            sales: 38
+            engagements: 38
             }
         ]
 
@@ -64,7 +64,7 @@ export default class BarChart extends PureComponent {
                     interactions={['active-region']}
                     padding={[30, 30, 30, 50]}
                 >
-                    <Interval position="year*sales" />
+                    <Interval position="year*engagements" />
                     <Tooltip shared />
                 </Chart>
         )
