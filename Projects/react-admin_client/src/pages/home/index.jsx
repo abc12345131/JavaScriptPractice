@@ -5,8 +5,9 @@ import cookieUtils from '../../utils/cookieUtils'
 import { Card, Statistic, DatePicker, Timeline, message } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined, QuestionCircleOutlined, ReloadOutlined } from '@ant-design/icons'
 import moment from 'moment'
-import LineChart from './line-chart'
-import BarChart from './bar-chart'
+import PlatformChart from './platform-chart'
+import ViewChart from './view-chart'
+import EngagementChart from './engagement-chart'
 import { reqWork } from '../../api'
 import './index.less'
 
@@ -69,16 +70,16 @@ export default class Home extends Component {
                 <Card className="home-top">
                     <Card
                         className="home-card"
-                        title="Total clicks"
+                        title="Total Views"
                         style={{width: '15%'}}
                         headStyle={{color: 'rgba(0,0,0,.45)'}}
                     >
                         <div className="help-tip">
                             <QuestionCircleOutlined />
-                            <p>This is the total clicks since the website is launched.</p>
+                            <p>This is the total page views since the website is launched.</p>
                         </div>
                         <Statistic
-                            value={1128163}
+                            value={2163}
                             style={{fontWeight: 'bolder'}}
                         />
                         <Statistic
@@ -94,14 +95,14 @@ export default class Home extends Component {
                             suffix={<div>%<ArrowDownOutlined style={{color: '#3f8600', marginLeft: 10}}/></div>}
                         />
                     </Card>
-                    <LineChart className="home-chart"/>
+                    <PlatformChart className="home-chart"/>
                 </Card>
                 <Card
                     className="home-bottom"
                     title={<div className="home-menu">
                         <span className={isVisited ? "home-menu-active home-menu-visited" : 'home-menu-visited'}
-                            onClick={this.handleChange(true)}>Visit</span>
-                        <span className={isVisited ? "" : 'home-menu-active'} onClick={this.handleChange(false)}>Click</span>
+                            onClick={this.handleChange(true)}>View</span>
+                        <span className={isVisited ? "" : 'home-menu-active'} onClick={this.handleChange(false)}>Engagement</span>
                     </div>}
                     extra={<RangePicker
                         defaultValue={[moment('2021/06/01', dateFormat), moment('2021/07/01', dateFormat)]}
@@ -110,10 +111,10 @@ export default class Home extends Component {
                 >
                     <Card
                         className="home-table-left"
-                        title={isVisited ? 'Visit Trend' : 'Click Trend'}
+                        title={isVisited ? 'View Trend' : 'Engagement Trend'}
                         bodyStyle={{padding: 0, height: 381}}
                     >
-                        <BarChart />
+                        {isVisited ? <ViewChart />: <EngagementChart />}
                     </Card>
 
                     <Card

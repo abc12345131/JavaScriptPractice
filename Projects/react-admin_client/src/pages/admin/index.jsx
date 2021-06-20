@@ -13,9 +13,9 @@ import Category from '../../pages/category'
 import Product from '../../pages/product'
 import Role from '../../pages/role'
 import User from '../../pages/user'
-import Bar from '../../pages/charts/bar'
-import Line from '../../pages/charts/line'
-import Pie from '../../pages/charts/pie'
+import Engagement from '../../pages/charts/engagement'
+import Acquisition from '../../pages/charts/acquisition'
+import Demographics from '../charts/demographics'
 import NotFound from '../../pages/not-found'
 
 const { Footer, Sider, Content } = Layout
@@ -28,9 +28,9 @@ export default class Admin extends Component {
         "/product": Product,
         "/role": Role,
         "/user": User,
-        "/charts/bar": Bar,
-        "/charts/line": Line,
-        "/charts/pie": Pie
+        "/charts/engagement": Engagement,
+        "/charts/acquisition": Acquisition,
+        "/charts/demographics": Demographics
     }
 
     getRouteNodes = (user) => {

@@ -114,6 +114,6 @@ class Header extends Component {
 }
 
 export default connect(
-    state => ({headTitle: state.headTitle}),
+    state => ({headTitle: state}),
     {}
 ) (withRouter(Header))
