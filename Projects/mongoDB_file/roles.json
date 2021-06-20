@@ -3,7 +3,7 @@
     "$oid": "5e0d7292bd72914ee8e714d4"
   },
   "name": "Manager",
-  "auth_time": 1622777465782,
+  "auth_time": 1624197644021,
   "auth_name": "admin",
   "create_time": 1554639521749,
   "menus": [
@@ -11,10 +11,10 @@
     "/commodity",
     "/category",
     "/product",
-    "/charts",
-    "/charts/bar",
-    "/charts/line",
-    "/charts/pie"
+    "/charts/acquisition",
+    "/charts/demographics",
+    "/charts/engagement",
+    "/charts"
   ]
 },{
   "_id": {
@@ -27,24 +27,24 @@
   "name": "HR",
   "create_time": 1578588691768,
   "auth_name": "admin",
-  "auth_time": 1622777474111
+  "auth_time": 1624197290740
 },{
   "_id": {
     "$oid": "60b37bc7f583ad832848e4d9"
   },
   "menus": [
     "/home",
-    "/charts",
-    "/charts/bar",
-    "/charts/line",
-    "/charts/pie",
-    "/product"
+    "/product",
+    "/charts/acquisition",
+    "/charts/demographics",
+    "/charts/engagement",
+    "/charts"
   ],
   "name": "Sales",
   "create_time": 1622375367189,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622777516878
+  "auth_time": 1624197677318
 },{
   "_id": {
     "$oid": "60b37d0cf583ad832848e4da"
@@ -56,53 +56,53 @@
     "/product",
     "/user",
     "/role",
+    "/charts/acquisition",
+    "/charts/demographics",
+    "/charts/engagement",
     "/charts",
-    "/charts/bar",
-    "/charts/line",
-    "/charts/pie",
     "all"
   ],
   "name": "Director and above",
   "create_time": 1622375692448,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622777547089
+  "auth_time": 1624197707657
 },{
   "_id": {
     "$oid": "60b37de0f583ad832848e4db"
   },
   "menus": [
     "/home",
-    "/charts",
-    "/charts/bar",
-    "/charts/line",
-    "/charts/pie"
+    "/charts/acquisition",
+    "/charts/demographics",
+    "/charts/engagement",
+    "/charts"
   ],
   "name": "Supervisor",
   "create_time": 1622375904211,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622777556665
+  "auth_time": 1624197717629
 },{
   "_id": {
     "$oid": "60b806621e48781b64ad3c94"
   },
   "menus": [
-    "all",
     "/home",
     "/commodity",
     "/user",
     "/role",
-    "/charts",
     "/category",
     "/product",
-    "/charts/bar",
-    "/charts/line",
-    "/charts/pie"
+    "/charts/acquisition",
+    "/charts/demographics",
+    "/charts/engagement",
+    "/charts",
+    "all"
   ],
   "name": "admin",
   "create_time": 1622672994452,
   "__v": 0,
   "auth_name": "admin",
-  "auth_time": 1622777564109
+  "auth_time": 1624197765402
 }]

@@ -51,19 +51,19 @@ const menuList = [
         icon: <AreaChartOutlined style={{fontSize: 20}}/>,
         children: [
             {
-                title: 'Bar',
-                key: '/charts/bar',
-                icon: <BarChartOutlined style={{fontSize: 20}}/>,
-            },
-            {
-                title: 'Line',
-                key: '/charts/line',
+                title: 'Acquisition',
+                key: '/charts/acquisition',
                 icon: <LineChartOutlined style={{fontSize: 20}}/>,
             },
             {
-                title: 'Pie',
-                key: '/charts/pie',
+                title: 'Demographics',
+                key: '/charts/demographics',
                 icon: <PieChartOutlined style={{fontSize: 20}}/>,
+            },
+            {
+                title: 'Engagement',
+                key: '/charts/engagement',
+                icon: <BarChartOutlined style={{fontSize: 20}}/>,
             },
         ]
     }
