@@ -19,24 +19,25 @@ const commonCssLoader = [
         //install postcss-loader postcss-preset-env
         loader: 'postcss-loader',
         options: {
-            ident: 'postcss',
-            plugins: () => [
-                /*
-                    set package.json 
-                    "browserlist": {
-                        "development": [
-                            "last 1 chrome version",
-                            "last 1 firefox version",
-                            "last 1 safari version"],
-                        "production": [
-                            ">0.2%",
-                            "not dead",
-                            "not op_mini all"]
-                    }
-                */    
-                //help plugin find setting of browserlist in package.json
-                require('postcss-preset-env')()
-            ]
+            postcssOptions: {
+                plugins: [                    
+                    /*
+                        set package.json 
+                        "browserlist": {
+                            "development": [
+                                "last 1 chrome version",
+                                "last 1 firefox version",
+                                "last 1 safari version"],
+                            "production": [
+                                ">0.2%",
+                                "not dead",
+                                "not op_mini all"]
+                        }
+                    */    
+                    //help plugin find setting of browserlist in package.json
+                    'postcss-preset-env',
+                ]
+            }
         }
     }
 ]
@@ -187,6 +188,7 @@ module.exports = {
                     },
                     {
                         test: /\.less$/,
+                        //install less less-loader
                         use: [...commonCssLoader, 'less-loader']
                     },                    
                     {
