@@ -140,7 +140,7 @@ module.exports = {
         filename: 'js/build.[contenthash:10].js',
         path: resolve(__dirname, 'dist'),
         //html import path prefix 
-        publicPath: '/',
+        publicPath: './',
         //non-entry chunk name
         chunkFilename: '[name]_chunk.js',
         /*
@@ -270,6 +270,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new MiniCssExtractPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin(
             {
