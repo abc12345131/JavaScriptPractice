@@ -11,9 +11,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 //reuse css compatibility loader
 const commonCssLoader = [
     //use style-loader in development for HMR(hot module replacement)
-    'style-loader',
+    //'style-loader',
     //use mini-css-extract-plugin loader replace style-loader in production for user experience
-    //MiniCssExtractPlugin.loader,
+    MiniCssExtractPlugin.loader,
     'css-loader',
     {
         //install postcss-loader postcss-preset-env
@@ -127,7 +127,7 @@ module.exports = {
         filename: 'bundle.js',
         path: resolve(__dirname, 'dist'),
         //html import path prefix 
-        publicPath: '/',
+        publicPath: './',
         /*
             //only use these setting for library packing
             //exposed library name
@@ -243,6 +243,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new MiniCssExtractPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin(
             {
@@ -270,7 +271,8 @@ module.exports = {
         //set webpack module path, save time when looking for modules
         modules: [resolve(__dirname, '../../node_modules'), 'node_modules']
     },
-    mode: 'development',
+    //mode: 'development',
+    mode: 'production',
     devServer: {
         //running path
         contentBase: resolve(__dirname, 'build'),
@@ -300,19 +302,19 @@ module.exports = {
         //do not show full screen prompt if there is any error
         overlay: false,
         //server proxy
-        proxy: {
-            //if devServer get /api request(port 3000), forward it to another server below(port 5000)
-            '/api': {
-                target: 'http://localhost:5000',
-                //forward path rewrite, change '/api/xxx' to '/xxx' 
-                pathRewrite: {
-                    '^/api': ''
-                }
-            }
-        }
+        // proxy: {
+        //     //if devServer get /api request(port 3000), forward it to another server below(port 5000)
+        //     '/api': {
+        //         target: 'http://localhost:5000',
+        //         //forward path rewrite, change '/api/xxx' to '/xxx' 
+        //         pathRewrite: {
+        //             '^/api': ''
+        //         }
+        //     }
+        // }
     },
     //development use eval-source-map(react recommended)/eval-cheap-module-source-map
     //production use source-map(react recommended)/cheap-module-source-map
     //if need to hide code use hidden-source-map(hide build code)/nonsources-source-map(hide all code)
-    devtool: 'source-map'
+    //devtool: 'source-map'
 };

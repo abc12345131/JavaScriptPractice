@@ -19,6 +19,13 @@ class Food {
         this.element.style.left = left+'px';
         this.element.style.top = top+'px';
     } 
+
+    initFood() {
+        let fd = this.element.getElementsByTagName('div');
+        for(let i=0; i < fd.length; i++) {
+            fd[i].style.backgroundColor = 'black';
+        }
+    }
 }
 
 export default Food;

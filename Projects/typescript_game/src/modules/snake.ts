@@ -34,11 +34,11 @@ class Snake {
             }
         }
 
-        this.head.style.left = value + 'px';
-
         this.moveBody();
 
-        //this.checkCollision();
+        this.head.style.left = value + 'px';
+
+        this.checkCollision();
     }
 
     set Y(value: number) {
@@ -58,21 +58,22 @@ class Snake {
             }
         }
 
-        this.head.style.top = value + 'px';
-
         this.moveBody();
 
-        //this.checkCollision();
+        this.head.style.top = value + 'px';
+
+        this.checkCollision();
     }
 
     addBody() {
-        this.element.insertAdjacentHTML('beforeend', '<div></div>')
+        this.element.insertAdjacentHTML('beforeend', '<div style="background:black"></div>')
     }
     
     initBody() {
         for(let i = this.body.length-1; i > 0; i--) {
             this.element.removeChild(this.body[i]);
         }
+        this.head.style.backgroundColor = 'black';
     }
 
     moveBody() {

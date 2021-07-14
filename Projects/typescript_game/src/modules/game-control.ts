@@ -6,28 +6,31 @@ class GameControl {
     snake: Snake;
     food: Food;
     scorePanel: ScorePanel;
+    button: HTMLButtonElement;
     direction: string = '';
-    isLive = false;
 
     constructor() {
         this.snake = new Snake();
         this.food = new Food();
         this.scorePanel = new ScorePanel();
+        this.button = document.querySelector('button')!
         document.addEventListener('keydown', (event) => this.keydownHandler(event))
         document.getElementById('start')!.addEventListener('click', () => this.start())
+        
     }
 
     keydownHandler(event: KeyboardEvent) {
         this.direction = event.key;
     }
-
-    start() {
+    
+    start() {        
         this.snake.initBody();
+        this.food.initFood();
         this.snake.X = 0;
-        this.snake.Y = 0;       
-        this.isLive = true;
-        this.direction = 'ArrowRight';
+        this.snake.Y = 0;
         this.food.change();
+        this.direction = 'ArrowRight';     
+        this.button.disabled = true
         this.run();
     }
 
@@ -62,11 +65,11 @@ class GameControl {
             this.snake.X = X;
             this.snake.Y = Y;
         } catch(e) {
-            this.isLive = false;
+            this.button.disabled = false;
             alert(e + '  Game Over');
         }
 
-        this.isLive && setTimeout(() => this.run(), 300-(this.scorePanel.level-1)*30);
+        this.button.disabled && setTimeout(() => this.run(), 250-(this.scorePanel.level-1)*10);
     }
 
     checkEat(X: number, Y: number) {
