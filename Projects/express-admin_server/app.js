@@ -18,12 +18,10 @@ const {
   //REDIS_PORT,
   //SESSION_SECRET
 } = require('./config/config')
+const errorHandler = require('./middlewares/errorHandlerMiddleware')
 
 
 const app = express();
-
-app.use(logger('dev'));
-app.use(express.json());
 
 //cors
 //const origin = process.env.NODE_ENV === "development" ? "http://localhost:3000": "http://example.com"
@@ -35,14 +33,17 @@ app.use(cors({
 //proxy setting
 app.enable('trust proxy');
 
+app.use(logger('dev'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
 
 //mongoose
 //dev url
 //const mongoUrl = 'mongodb://localhost:27017/react-app'
+
+//prod url
 const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
@@ -115,14 +116,6 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(errorHandler);
 
 module.exports = app;
