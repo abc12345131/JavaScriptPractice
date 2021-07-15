@@ -1,6 +1,7 @@
-
 const UserModel = require('../models/UserModel')
 const RoleModel = require('../models/RoleModel')
+// const { sign } = require('../utils/jsonwebtoken')
+// const { JWT_SECRET } = require('../config/config')
 
 const md5 = require('blueimp-md5')
 
@@ -36,8 +37,20 @@ exports.readUser = (req, res, next) => {
                     RoleModel.findOne({_id: user.role_id})
                         .then(role => {
                             user._doc.role = role
-                            // create resonse cookie with role information
+
+                            //use jsonwebtoken
+                            // const token = sign(
+                            //     user,
+                            //     JWT_SECRET,
+                            //     {
+                            //         expiresIn: 3600
+                            //     }
+                            // )
+                            // res.status(200).json({...user, token})
+
+                            //use cookie
                             res.cookie('user_key', user, { expires: new Date(Date.now() + 3600000) })
+
                             //use session
                             //req.session.user = user
                             res.send({status: 0})

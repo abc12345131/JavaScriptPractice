@@ -5,5 +5,6 @@ module.exports = {
     MONGO_PASSWORD: process.env.MONGO_PASSWORD,
     REDIS_IP: process.env.REDIS_IP || "redis",
     REDIS_PORT: process.env.REDIS_PORT || 6379,
-    SESSION_SECRET: process.env.SESSION_SECRET
+    SESSION_SECRET: process.env.SESSION_SECRET || 'yoursecret',
+    JWT_SECRET: process.env.JWT_SECRET || 'yoursecret'
 }
