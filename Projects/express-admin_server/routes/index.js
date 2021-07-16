@@ -8,6 +8,7 @@ const workController = require('../controllers/workController')
 const fileController = require('../controllers/fileController')
 
 const protect = require('../middlewares/authMiddleware')
+const userValidator = require('../validators/userValidator')
 
 const router = express.Router()
 
@@ -44,7 +45,7 @@ router.route('/roles')
 
 router.route('/user')
     .get(userController.readUser)
-    .post(userController.createUser)
+    .post(userValidator.register, userController.createUser)
     .put(protect, userController.updateUser)
     .delete(protect, userController.deleteUser)
 
