@@ -3,15 +3,17 @@ module.exports = {
 	lintOnSave: false,
 	devServer: {
 		proxy: {
-			'/api1': {
+			'/api/v1': {
 				target: 'http://localhost:5000',
+				ws: true,
 				changeOrigin: true,
-				pathRewrite: {'^/api1': ''}
+				pathRewrite: {'^/api/v1': ''}
 			},
-			'/api2': {
+			'/api/v2': {
 				target: 'http://localhost:5001',
+				ws: true,
 				changeOrigin: true,
-				pathRewrite: {'^/api2': ''}
+				pathRewrite: {'^/api/v2': ''}
 			}
 		}
 	}
