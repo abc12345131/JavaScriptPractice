@@ -1,27 +1,20 @@
 <template>
-  <div id="app">
-    <Count msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div>
+		<router-view/>
+		<FooterGuide/>
+	</div>
 </template>
 
 <script>
-import Count from './components/Count.vue'
+import FooterGuide from './components/FooterGuide/FooterGuide.vue'
 
-export default {
-  name: 'App',
-  components: {
-    Count
-  }
-}
+	export default {
+		components: {
+			FooterGuide
+		}
+	}
 </script>
 
-<style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+<style lang='sass'>
+
 </style>
