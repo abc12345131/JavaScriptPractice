@@ -1,30 +1,30 @@
 <template>
-  <div class="footer_guide">
-    <div class="guide_item" :class="{on: '/home'===$route.path}" @click="goTo('/home')">
-      <span class="item_icon">
-        <i class="iconfont icon-yangshi_icon_tongyong_home"></i>
-      </span>
-      <span>Home</span>
+    <div class="footer_guide">
+        <a href="javascript:" class="guide_item" :class="{on: '/home'===$route.path}" @click="goTo('/home')">
+            <span class="item_icon">
+                <i class="iconfont icon-yangshi_icon_tongyong_home"></i>
+            </span>
+            <span>Home</span>
+        </a>
+        <a href="javascript:" class="guide_item" :class="{on: '/search'===$route.path}" @click="goTo('/search')">
+            <span class="item_icon">
+                <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
+            </span>
+            <span>Search</span>
+        </a>
+        <a href="javascript:" class="guide_item" :class="{on: '/order'===$route.path}" @click="goTo('/order')">
+            <span class="item_icon">
+                <i class="iconfont icon-yangshi_icon_tongyong_trips"></i>
+            </span>
+            <span>Order</span>
+        </a>
+        <a href="javascript:" class="guide_item" :class="{on: '/profile'===$route.path}" @click="goTo('/profile')">
+            <span class="item_icon">
+                <i class="iconfont icon-yangshi_icon_tongyong_my_account"></i>
+            </span>
+            <span>Profile</span>
+        </a>
     </div>
-    <div class="guide_item" :class="{on: '/search'===$route.path}" @click="goTo('/search')">
-      <span class="item_icon">
-        <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
-      </span>
-      <span>Search</span>
-    </div>
-    <div class="guide_item" :class="{on: '/order'===$route.path}" @click="goTo('/order')">
-      <span class="item_icon">
-        <i class="iconfont icon-yangshi_icon_tongyong_trips"></i>
-      </span>
-      <span>Order</span>
-    </div>
-    <div class="guide_item" :class="{on: '/profile'===$route.path}" @click="goTo('/profile')">
-      <span class="item_icon">
-        <i class="iconfont icon-yangshi_icon_tongyong_my_account"></i>
-      </span>
-      <span>Profile</span>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -39,7 +39,7 @@
 
 <style lang="sass" scoped>
     @import "../../assets/sass/mixins"
-    .footer_guide  //footer
+    .footer_guide
         @include top-border-1px($grey)
         position: fixed
         z-index: 100
