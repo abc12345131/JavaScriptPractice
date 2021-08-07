@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="app">
 		<router-view/>
 		<FooterGuide/>
 	</div>
@@ -16,5 +16,8 @@ import FooterGuide from './components/FooterGuide/FooterGuide.vue'
 </script>
 
 <style lang='sass'>
-
+	.app 
+		width: 100%
+		height: 100%
+		background: #f5f5f5
 </style>

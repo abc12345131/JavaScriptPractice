@@ -8,6 +8,7 @@ import Profile from "../pages/Profile/Profile.vue"
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+    mode: 'history',
     routes:[
         {
             path:'/home',
