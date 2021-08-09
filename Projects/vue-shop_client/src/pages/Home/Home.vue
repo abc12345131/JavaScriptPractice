@@ -1,17 +1,14 @@
 <template>
     <section class="home">
-        <!--Home Header-->
-        <header class="home_header">
-            <span class="header_search">
+        <!--Header-->
+        <Header title="Your Location">
+            <span class="header_search" slot="search">
                 <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
             </span>
-            <span class="header_title">
-                <span class="header_title_text ellipsis">your locatuion</span>
-            </span>
-            <span class="header_login">
+            <span class="header_login" slot="login">
                 <span class="header_login_text">Login/Register</span>
             </span>
-        </header>
+        </Header>
         <!--Home Navigator-->
         <nav class="home_nav">
             <div class="swiper-container">
@@ -21,29 +18,60 @@
                             <div class="food_container">
                                 <img src="../../assets/images/nav/1.jpg">
                             </div>
-                            <span>Dessert&drinks</span>
+                            <span>Snacks</span>
                         </a>
                         <a href="javascript:" class="link_to_food">
                             <div class="food_container">
                                 <img src="../../assets/images/nav/2.jpg">
                             </div>
-                            <span>Convenience Store</span>
+                            <span>Tasty food</span>
                         </a>
                         <a href="javascript:" class="link_to_food">
                             <div class="food_container">
                                 <img src="../../assets/images/nav/3.jpg">
                             </div>
-                            <span>Delicacy</span>
+                            <span>Drug Store</span>
                         </a>
                         <a href="javascript:" class="link_to_food">
                             <div class="food_container">
                                 <img src="../../assets/images/nav/4.jpg">
                             </div>
-                            <span>Light Meal</span>
+                            <span>Healthy food</span>
+                        </a>
+                        <a href="javascript:"  class="link_to_food">
+                            <div class="food_container">
+                                <img src="../../assets/images/nav/5.jpg">
+                            </div>
+                            <span>Seafood</span>
+                        </a>
+                        <a href="javascript:" class="link_to_food">
+                            <div class="food_container">
+                                <img src="../../assets/images/nav/6.jpg">
+                            </div>
+                            <span>Breakfast</span>
+                        </a>
+                        <a href="javascript:" class="link_to_food">
+                            <div class="food_container">
+                                <img src="../../assets/images/nav/7.jpg">
+                            </div>
+                            <span>Desserts & drinks</span>
+                        </a>
+                        <a href="javascript:" class="link_to_food">
+                            <div class="food_container">
+                                <img src="../../assets/images/nav/8.jpg">
+                            </div>
+                            <span>Foodies recommendation</span>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="javascript:"  class="link_to_food">
+                            <div class="food_container">
+                                <img src="../../assets/images/nav/9.jpg">
+                            </div>
+                            <span>Fruits and vegetables</span>
                         </a>
                     </div>
                 </div>
-                <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
         </nav>
@@ -53,61 +81,32 @@
                 <i class="iconfont icon-yangshi_icon_tongyong_more_services"></i>
                 <span class="shop_header_title">Nearby Shop</span>
             </div>
-            <div class="shop_container">
-                <ul class="shop_list">
-                    <li class="shop_li border-1px">
-                        <a>
-                            <div class="shop_left">
-                                <img class="shop_img" src="../../assets/images/shop/1.jpg">
-                            </div>
-                            <div class="shop_right">
-                                <section class="shop_detail_header">
-                                    <h4 class="shop_title ellipsis">McDonald's</h4>
-                                    <ul class="shop_detail_ul">
-                                        <li class="supports">Insured</li>
-                                        <li class="supports">Punctual</li>
-                                        <li class="supports">Discounted</li>
-                                    </ul>
-                                </section>
-                                <section class="shop_rating_order">
-                                    <section class="shop_rating_order_left">
-                                        <div class="star star-24">
-                                            <span class="star-item on"></span>
-                                            <span class="star-item on"></span>
-                                            <span class="star-item on"></span>
-                                            <span class="star-item half"></span>
-                                            <span class="star-item off"></span>
-                                        </div>
-                                        <div class="rating_section">
-                                            3.6
-                                        </div>
-                                        <div class="order_section">
-                                            106 orders this month
-                                        </div>
-                                    </section>
-                                    <section class="shop_rating_order_right">
-                                        <span class="delivery_style delivery_right">Dedicated</span>
-                                    </section>
-                                </section>
-                                <section class="shop_distance">
-                                    <p class="shop_delivery_msg">
-                                        <span>The minimum consumption is $20</span>
-                                        <span class="segmentation">/</span>
-                                        <span>Deliver fee: $5</span>
-                                    </p>
-                                </section>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <ShopList></ShopList>
         </div>
     </section>
 </template>
 
 <script>
-    export default {
+    import Swiper from 'swiper'
+    import SwiperCore, { Navigation, Pagination } from 'swiper/core'
+    import 'swiper/swiper-bundle.css'
 
+    import Header from '../../components/Header/Header.vue'
+    import ShopList from '../../components/ShopList/ShopList.vue'
+    export default {
+        mounted() {
+            SwiperCore.use([Navigation, Pagination])
+            new Swiper('.swiper-container', {
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                }
+            })    
+        },
+        components: {
+            Header,
+            ShopList
+        }
     }
 </script>
 
@@ -115,45 +114,6 @@
     @import "../../assets/sass/mixins"
     .home
         width: 100%
-        .home_header
-            background-color: #02a774
-            position: fixed
-            z-index: 100
-            left: 0
-            top: 0
-            width: 100%
-            height: 45px
-            .header_search
-                position: absolute
-                left: 15px
-                top: 50%
-                transform: translateY(-50%)
-                width: 10%
-                height: 50%
-                .icon-yangshi_icon_tongyong_search
-                    font-size: 25px
-                    color: #fff
-            .header_title
-                position: absolute
-                top: 50%
-                left: 50%
-                transform: translate(-50%, -50%)
-                width: 50%
-                color: #fff
-                text-align: center
-                .header_title_text
-                    font-size: 20px
-                    color: #fff
-                    display: block
-            .header_login
-                font-size: 14px
-                color: #fff
-                position: absolute
-                right: 15px
-                top: 50%
-                transform: translateY(-50%)
-                .header_login_text
-                    color: #fff
         .home_nav
             @include bottom-border-1px($grey)
             margin-top: 45px
@@ -205,154 +165,4 @@
                     color: #999
                     font-size: 14px
                     line-height: 20px
-            .shop_container
-                margin-bottom: 50px
-                .shop_list
-                    .shop_li
-                        @include bottom-border-1px(#f1f1f1)
-                        width: 100%
-                        >a
-                            @include clearFix
-                            display: block
-                            box-sizing: border-box
-                            padding: 15px 8px
-                            width: 100%
-                            .shop_left
-                                float: left
-                                box-sizing: border-box
-                                width: 23%
-                                height: 75px
-                                padding-right: 10px
-                                .shop_img
-                                    display: block
-                                    width: 100%
-                                    height: 100%
-                            .shop_right
-                                float: right
-                                width: 77%
-                                .shop_detail_header
-                                    @include clearFix
-                                    width: 100%
-                                    .shop_title
-                                        float: left
-                                        width: 200px
-                                        color: #333
-                                        font-size: 16px
-                                        line-height: 16px
-                                        font-weight: 700
-                                        &::before
-                                            content: 'Brand'
-                                            display: inline-block
-                                            font-size: 11px
-                                            line-height: 11px
-                                            color: #333
-                                            background-color: #ffd930
-                                            padding: 2px 2px
-                                            border-radius: 2px
-                                            margin-right: 5px
-                                    .shop_detail_ul
-                                        float: right
-                                        margin-top: 3px
-                                        .supports
-                                            float: left
-                                            font-size: 10px
-                                            color: #999
-                                            border: 1px solid #f1f1f1
-                                            padding: 0 2px
-                                            border-radius: 2px
-                                .shop_rating_order
-                                    @include clearFix
-                                    width: 100%
-                                    margin-top: 18px
-                                    margin-bottom: 8px
-                                    .shop_rating_order_left
-                                        float: left
-                                        color: #ff9a0d
-                                        .star //2ximg 3ximg
-                                            float: left
-                                            font-size: 0
-                                            .star-item
-                                                display: inline-block
-                                                background-repeat: no-repeat
-                                            &.star-48
-                                                .star-item
-                                                    width: 20px
-                                                    height: 20px
-                                                    margin-right: 22px
-                                                    background-size: 20px 20px
-                                                    &:last-child
-                                                        margin-right: 0
-                                                    &.on
-                                                        @include bg-image('../../assets/images/stars/star48_on')
-                                                    &.half
-                                                        @include bg-image('../../assets/images/stars/star48_half')
-                                                    &.off
-                                                        @include bg-image('../../assets/images/stars/star48_off')
-                                            &.star-36
-                                                .star-item
-                                                    width: 15px
-                                                    height: 15px
-                                                    margin-right: 6px
-                                                    background-size: 15px 15px
-                                                    &:last-child
-                                                        margin-right: 0
-                                                    &.on
-                                                        @include bg-image('../../assets/images/stars/star36_on')
-                                                    &.half
-                                                        @include bg-image('../../assets/images/stars/star36_half')
-                                                    &.off
-                                                        @include bg-image('../../assets/images/stars/star36_off')
-                                            &.star-24
-                                                .star-item
-                                                    width: 10px
-                                                    height: 10px
-                                                    margin-right: 3px
-                                                    background-size: 10px 10px
-                                                    &:last-child
-                                                        margin-right: 0
-                                                    &.on
-                                                        @include bg-image('../../assets/images/stars/star24_on')
-                                                    &.half
-                                                        @include bg-image('../../assets/images/stars/star24_half')
-                                                    &.off
-                                                        @include bg-image('../../assets/images/stars/star24_off')
-                                        .rating_section
-                                            float: left
-                                            font-size: 10px
-                                            color: #ff6000
-                                            margin-left: 4px
-                                        .order_section
-                                            float: left
-                                            font-size: 10px
-                                            color: #666
-                                            transform: scale(.8)
-                                    .shop_rating_order_right
-                                        float: right
-                                        font-size: 0
-                                        .delivery_style
-                                            transform-origin: 35px 0
-                                            transform: scale(.7)
-                                            display: inline-block
-                                            font-size: 12px
-                                            padding: 1px
-                                            border-radius: 2px
-                                        .delivery_left
-                                            color: #fff
-                                            margin-right: -10px
-                                            background-color: #02a774
-                                            border: 1px solid #02a774
-                                        .delivery_right
-                                            color: #02a774
-                                            border: 1px solid #02a774
-                                .shop_distance
-                                    @include clearFix
-                                    width: 100%
-                                    font-size: 12px
-                                    .shop_delivery_msg
-                                        float: left
-                                        transform-origin: 0
-                                        transform: scale(.9)
-                                        color: #666
-                                    .segmentation
-                                        color: #ccc
 </style>
