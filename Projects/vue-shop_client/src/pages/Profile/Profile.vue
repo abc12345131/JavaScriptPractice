@@ -3,7 +3,7 @@
 		<!--Header-->
 		<Header title="Profile"/>
         <section class="profile-number">
-            <a href="javascript:" class="profile-link">
+            <router-link to="/login" class="profile-link">
                 <div class="profile_image">
                     <i class="iconfont icon-yangshi_icon_tongyong_user"></i>
                 </div>
@@ -19,7 +19,7 @@
                 <span class="arrow">
                     <i class="iconfont icon-yangshi_icon_tongyong_enter"></i>
                 </span>
-            </a>
+            </router-link>
         </section>
         <section class="profile_info_data border-1px">
             <ul class="info_data_list">
@@ -105,6 +105,7 @@
 	@import "../../assets/sass/mixins"
 	.profile
 		width: 100%
+		overflow: hidden
 		.profile-number
 			margin-top: 45.5px
 			.profile-link
@@ -154,7 +155,7 @@
 					top: 40%
 					.icon-yangshi_icon_tongyong_enter
 						color: #fff
-						font-size: 10px
+						font-size: 20px
 		.profile_info_data
 			@include bottom-border-1px($grey)
 			width: 100%

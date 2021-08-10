@@ -1,29 +1,29 @@
 <template>
     <div class="footer_guide">
-        <a href="javascript:" class="guide_item" :class="{on: '/home'===$route.path}" @click="goTo('/home')">
+        <router-link to="/home" class="guide_item" :class="{on: '/home'===$route.path}">
             <span class="item_icon">
                 <i class="iconfont icon-yangshi_icon_tongyong_home"></i>
             </span>
             <span>Home</span>
-        </a>
-        <a href="javascript:" class="guide_item" :class="{on: '/search'===$route.path}" @click="goTo('/search')">
+        </router-link>
+        <router-link to="/search" class="guide_item" :class="{on: '/search'===$route.path}" @click="goTo('/search')">
             <span class="item_icon">
                 <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
             </span>
             <span>Search</span>
-        </a>
-        <a href="javascript:" class="guide_item" :class="{on: '/order'===$route.path}" @click="goTo('/order')">
+        </router-link>
+        <router-link to="/order" class="guide_item" :class="{on: '/order'===$route.path}" @click="goTo('/order')">
             <span class="item_icon">
                 <i class="iconfont icon-yangshi_icon_tongyong_trips"></i>
             </span>
             <span>Order</span>
-        </a>
-        <a href="javascript:" class="guide_item" :class="{on: '/profile'===$route.path}" @click="goTo('/profile')">
+        </router-link>
+        <router-link to="/profile" class="guide_item" :class="{on: '/profile'===$route.path}" @click="goTo('/profile')">
             <span class="item_icon">
                 <i class="iconfont icon-yangshi_icon_tongyong_my_account"></i>
             </span>
             <span>Profile</span>
-        </a>
+        </router-link>
     </div>
 </template>
 
