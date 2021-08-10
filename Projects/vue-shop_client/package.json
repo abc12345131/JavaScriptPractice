@@ -1,5 +1,5 @@
 {
-  "name": "vue-shop_client",
+  "name": "vue-delivery_client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.3",
     "less-loader": "7",
