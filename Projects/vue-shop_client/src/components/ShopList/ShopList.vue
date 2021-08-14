@@ -1,18 +1,16 @@
 <template>
     <div class="shop_container">
         <ul class="shop_list">
-            <li class="shop_li border-1px">
+            <li class="shop_li border-1px" v-for="(shop, index) in shops" :key="index">
                 <a>
                     <div class="shop_left">
-                        <img class="shop_img" src="../../assets/images/shop/1.jpg">
+                        <img class="shop_img" :src="baseImageUrl+shop.image_path">
                     </div>
                     <div class="shop_right">
                         <section class="shop_detail_header">
-                            <h4 class="shop_title ellipsis">McDonald's</h4>
+                            <h4 class="shop_title ellipsis">{{shop.name}}</h4>
                             <ul class="shop_detail_ul">
-                                <li class="supports">Insured</li>
-                                <li class="supports">Punctual</li>
-                                <li class="supports">Discounted</li>
+                                <li class="supports" v-for="(support, index) in shop.supports" :key="index">{{support.icon_name}}</li>
                             </ul>
                         </section>
                         <section class="shop_rating_order">
@@ -25,21 +23,21 @@
                                     <span class="star-item off"></span>
                                 </div>
                                 <div class="rating_section">
-                                    3.6
+                                    {{shop.rating}}
                                 </div>
                                 <div class="order_section">
-                                    106 orders this month
+                                    Sold {{shop.recent_order_num}} this month
                                 </div>
                             </section>
                             <section class="shop_rating_order_right">
-                                <span class="delivery_style delivery_right">Dedicated</span>
+                                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
                             </section>
                         </section>
                         <section class="shop_distance">
                             <p class="shop_delivery_msg">
-                                <span>The minimum consumption is $20</span>
+                                <span>Starting at ${{shop.float_minimum_order_amount}}</span>
                                 <span class="segmentation">/</span>
-                                <span>Deliver fee: $5</span>
+                                <span>delivery fee: ${{shop.float_delivery_fee}}</span>
                             </p>
                         </section>
                     </div>
@@ -50,8 +48,25 @@
 </template>
 
 <script>
+
+    import { mapState } from 'vuex'
+
     export default {
-        
+
+        mounted() {
+
+            this.$store.dispatch('getShops')
+        },
+
+        data() {
+            return {
+                baseImageUrl: 'http://cangdu.org:8001/img/'
+            }
+        },
+
+        computed: {
+            ...mapState(['shops'])
+        }
     }
 </script>
 
