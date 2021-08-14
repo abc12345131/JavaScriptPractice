@@ -1,7 +1,7 @@
 <template>
     <section class="home">
         <!--Header-->
-        <Header title="Your Location">
+        <Header :title="address.formatted_address">
             <span class="header_search" slot="search">
                 <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
             </span>
@@ -13,62 +13,12 @@
         <nav class="home_nav">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="javascript:"  class="link_to_food">
+                    <div class="swiper-slide" v-for="(pageArr,index) in categoryArr" :key="index">
+                        <a href="javascript:"  class="link_to_food" v-for="(category,index) in pageArr" :key="index">
                             <div class="food_container">
-                                <img src="../../assets/images/nav/1.jpg">
+                                <img :src="baseImageUrl+category.image_url">
                             </div>
-                            <span>Snacks</span>
-                        </a>
-                        <a href="javascript:" class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/2.jpg">
-                            </div>
-                            <span>Tasty food</span>
-                        </a>
-                        <a href="javascript:" class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/3.jpg">
-                            </div>
-                            <span>Drug Store</span>
-                        </a>
-                        <a href="javascript:" class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/4.jpg">
-                            </div>
-                            <span>Healthy food</span>
-                        </a>
-                        <a href="javascript:"  class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/5.jpg">
-                            </div>
-                            <span>Seafood</span>
-                        </a>
-                        <a href="javascript:" class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/6.jpg">
-                            </div>
-                            <span>Breakfast</span>
-                        </a>
-                        <a href="javascript:" class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/7.jpg">
-                            </div>
-                            <span>Desserts & drinks</span>
-                        </a>
-                        <a href="javascript:" class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/8.jpg">
-                            </div>
-                            <span>Foodies recommendation</span>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="javascript:"  class="link_to_food">
-                            <div class="food_container">
-                                <img src="../../assets/images/nav/9.jpg">
-                            </div>
-                            <span>Fruits and vegetables</span>
+                            <span>{{category.title}}</span>
                         </a>
                     </div>
                 </div>
@@ -87,25 +37,73 @@
 </template>
 
 <script>
+
+    import { mapState } from 'vuex' 
+
     import Swiper from 'swiper'
     import SwiperCore, { Navigation, Pagination } from 'swiper/core'
     import 'swiper/swiper-bundle.css'
 
     import Header from '../../components/Header/Header.vue'
     import ShopList from '../../components/ShopList/ShopList.vue'
+
     export default {
+
         mounted() {
+
+            this.$store.dispatch('getAddress'),
+            this.$store.dispatch('getFoodCategories'),
             SwiperCore.use([Navigation, Pagination])
-            new Swiper('.swiper-container', {
-                loop: true,
-                pagination: {
-                    el: '.swiper-pagination',
-                }
-            })    
         },
+
+        data() {
+            return {
+                baseImageUrl: 'https://fuss10.elemecdn.com'
+            }
+        },
+
         components: {
             Header,
             ShopList
+        },
+
+        computed: {
+            ...mapState(['address', 'foodCategories']),
+
+            categoryArr() {
+                const { foodCategories } = this
+
+                const totalArr = []
+                let pageArr = []
+
+                foodCategories.forEach(c => {
+                    if(pageArr.length===8) {
+                        pageArr=[]
+                    }
+
+                    if(pageArr.length===0) {
+                        totalArr.push(pageArr)
+                    }
+
+                    pageArr.push(c)
+                });
+
+                return totalArr
+            }
+
+        },
+
+        watch: {
+            foodCategories(value) {
+                this.$nextTick(()=>{
+                    new Swiper('.swiper-container', {
+                        loop: true,
+                        pagination: {
+                            el: '.swiper-pagination',
+                        }
+                    })
+                })
+            }
         }
     }
 </script>

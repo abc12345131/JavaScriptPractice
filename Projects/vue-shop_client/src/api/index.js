@@ -1,22 +1,22 @@
 import ajax from './ajax';
 
 const Base = '/api/v1'
-const API_KEY = 'yourkey'
+const API_KEY = 'AIzaSyCmAjM1QrWFvpw_bFTSsQTopMX2LDrx1do'
 
 //login
-export const reqLogin = (username, password, cat) => ajax(Base + '/user', {username, password, })
+export const reqLogin = (username, password, captcha) => ajax(Base + '/user', {username, password, captcha})
 
 //address api
 export const reqAddress = (latlng) => {
-    const apiUrl= `http://maps.google.com/maps/api/geocode/xml?latlng=${latlng}&sensor=false&key=${API_KEY}`
+    const apiUrl= `https://maps.google.com/maps/api/geocode/json?language=EN&latlng=${latlng}&sensor=false&key=${API_KEY}`
     return ajax(apiUrl)}
 
 
-//get food types
-export const reqFoodTypes = () => ajax(Base + '/categories')
+//get food catrgories
+export const reqFoodCategories = () => ajax(Base + '/categories')
 
 //get shops
-export const reqShops = (longitude, latitude) => ajax(Base + '/shops', {longitude, latitude})
+export const reqShops = (latitude, longitude ) => ajax(Base + '/shops', {latitude, longitude})
 
 
 

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
     export default {
         props: {
             title: String
@@ -33,7 +34,7 @@
             width: 10%
             height: 50%
             .icon-yangshi_icon_tongyong_search
-                font-size: 25px
+                font-size: 24px
                 color: #fff
         .header_title
             position: absolute
@@ -44,7 +45,7 @@
             color: #fff
             text-align: center
             .header_title_text
-                font-size: 20px
+                font-size: 18px
                 color: #fff
                 display: block
         .header_login
