@@ -11,7 +11,7 @@
         </Header>
         <!--Home Navigator-->
         <nav class="home_nav">
-            <div class="swiper-container">
+            <div class="swiper-container" v-if="categoryArr.length">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="(pageArr,index) in categoryArr" :key="index">
                         <a href="javascript:"  class="link_to_food" v-for="(category,index) in pageArr" :key="index">
@@ -24,6 +24,7 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
+            <img src="../../assets/images/home_back.svg" alt="back" v-else/>
         </nav>
         <!--Home Nearby Shop-->
         <div class="home_shop_list">

@@ -1,6 +1,6 @@
 <template>
     <div class="shop_container">
-        <ul class="shop_list">
+        <ul class="shop_list" v-if="shops.length">
             <li class="shop_li border-1px" v-for="(shop, index) in shops" :key="index">
                 <a>
                     <div class="shop_left">
@@ -42,6 +42,11 @@
                         </section>
                     </div>
                 </a>
+            </li>
+        </ul>
+        <ul v-else>
+            <li v-for="index in 5" :key="index">
+                <img src="../../assets/images/shop_back.svg" alt="back"/>
             </li>
         </ul>
     </div>
