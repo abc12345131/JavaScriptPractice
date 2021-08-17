@@ -4,39 +4,46 @@
             <div class="login_header">
                 <h2 class="login_logo">BW Delivery</h2>
                 <div class="login_header_title">
-                    <a href="javascript:;" class="on">SMS Login</a>
-                    <a href="javascript:;">Password Login</a>
+                    <a href="javascript:;" :class="{on: loginSMS}" @click="loginSMS=true">SMS Login</a>
+                    <a href="javascript:;" :class="{on: !loginSMS}" @click="loginSMS=false">Password Login</a>
                 </div>
             </div>
             <div class="login_content">
-                <form>
-                    <div class="on">
+                <form @submit.prevent="login">
+                    <div :class="{on: loginSMS}">
                         <section class="login_message">
-                            <input type="tel" maxlength="11" placeholder="Phone Number">
-                            <button disabled="disabled" class="get_verification">Get verification code</button>
+                            <input type="tel" maxlength="14" placeholder="Phone Number" v-model="phone">
+                            <button
+                                :disabled="!validPhone"
+                                class="get_verification"
+                                :class="{verified: validPhone}"
+                                @click.prevent="getVerificationCode"
+                            >
+                                {{countDown? `Code Sent(${countDown}s)`:'Get verification code'}}
+                            </button>
                         </section>
                         <section class="login_verification">
-                            <input type="tel" maxlength="8" placeholder="Verification code">
+                            <input type="text" maxlength="8" placeholder="SMS Verification Code" v-model="code">
                         </section>
                         <section class="login_hint">
                             Reminder: If this phone number have not registered with us, it will be automatically registered when you log in, and this means that you have agreed to
                             <a href="javascript:;">《User Service Agreement》</a>
                         </section>
                     </div>
-                    <div>
+                    <div :class="{on: !loginSMS}">
                         <section>
                             <section class="login_message">
-                                <input type="tel" maxlength="11" placeholder="Phone Number">
+                                <input type="text" maxlength="14" placeholder="Phone Number" v-model="name">
                             </section>
                             <section class="login_verification">
-                                <input type="tel" maxlength="8" placeholder="Passwords">
-                                <div class="switch_button off">
-                                    <div class="switch_circle"></div>
-                                    <span class="switch_text">...</span>
+                                <input :type="showPwd ? 'text': 'password'" maxlength="16" placeholder="Passwords" v-model="pwd">
+                                <div class="switch_button off" :class="showPwd ? 'on': 'off'" @click="showPwd=!showPwd">
+                                    <div class="switch_circle" :class="{right: showPwd}"></div>
+                                    <span class="switch_text">{{showPwd ? 'abc': '...'}}</span>
                                 </div>
                             </section>
                             <section class="login_message">
-                                <input type="text" maxlength="11" placeholder="Verification code">
+                                <input type="text" maxlength="11" placeholder="Captcha Code" v-model="captcha">
                                 <img class="get_verification" src="../../assets/images/captcha.svg" alt="captcha">
                             </section>
                         </section>
@@ -49,12 +56,77 @@
                 <i class="iconfont icon-yangshi_icon_tongyong_back"></i>
             </a>
         </div>
+        <AlertTip :alertText="alertText" v-show="showAlert"/>
     </section>
 </template>
 
 <script>
+
+    import AlertTip from '../../components/AlertTip/AlertTip.vue'
     export default {
 
+        components: {
+            AlertTip
+        },
+
+        data() {
+            return {
+                loginSMS: true,
+                countDown: 0,
+                showPwd: true,
+                phone: '',
+                code: '',
+                name: '',
+                pwd: '',
+                captcha: '',
+                alertText: '',
+                showAlert: false
+            }
+        },
+
+        methods: {
+            getVerificationCode() {
+                if(!countDownId) {
+
+                    this.countDown = 30
+                    const countDownId = setInterval(() => {
+                        this.countDown--
+                        if(this.countDown<=0) {
+                            clearInterval(countDownId)
+                        }
+
+                    }, 1000)
+                    //send SMS Verification Code
+
+                }
+            },
+
+            login() {
+                if(loginSMS) {
+                    const { validPhone, phone, code } = this
+                    if(validPhone) {
+
+                    } else if(/^\d{6}$/.test(code)) {
+
+                    } else {}
+                } else {
+                    const { name, pwd, captcha } = this
+                    if(/^\w{6,14}$/.test(name)) {
+
+                    } else if(/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{6,12}$/.test(pwd)) {
+
+                    } else if(/^[\da-zA-Z]{4}$/.test(captcha)) {
+
+                    }
+                }
+            }
+        },
+
+        computed: {
+            validPhone() {
+                return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(this.phone)
+            } 
+        }
     }
 </script>
 
@@ -119,6 +191,8 @@
                                 color: #ccc
                                 font-size: 14px
                                 background: transparent
+                                &.verified
+                                    color: black
                         .login_verification
                             position: relative
                             margin-top: 16px
@@ -146,6 +220,8 @@
                                         color: #ddd
                                 &.on
                                     background: #02a774
+                                    .switch_text
+                                        float: left
                                 >.switch_circle
                                     //transform translateX(27px)
                                     position: absolute
@@ -158,6 +234,8 @@
                                     background: #fff
                                     box-shadow: 0 2px 4px 0 rgba(0,0,0,.1)
                                     transition: transform .3s
+                                    &.right
+                                        transform: translateX(26px)
                         .login_hint
                             margin-top: 12px
                             color: #999
