@@ -6,5 +6,7 @@ module.exports = {
     REDIS_IP: process.env.REDIS_IP || "redis",
     REDIS_PORT: process.env.REDIS_PORT || 6379,
     SESSION_SECRET: process.env.SESSION_SECRET || 'yoursecret',
-    JWT_SECRET: process.env.JWT_SECRET || 'yoursecret'
+    JWT_SECRET: process.env.JWT_SECRET || 'yoursecret',
+    TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN
 }
