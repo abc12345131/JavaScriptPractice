@@ -12,52 +12,50 @@ const userValidator = require('../validators/userValidator')
 
 const router = express.Router()
 
-router.route('/category')
+router.route('/categories/:categoryId')
     .get(protect, categoryController.readCategory)
-    .post(protect, categoryController.createCategory)
-    .put(protect, categoryController.updateCategory)
+
 
 router.route('/categories')
     .get(protect, categoryController.readCategories)
+    .post(protect, categoryController.createCategory)
+    .put(protect, categoryController.updateCategory)
 
-
-router.route('/product')
-    .post(protect, productController.createProduct)
-    .put(protect, productController.updateProduct)
 
 router.route('/products')
     .get(protect, productController.readAllProducts)
+    .post(protect, productController.createProduct)
+    .put(protect, productController.updateProduct)
 
-router.route('/productsearch')
+router.route('/products/search')
     .get(protect, productController.readSearchedProducts)
 
-router.route('/productstatus')
+router.route('/products/status')
     .put(protect, productController.updateProductStatus)
 
 
-router.route('/role')
-    .post(protect, roleController.createRole)
-    .put(protect, roleController.updateRole)
-
 router.route('/roles')
     .get(protect, roleController.readRoles)
+    .post(protect, roleController.createRole)
+    .put(protect, roleController.updateRole)
 
 
 router.route('/user')
     .get(userController.readUser)
-    .post(userValidator.register, userController.createUser)
-    .put(protect, userController.updateUser)
-    .delete(protect, userController.deleteUser)
+
 
 router.route('/users')
     .get(protect, userController.readAllUsers)
+    .post(userValidator.register, userController.createUser)
+    .put(protect, userController.updateUser)
+    .delete(protect, userController.deleteUser)
 
 
 router.route('/work')
     .get(protect, workController.readWork)
 
 
-router.route('/img')
+router.route('/imgs')
     .post(protect, fileController.createImg)
     .delete(protect, fileController.deleteImg)
 

@@ -125,7 +125,7 @@ export default class PicturesWall extends PureComponent {
             <div>
                 <Upload
                     //accept location
-                    action='/api/img'
+                    action='/api/imgs'
                     //accept format
                     accept='image/*'
                     //uploaded file name

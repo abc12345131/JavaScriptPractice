@@ -42,7 +42,7 @@ exports.updateCategory = (req, res, next) => {
   
 //get category
 exports.readCategory = (req, res, next) => {
-    const categoryId = req.query.categoryId
+    const categoryId = req.params.categoryId
     CategoryModel.findOne({_id: categoryId})
         .then(category => {
             res.send({status: 0, data: category})
