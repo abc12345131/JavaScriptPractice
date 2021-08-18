@@ -40,8 +40,8 @@ router.route('/roles')
     .put(protect, roleController.updateRole)
 
 
-router.route('/user')
-    .get(userController.readUser)
+router.route('/users/:username')
+    .post(userController.userLogin)
 
 
 router.route('/users')
@@ -51,7 +51,7 @@ router.route('/users')
     .delete(protect, userController.deleteUser)
 
 
-router.route('/work')
+router.route('/work/:userId')
     .get(protect, workController.readWork)
 
 

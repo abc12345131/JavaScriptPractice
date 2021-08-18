@@ -2,14 +2,10 @@ import ajax from './ajax';
 
 const Base = '/api'
 
-//login
-export const reqLogin = (username, password) => ajax(Base + '/users', {username, password}, 'POST')
-
 //weather api
 export const reqWeather = (city) => {
     const apiUrl= `http://api.weatherapi.com/v1/current.json?key=78792b6e7fe541328bd34938210505&q=${city}&aqi=no`
     return ajax(apiUrl)}
-
 
 //get categories
 export const reqCategories = (parentId) => ajax(Base + '/categories', {parentId})
@@ -39,6 +35,8 @@ export const reqAddRole = (roleName) => ajax(Base + '/roles', {roleName}, 'POST'
 //update role
 export const reqUpdateRole = (role) => ajax(Base + '/roles', role, 'PUT')
 
+//user login
+export const reqLogin = (username, password) => ajax(Base + '/users/'+username, {password}, 'POST')
 //get Users
 export const reqUsers = () => ajax(Base + '/users')
 //delete User
@@ -47,4 +45,4 @@ export const reqDeleteUser = (userId) => ajax(Base + '/users', {userId}, 'DELETE
 export const reqAddOrUpdateUser = (user) => ajax(Base + '/users', user, (user._id ? 'PUT': 'POST'))
 
 //get current user's work
-export const reqWork = (userId) => ajax(Base + '/work', {userId})
+export const reqWork = (userId) => ajax(Base + '/work/'+userId)

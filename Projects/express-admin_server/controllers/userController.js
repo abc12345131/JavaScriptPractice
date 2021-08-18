@@ -28,8 +28,9 @@ exports.createUser = (req, res, next) => {
 }
 
 //login
-exports.readUser = (req, res, next) => {
-    const {username, password} = req.query
+exports.userLogin = (req, res, next) => {
+    const { username } = req.params
+    const { password } = req.body
     UserModel.findOne({username, password: md5(password)})
         .then(user => {
             if (user) {
