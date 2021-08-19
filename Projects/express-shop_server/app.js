@@ -7,7 +7,7 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 //redis for session cache
 // const redis = require('redis')
-// const session = require('express-session')
+const session = require('express-session')
 const indexRouter = require('./routes/index');
 const { 
   MONGO_USER,
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const mongoUrl = 'mongodb://localhost:27017/vue-app'
 
 //prod url
-//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
+//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/vue-app?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -77,19 +77,19 @@ connectWithRetry()
 //   console.log('Connected to redis successfully');
 // })
 
-// app.use(
-//   session({
-//     store: new RedisStore({ client: redisClient }),
-//     secret: SESSION_SECRET,
-//     cookie: {
-//       secure: false,
-//       resave: false,
-//       saveUninitialized: false,
-//       httpOnly: true,
-//       maxAge: 3600000
-//     }
-//   })
-// )
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: SESSION_SECRET,
+    cookie: {
+      secure: false,
+      resave: false,
+      saveUninitialized: false,
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000
+    }
+  })
+)
 
 
 //api router
