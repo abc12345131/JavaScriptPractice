@@ -84,7 +84,7 @@ export default class Register extends Component {
                 </video>
                 <header className="register-header">
                     <img src={logo} alt="logo"/>
-                    <h1>React Backstage Management System</h1>
+                    <h1>React Administration System</h1>
                 </header>
                 <section className="register-content">
                     <div className={errorMsg ? "error-msg show": "error-msg"}>{errorMsg}</div>
@@ -104,7 +104,7 @@ export default class Register extends Component {
                                 {required: true, message: 'Username is required' },
                                 {min: 6, message: 'Username has to be no less than 6 digits' },
                                 {max: 12, message: 'Username has to be no more than 12 digits' },
-                                {pattern: /^[\w]+$/, message: 'Username must include only the following character types: uppercase, lowercase, numbers, and _ symbol.' },
+                                {pattern: /^[\w]+$/, message: 'Username should include only the following character types: uppercase, lowercase, numbers, and _ symbol.' },
                             ]}
                         >
                             <Input />
@@ -114,7 +114,7 @@ export default class Register extends Component {
                             label="Password"
                             rules={[
                                 {required: true, message: 'Password is required' },
-                                {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/, message: 'Password should include 8 to 16 digits and at least two of the following character types: letters, numbers and special characters.' },
+                                {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/, message: 'Password should include 8 to 16 digits, at least two of the following character types: letters, numbers and special characters.' },
                             ]}
                             hasFeedback
                         >

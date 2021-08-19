@@ -72,7 +72,7 @@ export default class Login extends Component {
                 </video>
                 <header className="login-header">
                     <img src={logo} alt="logo"/>
-                    <h1>React Backstage Management System</h1>
+                    <h1>React Administration System</h1>
                 </header>
                 <section className="login-content">
                     <div className={errorMsg ? "error-msg show": "error-msg"}>{errorMsg}</div>
@@ -81,6 +81,8 @@ export default class Login extends Component {
                         name="normal_login"
                         className="login-form"
                         initialValues={{
+                            username: 'admin',
+                            password: 'admin',
                             remember: true,
                         }}
                         onFinish={this.onFinish}
