@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose')
 
-const infoSchema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
     is_in_serving: {type: Boolean, default: true},
     description: {type: String}, 
     title: {type: String}, 
@@ -11,6 +11,6 @@ const infoSchema = new mongoose.Schema({
     title_color: {type: String},
 })
 
-const InfoModel = mongoose.model('infos', infoSchema)
+const CategoryModel = mongoose.model('categories', categorySchema)
 
-module.exports = InfoModel
+module.exports = CategoryModel

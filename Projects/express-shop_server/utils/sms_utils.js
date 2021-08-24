@@ -29,6 +29,7 @@ function sendCode(phone, code, callback) {
         to: phone
     })
     .then(message => console.log(message.sid))
+    .then(callback(true))
     .done()
 
 }

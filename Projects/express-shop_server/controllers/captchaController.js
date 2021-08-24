@@ -1,8 +1,8 @@
 
 const svgCaptcha = require('svg-captcha')
 
-//send One-time captcha
-router.get('/captcha', function (req, res) {
+//get one-time captcha
+exports.readCaptcha = (req, res, next) => {
     const captcha = svgCaptcha.create({
         ignoreChars: '0o1l',
         noise: 2,
@@ -12,4 +12,4 @@ router.get('/captcha', function (req, res) {
     console.log(req.session.captcha)
     res.type('svg');
     res.send(captcha.data)
-});
+}

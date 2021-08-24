@@ -2,13 +2,13 @@
 const { randomCode, sendCode } = require('../utils/sms_utils')
 
 //send SMS verification code
-router.get('/smscode', function (req, res, next) {
+exports.readCode = (req, res, next) => {
 
-    const phone = req.query.phone;
+    const {phone} = req.query
     //generate 6 digits random number
-    const code = randomCode(6);
+    const code = randomCode(6)
     //send code
-    console.log(`Send SMS verification code to ${phone}: ${code}`);
+    console.log(`Send SMS verification code to ${phone}: ${code}`)
     sendCode(phone, code, function (success) {
         if (success) {
             users[phone] = code
@@ -18,4 +18,4 @@ router.get('/smscode', function (req, res, next) {
             res.send({"code": 1, msg: 'Falied to send SMS verification code!'})
         }
     })
-})
+}
