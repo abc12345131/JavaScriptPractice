@@ -1,24 +1,43 @@
 const express = require('express')
 
-const productController = require('../controllers/productController')
+const captchaController = require('../controllers/captchaController')
+const categoryController = require('../controllers/categoryController')
+const gooodController = require('../controllers/goodController')
+const ratingController = require('../controllers/ratingController')
+const shopController = require('../controllers/shopController')
+const smsController = require('../controllers/smsController')
+const userController = require('../controllers/userController')
 
-const protect = require('../middlewares/authMiddleware')
 const userValidator = require('../validators/userValidator')
 
 const router = express.Router()
 
-router.route('/product')
-    .post(protect, productController.createProduct)
-    .put(protect, productController.updateProduct)
+router.route('/address')
+    .get(addressController.readAddress)
 
-router.route('/products')
-    .get(protect, productController.readAllProducts)
+router.route('/captcha')
+    .get(captchaController.readCaptcha)
 
-router.route('/productsearch')
-    .get(protect, productController.readSearchedProducts)
+router.route('/categories')
+    .get(categoryController.readAllCategories)
 
-router.route('/productstatus')
-    .put(protect, productController.updateProductStatus)
+router.route('/shops')
+    .get(shopController.readShops)
+
+router.route('/smscode')
+    .get(smsController.readCode)
+
+router.route('/users')
+    .get(userController.readUser)
+
+router.route('/users/username')
+    .post(userValidator.usernameRegister, userController.usernameLogin)
+
+router.route('/users/phone')
+    .post(userValidator.phoneRegister, userController.phoneLogin)
+
+router.route('/users/logout')
+    .post(userController.logout)
 
 
 module.exports = router;
