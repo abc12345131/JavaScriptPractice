@@ -1,6 +1,6 @@
-import axios from "axios"
+const axios = require('axios')
 
-export default function ajax (url, data={}, type='GET') {
+const ajax = (url, data={}, type='GET') => {
     //collecting error within the function instead of rejecting the error
     return new Promise((resolve, reject) => {
         let promise = null
@@ -30,3 +30,5 @@ export default function ajax (url, data={}, type='GET') {
         })
     })
 }
+
+module.exports = ajax

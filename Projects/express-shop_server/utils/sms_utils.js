@@ -1,7 +1,7 @@
 const { 
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN
-} = require('./config/config')
+} = require('../config/config')
 
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
@@ -24,13 +24,14 @@ exports.randomCode = randomCode;
 function sendCode(phone, code, callback) {
 
     client.messages
-    .create({
-        body: `Your BW Delivery verification code is ${code}`,
-        to: phone
-    })
-    .then(message => console.log(message.sid))
-    .then(callback(true))
-    .done()
+        .create({
+            messagingServiceSid: 'MG6b83b0f82164d686f7d5bc57b8abe64b', 
+            body: `Your BW Delivery verification code is ${code}`,
+            to: phone
+        })
+        .then(message => console.log(message.sid))
+        .then(callback(true))
+        .done()
 
 }
 exports.sendCode = sendCode;

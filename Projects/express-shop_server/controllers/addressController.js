@@ -1,6 +1,6 @@
 
 const ajax = require('../api/ajax')
-const {GOOGLE_API_KEY} = require('./config/config')
+const {GOOGLE_API_KEY} = require('../config/config')
 
 //get address
 exports.readAddress = (req, res, next) => {

@@ -4,17 +4,16 @@ import {
     RECEIVE_SHOPS
 } from './mutation-types'
 
-import { reqAddress, reqFoodCategories, reqShops } from '../api'
+import { reqAddress, reqFoodCategories, reqSearchShops } from '../api'
 
 export default {
 
     async getAddress(context) {
 
-        const latlng= context.state.latitude+ ',' + context.state.longitude
-        const result = await reqAddress(latlng)
+        const result = await reqAddress(context.state.latitude, context.state.longitude)
 
-        if (result.status==='OK') {
-            const address = result.results[1]
+        if (result.status===0) {
+            const address = result.data[1]
             context.commit(RECEIVE_ADDRESS, {address})
         }
     },
@@ -32,7 +31,7 @@ export default {
     async getShops(context) {
 
         const { latitude, longitude } = context.state
-        const result = await reqShops(latitude,longitude)
+        const result = await reqSearchShops(latitude,longitude)
 
         if (result.code===0) {
             const shops = result.data

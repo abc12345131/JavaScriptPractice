@@ -11,7 +11,10 @@ exports.readCode = (req, res, next) => {
     console.log(`Send SMS verification code to ${phone}: ${code}`)
     sendCode(phone, code, function (success) {
         if (success) {
-            users[phone] = code
+            if(!req.session.users) {
+                req.session.users={}
+            }
+            req.session.users[phone] = code
             console.log('Save SMS verification code: ', phone, code)
             res.send({"code": 0})
         } else {

@@ -4,15 +4,15 @@
             <div class="login_header">
                 <h2 class="login_logo">BW Delivery</h2>
                 <div class="login_header_title">
-                    <a href="javascript:;" :class="{on: loginSMS}" @click="loginSMS=true">SMS Login</a>
-                    <a href="javascript:;" :class="{on: !loginSMS}" @click="loginSMS=false">Password Login</a>
+                    <a href="javascript:;" :class="{on: loginSms}" @click="loginSms=true">SMS Login</a>
+                    <a href="javascript:;" :class="{on: !loginSms}" @click="loginSms=false">Password Login</a>
                 </div>
             </div>
             <div class="login_content">
                 <form @submit.prevent="login">
-                    <div :class="{on: loginSMS}">
+                    <div :class="{on: loginSms}">
                         <section class="login_message">
-                            <input type="tel" maxlength="14" placeholder="Phone Number" v-model="phone">
+                            <input type="tel" maxlength="10" placeholder="Phone Number" v-model="phone">
                             <button
                                 :disabled="!validPhone"
                                 class="get_verification"
@@ -26,25 +26,25 @@
                             <input type="text" maxlength="8" placeholder="SMS Verification Code" v-model="code">
                         </section>
                         <section class="login_hint">
-                            Reminder: If this phone number have not registered with us, it will be automatically registered when you log in, and this means that you have agreed to
+                            Reminder: If this phone number have Please enter registered with us, it will be automatically registered when you log in, and this means that you have agreed to
                             <a href="javascript:;">《User Service Agreement》</a>
                         </section>
                     </div>
-                    <div :class="{on: !loginSMS}">
+                    <div :class="{on: !loginSms}">
                         <section>
                             <section class="login_message">
-                                <input type="text" maxlength="14" placeholder="Phone Number" v-model="name">
+                                <input type="text" maxlength="12" placeholder="Phone Number" v-model="username">
                             </section>
                             <section class="login_verification">
-                                <input :type="showPwd ? 'text': 'password'" maxlength="16" placeholder="Passwords" v-model="pwd">
-                                <div class="switch_button off" :class="showPwd ? 'on': 'off'" @click="showPwd=!showPwd">
-                                    <div class="switch_circle" :class="{right: showPwd}"></div>
-                                    <span class="switch_text">{{showPwd ? 'abc': '...'}}</span>
+                                <input :type="showPassword ? 'text': 'password'" maxlength="16" placeholder="Password" v-model="password">
+                                <div class="switch_button off" :class="showPassword ? 'on': 'off'" @click="showPassword=!showPassword">
+                                    <div class="switch_circle" :class="{right: showPassword}"></div>
+                                    <span class="switch_text">{{showPassword ? 'abc': '...'}}</span>
                                 </div>
                             </section>
                             <section class="login_message">
                                 <input type="text" maxlength="11" placeholder="Captcha Code" v-model="captcha">
-                                <img class="get_verification" src="../../assets/images/captcha.svg" alt="captcha">
+                                <img class="get_verification" src="http://localhost:4000/api/v1/captcha" alt="captcha" @click="getCaptcha">
                             </section>
                         </section>
                     </div>
@@ -56,13 +56,14 @@
                 <i class="iconfont icon-yangshi_icon_tongyong_back"></i>
             </a>
         </div>
-        <AlertTip :alertText="alertText" v-show="showAlert"/>
+        <AlertTip :alertText="alertText" v-show="showAlert" @closeTip="closeTip"/>
     </section>
 </template>
 
 <script>
 
     import AlertTip from '../../components/AlertTip/AlertTip.vue'
+    import { reqSmsCode, reqCaptcha, reqUsernameLogin, reqPhoneLogin} from '../../api'
     export default {
 
         components: {
@@ -71,13 +72,13 @@
 
         data() {
             return {
-                loginSMS: true,
+                loginSms: true,
                 countDown: 0,
-                showPwd: true,
+                showPassword: true,
                 phone: '',
                 code: '',
-                name: '',
-                pwd: '',
+                username: '',
+                password: '',
                 captcha: '',
                 alertText: '',
                 showAlert: false
@@ -85,38 +86,61 @@
         },
 
         methods: {
-            getVerificationCode() {
-                if(!countDownId) {
-
+            async getVerificationCode() {
+                if(!this.countDownId) {
+                    //forbid getting verification code in 30s 
                     this.countDown = 30
-                    const countDownId = setInterval(() => {
+                    this.countDownId = setInterval(() => {
                         this.countDown--
                         if(this.countDown<=0) {
-                            clearInterval(countDownId)
+                            clearInterval(this.countDownId)
+                            this.countDownId = undefined
                         }
-
                     }, 1000)
                     //send SMS Verification Code
+                    const result = await reqSmsCode(this.phone)
+                    if(result.code===1) {
+                        this.getTip(result.msg)
+                        if(this.countDown) {
+                            this.countDown=0
+                            clearInterval(this.countDownId)
+                            this.countDownId = undefined
+                        }
 
+                    }
                 }
             },
 
+            getTip(alertText) {
+                this.showAlert = true
+                this.alertText = this.alertText+alertText
+            },
+
+            closeTip() {
+                this.showAlert = false
+                this.alertText = ''
+            },
+
+            getCaptcha(event) {
+                event.target.src = 'http://localhost:4000/api/v1/captcha?time='+Date.now()
+            },
+
             login() {
-                if(loginSMS) {
-                    const { validPhone, phone, code } = this
-                    if(validPhone) {
-
-                    } else if(/^\d{6}$/.test(code)) {
-
-                    } else {}
+                if(this.loginSms) {
+                    const { validPhone, code } = this
+                    if(!validPhone) {
+                        this.getTip('Phone number must be 10 digits number only without space')
+                    } else if(!/^\d{6}$/.test(code)) {
+                        this.getTip('Please enter a valid verification code!')
+                    }
                 } else {
-                    const { name, pwd, captcha } = this
-                    if(/^\w{6,14}$/.test(name)) {
-
-                    } else if(/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{6,12}$/.test(pwd)) {
-
-                    } else if(/^[\da-zA-Z]{4}$/.test(captcha)) {
-
+                    const { username, password, captcha } = this
+                    if(!/^\w{6,12}$/.test(username)) {
+                        this.getTip('Username must include 6 to 12 digits the following character types: uppercase, lowercase, numbers, and _ symbol.')
+                    } else if(!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(password)) {
+                        this.getTip('Password should include 8 to 16 digits, at least two of the following character types: letters, numbers and special characters.')
+                    } else if(!/^[\da-zA-Z]{4}$/.test(captcha)) {
+                        this.getTip('Please enter a valid captcha!')
                     }
                 }
             }
@@ -124,7 +148,8 @@
 
         computed: {
             validPhone() {
-                return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(this.phone)
+                //this could match most of the phone number format, but not good for data control /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/
+                return /^[0-9]{10}$/.test(this.phone)
             } 
         }
     }

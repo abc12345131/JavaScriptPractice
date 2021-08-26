@@ -14,6 +14,7 @@ const {
   MONGO_PASSWORD,
   MONGO_IP,
   MONGO_PORT,
+  SESSION_SECRET,
   //REDIS_IP,
   //REDIS_PORT,
   //SESSION_SECRET
@@ -63,7 +64,7 @@ const connectWithRetry = () => {
 
 connectWithRetry()
 
-//redis
+//session in redis 
 // let RedisStore = require('connect-redis')(session)
 // let redisClient = redis.createClient({
 //   host: REDIS_IP,
@@ -77,23 +78,31 @@ connectWithRetry()
 //   console.log('Connected to redis successfully');
 // })
 
-app.use(
-  session({
-    store: new RedisStore({ client: redisClient }),
-    secret: SESSION_SECRET,
-    cookie: {
-      secure: false,
-      resave: false,
-      saveUninitialized: false,
-      httpOnly: true,
-      maxAge: 60 * 60 * 1000
-    }
-  })
-)
+// app.use(
+//   session({
+//     store: new RedisStore({ client: redisClient }),
+//     secret: SESSION_SECRET,
+//     cookie: {
+//       secure: false,
+//       resave: false,
+//       saveUninitialized: false,
+//       httpOnly: true,
+//       maxAge: 60 * 60 * 1000
+//     }
+//   })
+// )
+
+//session in memory
+app.use(session({
+  secret: SESSION_SECRET,
+  cookie: {maxAge: 60 * 60 * 1000 },
+  resave: false,
+  saveUninitialized: true,
+}));
 
 
 //api router
-app.use('/api', indexRouter);
+app.use('/api/v1', indexRouter);
 
 // if frontend and backend project deployed together, incase of frontend router not working
 // app.use((req, res) => {

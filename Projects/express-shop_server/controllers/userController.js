@@ -73,7 +73,7 @@ exports.phoneLogin = (req, res, next) => {
 
     console.log('/users', phone, code)
 
-    if (user[phone] != code) {
+    if ( code!== req.session.users[phone]) {
         res.send({code: 1, msg: 'Phone number or SMS verification code is wrong!'})
     }
     else {

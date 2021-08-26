@@ -1,5 +1,6 @@
 const express = require('express')
 
+const addressController = require('../controllers/addressController')
 const captchaController = require('../controllers/captchaController')
 const categoryController = require('../controllers/categoryController')
 const gooodController = require('../controllers/goodController')
