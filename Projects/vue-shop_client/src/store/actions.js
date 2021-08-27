@@ -13,7 +13,7 @@ export default {
         const result = await reqAddress(context.state.latitude, context.state.longitude)
 
         if (result.status===0) {
-            const address = result.data[1]
+            const address = result.data.results[1]
             context.commit(RECEIVE_ADDRESS, {address})
         }
     },
@@ -22,7 +22,7 @@ export default {
     
         const result = await reqFoodCategories()
 
-        if (result.code===0) {
+        if (result.status===0) {
             const foodCategories = result.data
             context.commit(RECEIVE_FOODCATEGORIES, {foodCategories})
         }
@@ -33,8 +33,8 @@ export default {
         const { latitude, longitude } = context.state
         const result = await reqSearchShops(latitude,longitude)
 
-        if (result.code===0) {
-            const shops = result.data
+        if (result.status===0) {
+            const shops = result.data.results
             context.commit(RECEIVE_SHOPS, {shops})
         }
     }

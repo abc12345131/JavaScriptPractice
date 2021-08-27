@@ -106,7 +106,6 @@
                             clearInterval(this.countDownId)
                             this.countDownId = undefined
                         }
-
                     }
                 }
             },

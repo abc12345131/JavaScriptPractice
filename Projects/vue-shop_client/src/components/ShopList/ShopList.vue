@@ -4,13 +4,15 @@
             <li class="shop_li border-1px" v-for="(shop, index) in shops" :key="index">
                 <a>
                     <div class="shop_left">
-                        <img class="shop_img" :src="baseImageUrl+shop.image_path">
+                        <img class="shop_img" :src="baseImageUrl+shop.photos[0].photo_reference+'&maxwidth=75&key=GOOGLE_API_KEY'">
                     </div>
                     <div class="shop_right">
                         <section class="shop_detail_header">
                             <h4 class="shop_title ellipsis">{{shop.name}}</h4>
                             <ul class="shop_detail_ul">
-                                <li class="supports" v-for="(support, index) in shop.supports" :key="index">{{support.icon_name}}</li>
+                                <li class="supports">Certified</li>
+                                <li class="supports">Punctual</li>
+                                <li class="supports">Promotion</li>
                             </ul>
                         </section>
                         <section class="shop_rating_order">
@@ -19,19 +21,19 @@
                                 <div class="rating_section">
                                     {{shop.rating}}
                                 </div>
-                                <div class="order_section">
-                                    Sold {{shop.recent_order_num}} this month
+                                <div class="review_section">
+                                    Total Review Number: {{shop.user_ratings_total}}
                                 </div>
                             </section>
                             <section class="shop_rating_order_right">
-                                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+                                <span class="delivery_style delivery_right">BW Dedicated</span>
                             </section>
                         </section>
                         <section class="shop_distance">
                             <p class="shop_delivery_msg">
-                                <span>Starting at ${{shop.float_minimum_order_amount}}</span>
+                                <span>Starting at $20</span>
                                 <span class="segmentation">/</span>
-                                <span>delivery fee: ${{shop.float_delivery_fee}}</span>
+                                <span>delivery fee: $2.99</span>
                             </p>
                         </section>
                     </div>
@@ -60,7 +62,7 @@
 
         data() {
             return {
-                baseImageUrl: 'http://cangdu.org:8001/img/'
+                baseImageUrl: 'https://maps.googleapis.com/maps/api/place/photo?photo_reference='
             }
         },
 
@@ -192,7 +194,7 @@
                                     font-size: 10px
                                     color: #ff6000
                                     margin-left: 4px
-                                .order_section
+                                .review_section
                                     float: left
                                     font-size: 10px
                                     color: #666

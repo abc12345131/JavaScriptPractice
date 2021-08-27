@@ -6,8 +6,7 @@ const {GOOGLE_API_KEY} = require('../config/config')
 exports.readAddress = (req, res, next) => {
 
     const {latitude, longitude} = req.query
-    const latlng = {latitude, longitude} 
-    const apiUrl= `https://maps.google.com/maps/api/geocode/json?language=EN&latlng=${latlng}&sensor=false&key=${GOOGLE_API_KEY}`
+    const apiUrl= `https://maps.google.com/maps/api/geocode/json?language=EN&latlng=${latitude},${longitude}&sensor=false&key=${GOOGLE_API_KEY}`
     ajax(apiUrl) 
         .then(data => {
             res.send({status: 0, data})
