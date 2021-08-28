@@ -121,7 +121,7 @@
             },
 
             getCaptcha() {
-                this.$ref.captcha.src = 'http://localhost:4000/api/v1/captcha?time='+Date.now()
+                this.$refs.captcha.src = 'http://localhost:4000/api/v1/captcha?time='+Date.now()
             },
 
             async login() {

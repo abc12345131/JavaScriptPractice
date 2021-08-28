@@ -111,7 +111,7 @@
 
 		methods: {
 			logout() {
-				MessageBox.confirm('Notice', 'Are you sure to log out?')
+				MessageBox.confirm('Are you sure to log out?', 'Notice')
 					.then(
 						action => {
 							this.$store.dispatch('logout')
