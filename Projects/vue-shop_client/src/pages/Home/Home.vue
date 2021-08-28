@@ -2,12 +2,13 @@
     <section class="home">
         <!--Header-->
         <Header :title="address.formatted_address">
-            <span class="header_search" slot="search">
+            <router-link class="header_search" slot="search" to="/search">
                 <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
-            </span>
-            <span class="header_login" slot="login">
-                <span class="header_login_text">Login/Register</span>
-            </span>
+            </router-link>
+            <router-link class="header_login" slot="login" :to="userInfo._id ? '/userinfo' : '/login'">
+                <span class="header_login_text" v-if="!userInfo._id">Login/Register</span>
+                 <i class="iconfont icon-yangshi_icon_tongyong_user" v-else></i>
+            </router-link>
         </Header>
         <!--Home Navigator-->
         <nav class="home_nav">
@@ -52,7 +53,6 @@
 
         mounted() {
 
-            this.$store.dispatch('getAddress'),
             this.$store.dispatch('getFoodCategories'),
             SwiperCore.use([Navigation, Pagination])
         },
@@ -69,7 +69,7 @@
         },
 
         computed: {
-            ...mapState(['address', 'foodCategories']),
+            ...mapState(['address', 'foodCategories', 'userInfo']),
 
             categoryArr() {
                 const { foodCategories } = this

@@ -3,17 +3,17 @@
 		<!--Header-->
 		<Header title="Profile"/>
         <section class="profile-number">
-            <router-link to="/login" class="profile-link">
+            <router-link :to="userInfo._id ? '/userinfo' : '/login'" class="profile-link">
                 <div class="profile_image">
                     <i class="iconfont icon-yangshi_icon_tongyong_user"></i>
                 </div>
                 <div class="user-info">
-                    <p class="user-info-top">Login/Register</p>
+                    <p class="user-info-top" v-if="!userInfo.phone">{{userInfo.username || 'Login/Register'}}</p>
                     <p>
                         <span class="user-icon">
                             <i class="iconfont icon-yangshi_icon_tongyong_phone"></i>
                         </span>
-                        <span class="icon-mobile-number">Not Applicable</span>
+                        <span class="icon-mobile-number">{{userInfo.phone || 'Not Applicable'}}</span>
                     </p>
                 </div>
                 <span class="arrow">
@@ -50,33 +50,31 @@
                     </span>
                 </div>
             </a>
-        <!-- 积分商城 -->
-        <a href='javascript:' class="my_order">
-            <span>
-                <i class="iconfont icon-yangshi_icon_tongyong_benefits"></i>
-            </span>
-            <div class="my_order_div">
-                <span>Points Mall</span>
-                <span class="my_order_icon">
-                    <i class="iconfont icon-yangshi_icon_tongyong_enter"></i>
-                </span>
-            </div>
-        </a>
-        <!-- VIP centre -->
-        <a href="javascript:" class="my_order">
-            <span>
-                <i class="iconfont icon-yangshi_icon_tongyong_premium"></i>
-            </span>
-            <div class="my_order_div">
-                <span>VIP Centre</span>
-                <span class="my_order_icon">
-                    <i class="iconfont icon-yangshi_icon_tongyong_enter"></i>
-                </span>
-            </div>
-        </a>
-        </section>
-        <section class="profile_my_order border-1px">
-        <!-- service centre -->
+			<!-- Points Mall-->
+			<a href='javascript:' class="my_order">
+				<span>
+					<i class="iconfont icon-yangshi_icon_tongyong_benefits"></i>
+				</span>
+				<div class="my_order_div">
+					<span>Points Mall</span>
+					<span class="my_order_icon">
+						<i class="iconfont icon-yangshi_icon_tongyong_enter"></i>
+					</span>
+				</div>
+			</a>
+			<!-- VIP centre -->
+			<a href="javascript:" class="my_order">
+				<span>
+					<i class="iconfont icon-yangshi_icon_tongyong_premium"></i>
+				</span>
+				<div class="my_order_div">
+					<span>VIP Centre</span>
+					<span class="my_order_icon">
+						<i class="iconfont icon-yangshi_icon_tongyong_enter"></i>
+					</span>
+				</div>
+			</a>
+        	<!-- service centre -->
             <a href="javascript:" class="my_order">
                 <span>
                     <i class="iconfont icon-yangshi_icon_tongyong_customer_service"></i>
@@ -89,15 +87,26 @@
                 </div>
             </a>
         </section>
+		<section class="profile_info_data border-1px">
+			<mt-button type="danger">Logout</mt-button>
+		</section>
     </section>  
 </template>
 
 <script>
+
+    import { mapState } from 'vuex' 
+
     import Header from '../../components/Header/Header.vue'
     export default {
+
         components: {
             Header
-        }
+        },
+
+		computed: {
+            ...mapState(['userInfo'])
+		}
     }
 </script>
 

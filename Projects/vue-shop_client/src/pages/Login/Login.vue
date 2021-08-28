@@ -44,7 +44,7 @@
                             </section>
                             <section class="login_message">
                                 <input type="text" maxlength="11" placeholder="Captcha Code" v-model="captcha">
-                                <img class="get_verification" src="http://localhost:4000/api/v1/captcha" alt="captcha" @click="getCaptcha">
+                                <img class="get_verification" src="http://localhost:4000/api/v1/captcha" alt="captcha" @click="getCaptcha" ref="captcha">
                             </section>
                         </section>
                     </div>
@@ -63,7 +63,7 @@
 <script>
 
     import AlertTip from '../../components/AlertTip/AlertTip.vue'
-    import { reqSmsCode, reqCaptcha, reqUsernameLogin, reqPhoneLogin} from '../../api'
+    import { reqSmsCode, reqUsernameLogin, reqPhoneLogin} from '../../api'
     export default {
 
         components: {
@@ -99,7 +99,7 @@
                     }, 1000)
                     //send SMS Verification Code
                     const result = await reqSmsCode(this.phone)
-                    if(result.code===1) {
+                    if(result.status===1) {
                         this.getTip(result.msg)
                         if(this.countDown) {
                             this.countDown=0
@@ -120,18 +120,22 @@
                 this.alertText = ''
             },
 
-            getCaptcha(event) {
-                event.target.src = 'http://localhost:4000/api/v1/captcha?time='+Date.now()
+            getCaptcha() {
+                this.$ref.captcha.src = 'http://localhost:4000/api/v1/captcha?time='+Date.now()
             },
 
-            login() {
+            async login() {
+                let result
                 if(this.loginSms) {
-                    const { validPhone, code } = this
+                    const { validPhone, phone, code } = this
                     if(!validPhone) {
                         this.getTip('Phone number must be 10 digits number only without space')
                     } else if(!/^\d{6}$/.test(code)) {
                         this.getTip('Please enter a valid verification code!')
                     }
+                    result = await reqPhoneLogin(phone, code)
+
+
                 } else {
                     const { username, password, captcha } = this
                     if(!/^\w{6,12}$/.test(username)) {
@@ -141,6 +145,22 @@
                     } else if(!/^[\da-zA-Z]{4}$/.test(captcha)) {
                         this.getTip('Please enter a valid captcha!')
                     }
+                    result = await reqUsernameLogin(username, password, captcha)
+                }
+
+                if(this.countDown) {
+                    this.countDown=0
+                    clearInterval(this.countDownId)
+                    this.countDownId = undefined
+                }
+
+                if(result.status===0) {
+                    const user = result.data
+                    this.$store.dispatch('saveUserInfo', user)
+                    this.$router.replace('/profile')
+                } else {
+                    this.getCaptcha()
+                    this.getTip(result.msg)
                 }
             }
         },
