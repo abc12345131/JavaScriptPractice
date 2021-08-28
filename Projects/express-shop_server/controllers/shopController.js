@@ -2,7 +2,6 @@
 const ajax = require('../api/ajax')
 const {GOOGLE_API_KEY} = require('../config/config')
 
-
 exports.readShops = (req, res, next) => {
 
     const {latitude, longitude, keyword} = req.query

@@ -11,6 +11,7 @@ export const reqPhoneLogin = (phone, code) => ajax(Base + '/users/phone', {phone
 //logout
 export const reqLogout = () => ajax(Base + '/users/logout', {}, 'POST')
 
+
 //get food catrgories
 export const reqFoodCategories = () => ajax(Base + '/categories')
 
@@ -25,3 +26,13 @@ export const reqSmsCode = (phone) => ajax(Base + '/smscode', {phone})
 
 //get user info
 export const reqUserInfo = () => ajax(Base + '/users')
+
+
+//get shop goods
+export const reqShopGoods = (place_id) => ajax(Base + '/goods', {place_id})
+
+//get shop ratings
+export const reqShopRatings = (place_id) => ajax(Base + '/ratings', {place_id})
+
+//get shop infos
+export const reqShopInfos = (place_id) => ajax(Base + '/infos', {place_id})
