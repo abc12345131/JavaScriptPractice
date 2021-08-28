@@ -155,8 +155,8 @@
                 }
 
                 if(result.status===0) {
-                    const user = result.data
-                    this.$store.dispatch('saveUserInfo', user)
+                    const userInfo = result.data
+                    this.$store.dispatch('saveUserInfo', userInfo)
                     this.$router.replace('/profile')
                 } else {
                     this.getCaptcha()

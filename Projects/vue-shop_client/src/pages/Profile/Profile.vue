@@ -88,7 +88,7 @@
             </a>
         </section>
 		<section class="profile_info_data border-1px">
-			<mt-button type="danger">Logout</mt-button>
+			<mt-button type="danger" style="width: 100%" v-if="userInfo._id" @click="logout">Logout</mt-button>
 		</section>
     </section>  
 </template>
@@ -96,8 +96,9 @@
 <script>
 
     import { mapState } from 'vuex' 
-
+	import { MessageBox, Toast } from 'mint-ui'
     import Header from '../../components/Header/Header.vue'
+
     export default {
 
         components: {
@@ -106,6 +107,21 @@
 
 		computed: {
             ...mapState(['userInfo'])
+		},
+
+		methods: {
+			logout() {
+				MessageBox.confirm('Notice', 'Are you sure to log out?')
+					.then(
+						action => {
+							this.$store.dispatch('logout')
+							Toast('Log out completed!')
+						},
+						action => {
+							console.log('Log out cancelled!')
+						}
+					)				
+			}
 		}
     }
 </script>

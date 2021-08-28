@@ -2,10 +2,11 @@ import {
     RECEIVE_ADDRESS,
     RECEIVE_FOODCATEGORIES,
     RECEIVE_SHOPS,
-    RECEIVE_USER_INFO
+    RECEIVE_USER_INFO,
+    RESET_USER_INFO
 } from './mutation-types'
 
-import { reqAddress, reqFoodCategories, reqSearchShops,reqUserInfo } from '../api'
+import { reqAddress, reqFoodCategories, reqSearchShops, reqUserInfo, reqLogout } from '../api'
 
 export default {
 
@@ -69,9 +70,15 @@ export default {
     async getUserInfo(context) {
         const result = await reqUserInfo()
         if(result.status===0) {
-            const user = result.data
-            context.commit(RECEIVE_USER_INFO, user)
+            const userInfo = result.data
+            context.commit(RECEIVE_USER_INFO, {userInfo})
+        }
+    },
+
+    async logout(context) {
+        const result = await reqLogout()
+        if(result.status===0) {
+            context.commit(RESET_USER_INFO)
         }
     }
-
 }
