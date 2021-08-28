@@ -6,8 +6,12 @@
                 <i class="iconfont icon-yangshi_icon_tongyong_search"></i>
             </router-link>
             <router-link class="header_login" slot="login" :to="userInfo._id ? '/userinfo' : '/login'">
-                <span class="header_login_text" v-if="!userInfo._id">Login/Register</span>
-                 <i class="iconfont icon-yangshi_icon_tongyong_user" v-else></i>
+                <span class="header_login_text" v-if="!userInfo._id">
+                    Login/Register
+                </span>
+                <span class="header_login_text" v-else>
+                    <i class="iconfont icon-yangshi_icon_tongyong_user"></i>
+                </span>
             </router-link>
         </Header>
         <!--Home Navigator-->

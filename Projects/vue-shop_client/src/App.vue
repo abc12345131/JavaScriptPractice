@@ -17,7 +17,7 @@
 
 			this.getLocation(),
 			this.getAddress(),
-			this.getUserinfo()
+			this.getUserInfo()
 		},
 
 		methods: {

@@ -9,7 +9,7 @@ export const reqUsernameLogin = (username, password, captcha) => ajax(Base + '/u
 export const reqPhoneLogin = (phone, code) => ajax(Base + '/users/phone', {phone, code}, 'POST')
 
 //logout
-export const reqLogout = () => ajax(Base + '/users/logout', 'POST')
+export const reqLogout = () => ajax(Base + '/users/logout', {}, 'POST')
 
 //get food catrgories
 export const reqFoodCategories = () => ajax(Base + '/categories')
