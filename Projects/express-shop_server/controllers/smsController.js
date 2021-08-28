@@ -16,9 +16,9 @@ exports.readCode = (req, res, next) => {
             }
             req.session.users[phone] = code
             console.log('Save SMS verification code: ', phone, code)
-            res.send({"code": 0})
+            res.send({status: 0})
         } else {
-            res.send({"code": 1, msg: 'Falied to send SMS verification code!'})
+            res.send({status: 1, msg: 'Falied to send SMS verification code!'})
         }
     })
 }

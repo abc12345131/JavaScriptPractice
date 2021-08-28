@@ -9,9 +9,9 @@ exports.readUser = (req, res, next) => {
         .then(user => {
             if (!user) {
                 delete req.session.userid  
-                res.send({code: 1, msg: 'Please login first!'})
+                res.send({status: 1, msg: 'Please login first!'})
             } else {
-                res.send({code: 0, data: user})
+                res.send({status: 0, data: user})
             }
         })
         .catch(error => {
@@ -29,7 +29,7 @@ exports.usernameLogin = (req, res, next) => {
     console.log('/users', username, password, captcha, req.session)
 
     if(captcha!==req.session.captcha) {
-        res.send({code: 1, msg: 'Captcha is wrong!'})
+        res.send({status: 1, msg: 'Captcha is wrong!'})
     }
     else {
         //delete one-time captcha
@@ -40,18 +40,18 @@ exports.usernameLogin = (req, res, next) => {
                 if (user) {
                     console.log('findUser', user)
                     if (user.password !== password) {
-                        res.send({code: 1, msg: 'Username or password is not correct!'})
+                        res.send({status: 1, msg: 'Username or password is not correct!'})
                     } else {
                         req.session.userid = user._id
                         const data = {_id: user._id, username: user.username, phone: user.phone}
-                        res.send({code: 0, data})
+                        res.send({status: 0, data})
                     }
                 } else {
                     UserModel.create({username, password})
                         .then(user => {
                             req.session.userid = user._id
                             const data = {_id: user._id, username: user.username}
-                            res.send({code: 0, data})
+                            res.send({status: 0, data})
                         })
                         .catch(error => {
                             console.error('Create user exception', error)
@@ -74,23 +74,23 @@ exports.phoneLogin = (req, res, next) => {
     console.log('/users', phone, code)
 
     if ( code!== req.session.users[phone]) {
-        res.send({code: 1, msg: 'Phone number or SMS verification code is wrong!'})
+        res.send({status: 1, msg: 'Phone number or SMS verification code is wrong!'})
     }
     else {
         //delete one-time SMS verification code
-        delete users[phone]  
+        delete req.session.users[phone]
   
         UserModel.findOne({phone})
             .then(user => {
                 if (user) {
                     req.session.userid = user._id
-                    res.send({code: 0, data: user})
+                    res.send({status: 0, data: user})
                 } else {
                     //create new user
                     UserModel.create({phone})
                         .then(user => {
                             req.session.userid = user._id
-                            res.send({code: 0, data: user})
+                            res.send({status: 0, data: user})
                         })
                         .catch(error => {
                             console.error('Create user exception', error)
@@ -108,5 +108,5 @@ exports.phoneLogin = (req, res, next) => {
 //logout
 exports.logout = (req, res, next) => {
     delete req.session.userid
-    res.send({code: 0})
+    res.send({status: 0})
 }

@@ -20,9 +20,6 @@ export const reqAddress = (latitude, longitude) => ajax(Base + '/address', {lati
 //get shops
 export const reqSearchShops = (latitude, longitude, keyword) => ajax(Base + '/shops', {latitude, longitude, keyword})
 
-//get captcha
-export const reqCaptcha = () => ajax(Base + '/captcha')
-
 //get SMS verification code
 export const reqSmsCode = (phone) => ajax(Base + '/smscode', {phone})
 
