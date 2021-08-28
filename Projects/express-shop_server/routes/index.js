@@ -3,11 +3,12 @@ const express = require('express')
 const addressController = require('../controllers/addressController')
 const captchaController = require('../controllers/captchaController')
 const categoryController = require('../controllers/categoryController')
-const gooodController = require('../controllers/goodController')
-const ratingController = require('../controllers/ratingController')
 const shopController = require('../controllers/shopController')
 const smsController = require('../controllers/smsController')
 const userController = require('../controllers/userController')
+const gooodController = require('../controllers/goodController')
+const ratingController = require('../controllers/ratingController')
+const infoController = require('../controllers/infoController')
 
 const userValidator = require('../validators/userValidator')
 
@@ -28,6 +29,7 @@ router.route('/shops')
 router.route('/smscode')
     .get(smsController.readCode)
 
+
 router.route('/users')
     .get(userController.readUser)
 
@@ -39,6 +41,16 @@ router.route('/users/phone')
 
 router.route('/users/logout')
     .post(userController.logout)
+
+
+router.route('/goods')
+    .get(goodController.readGoods)
+
+router.route('/ratings')
+    .get(ratingController.readRatings)
+
+router.route('/infos')
+    .get(infoController.readInfos)
 
 
 module.exports = router;
