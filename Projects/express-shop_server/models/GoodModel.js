@@ -2,9 +2,8 @@
 const mongoose = require('mongoose')
 
 const goodSchema = new mongoose.Schema({
-    name: {type: String, required: true}, 
-    icon: {type: String}, //img url
-    foods: {type: Array, default: []}
+    place_id: {type: String, required: true}, 
+    goods: {type: Array, default: []}
 })
 
 const GoodModel = mongoose.model('goods', goodSchema)
