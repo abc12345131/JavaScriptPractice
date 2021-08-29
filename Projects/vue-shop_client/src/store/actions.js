@@ -3,10 +3,23 @@ import {
     RECEIVE_FOODCATEGORIES,
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
-    RESET_USER_INFO
+    RESET_USER_INFO,
+    RECEIVE_PLACE_ID,
+    RECEIVE_GOODS,
+    RECEIVE_RATINGS,
+    RECEIVE_INFOS
 } from './mutation-types'
 
-import { reqAddress, reqFoodCategories, reqSearchShops, reqUserInfo, reqLogout } from '../api'
+import { 
+    reqAddress,
+    reqFoodCategories,
+    reqSearchShops,
+    reqUserInfo,
+    reqLogout,
+    reqShopGoods,
+    reqShopRatings,
+    reqShopInfos
+} from '../api'
 
 export default {
 
@@ -79,6 +92,40 @@ export default {
         const result = await reqLogout()
         if(result.status===0) {
             context.commit(RESET_USER_INFO)
+        }
+    },
+
+    savePlaceId(context, place_id) {
+        context.commit(RECEIVE_PLACE_ID, {place_id})
+    },
+
+    async getShopGoods(context) {
+    
+        const result = await reqShopGoods(context.state.place_id)
+
+        if (result.status===0) {
+            const goods = result.data
+            context.commit(RECEIVE_GOODS, {goods})
+        }
+    },
+
+    async getShopRatings(context) {
+
+        const result = await reqShopRatings(context.state.place_id)
+
+        if (result.status===0) {
+            const ratings = result.data
+            context.commit(RECEIVE_RATINGS, {ratings})
+        }
+    },
+
+    async getShopInfos(context) {
+    
+        const result = await reqShopInfos(context.state.place_id)
+
+        if (result.status===0) {
+            const infos = result.data
+            context.commit(RECEIVE_INFOS, {infos})
         }
     }
 }

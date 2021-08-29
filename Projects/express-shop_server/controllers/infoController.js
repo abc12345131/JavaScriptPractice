@@ -4,9 +4,9 @@ const InfoModel = require('../models/InfoModel')
 //get shop info list
 exports.readInfos = (req, res, next) => {
     const {place_id} = req.query
-    InfoModel.find({place_id})
+    InfoModel.findOne({place_id})
         .then(infos => {
-            res.send({status: 0, data: infos})
+            res.send({status: 0, data: infos.infos})
         })
         .catch(error => {
             console.error('Get shop info list exception', error)

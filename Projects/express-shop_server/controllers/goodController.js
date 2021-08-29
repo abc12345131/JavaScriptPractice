@@ -4,9 +4,9 @@ const GoodModel = require('../models/GoodModel')
 //get shop good list
 exports.readGoods = (req, res, next) => {
     const {place_id} = req.query
-    GoodModel.find({place_id})
+    GoodModel.findOne({place_id})
         .then(goods => {
-            res.send({status: 0, data: goods})
+            res.send({status: 0, data: goods.goods})
         })
         .catch(error => {
             console.error('Get shop good list exception', error)

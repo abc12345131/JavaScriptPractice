@@ -5,5 +5,9 @@ export default {
     address: {},
     foodCategories: [],
     shops: [],
-    userInfo: {}
+    userInfo: {},
+    goods: {},
+    ratings: {},
+    infos: {},
+    place_id: ''
 }

@@ -6,7 +6,7 @@ const categoryController = require('../controllers/categoryController')
 const shopController = require('../controllers/shopController')
 const smsController = require('../controllers/smsController')
 const userController = require('../controllers/userController')
-const gooodController = require('../controllers/goodController')
+const goodController = require('../controllers/goodController')
 const ratingController = require('../controllers/ratingController')
 const infoController = require('../controllers/infoController')
 

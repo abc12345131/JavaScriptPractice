@@ -20,6 +20,14 @@
     import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
 
     export default {
+
+        mounted() {
+            this.$store.dispatch('savePlaceId', this.$route.query.id),
+            this.$store.dispatch('getShopGoods'),
+            this.$store.dispatch('getShopRatings'),
+            this.$store.dispatch('getShopInfos')
+        },
+
         components: {
             ShopHeader
         }
