@@ -56,6 +56,10 @@ exports.userLogin = (req, res, next) => {
                             //req.session.user = user
                             res.send({status: 0})
                         })
+                        .catch(error => {
+                            console.error('Role not found exception', error)
+                            res.send({status: 1, msg: 'Role not found exception, please try again!'})
+                        })
                 } else {
                     user._doc.role = {menus: []}
                     // create resonse cookie with role information
