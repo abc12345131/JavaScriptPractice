@@ -36,7 +36,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "store": "^2.0.12",
-    "tar": "^6.1.6",
+    "tar": "^6.1.9",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.0.1",
     "ws": "^7.4.6"
