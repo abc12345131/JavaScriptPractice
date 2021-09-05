@@ -74,7 +74,7 @@
         },
 
         computed: {
-            ...mapState(['address', 'foodCategories', 'userInfo', 'shops']),
+            ...mapState(['address', 'foodCategories', 'userInfo']),
 
             categoryArr() {
                 const { foodCategories } = this
