@@ -53,6 +53,7 @@ const router = new VueRouter({
             children: [
                 {
                     path:'/shop/goods',
+                    name: 'ShopDetail',
                     component: ShopGoods
                 },
                 {

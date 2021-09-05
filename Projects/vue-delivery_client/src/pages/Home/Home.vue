@@ -37,7 +37,7 @@
                 <i class="iconfont icon-yangshi_icon_tongyong_more_services"></i>
                 <span class="shop_header_title">Nearby Shop</span>
             </div>
-        <ShopList></ShopList>
+        <ShopList/>
         </div>
     </section>
 </template>
@@ -58,6 +58,7 @@
         mounted() {
 
             this.$store.dispatch('getFoodCategories'),
+            this.$store.dispatch('getShops'),
             SwiperCore.use([Navigation, Pagination])
         },
 
@@ -73,7 +74,7 @@
         },
 
         computed: {
-            ...mapState(['address', 'foodCategories', 'userInfo']),
+            ...mapState(['address', 'foodCategories', 'userInfo', 'shops']),
 
             categoryArr() {
                 const { foodCategories } = this

@@ -12,7 +12,9 @@
                 <router-link to="/shop/infos">About</router-link>
             </div>
         </div>
-        <router-view/>
+        <keep-alive>
+            <router-view/>
+        </keep-alive>
     </div>
 </template>
 
@@ -22,7 +24,7 @@
     export default {
 
         mounted() {
-            this.$store.dispatch('savePlaceId', this.$route.query.id),
+            this.$store.dispatch('savePlaceId', this.$route.params.id),
             this.$store.dispatch('getShopGoods'),
             this.$store.dispatch('getShopRatings'),
             this.$store.dispatch('getShopInfos')
