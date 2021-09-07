@@ -3,7 +3,7 @@
         <ul class="shop_list" v-if="shops.length">
             <li class="shop_li border-1px" v-for="(shop, index) in shops" :key="index" @click="$router.push({name:'ShopDetail', params:{id:shop.place_id}})">
                 <a>
-                    <div class="shop_left">
+                    <div class="shop_left" v-if="shop.photos">
                         <img class="shop_img" :src="baseImageUrl+shop.photos[0].photo_reference+'&maxwidth=75&key=GOOGLE_API_KEY'">
                     </div>
                     <div class="shop_right">
@@ -54,6 +54,10 @@
     import Star from '../Star/Star.vue'
 
     export default {
+
+        mounted() {
+            this.$store.dispatch('getShops')
+        },
 
         data() {
             return {

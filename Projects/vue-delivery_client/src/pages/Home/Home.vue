@@ -56,9 +56,7 @@
     export default {
 
         mounted() {
-
             this.$store.dispatch('getFoodCategories'),
-            this.$store.dispatch('getShops'),
             SwiperCore.use([Navigation, Pagination])
         },
 

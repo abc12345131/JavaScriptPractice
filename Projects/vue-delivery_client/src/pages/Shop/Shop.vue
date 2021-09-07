@@ -25,7 +25,6 @@
 
         mounted() {
             this.$store.dispatch('savePlaceId', this.$route.params.id),
-            this.$store.dispatch('getShopGoods'),
             this.$store.dispatch('getShopRatings'),
             this.$store.dispatch('getShopInfos')
         },
