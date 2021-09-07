@@ -99,13 +99,14 @@ export default {
         context.commit(RECEIVE_PLACE_ID, {place_id})
     },
 
-    async getShopGoods(context) {
+    async getShopGoods(context, callback) {
     
         const result = await reqShopGoods(context.state.place_id)
 
         if (result.status===0) {
             const goods = result.data
             context.commit(RECEIVE_GOODS, {goods})
+            callback && callback()
         }
     },
 

@@ -3,7 +3,6 @@
         <div class="goods">
             <div class="menu-wrapper">
                 <ul>
-                    <!--current-->
                     <li class="menu-item" v-for="(good, index) in goods" :key="index"
                         :class="{current: index===currentIndex}" @click="clickMenuItem(index)">
                         <span class="text bottom-border-1px">
@@ -27,15 +26,15 @@
                                     <h2 class="name">{{food.name}}</h2>
                                     <p class="desc">{{food.description}}</p>
                                     <div class="extra">
-                                        <span class="count">月售{{food.sellCount}}份</span>
-                                        <span>好评率{{food.rating}}%</span>
+                                        <span class="count">{{food.sellCount}}orders this month</span>
+                                        <span>Commend Rate: {{food.rating}}%</span>
                                     </div>
                                     <div class="price">
-                                        <span class="now">￥{{food.price}}</span>
-                                        <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
+                                        <span class="now">${{food.price}}</span>
+                                        <span class="old" v-if="food.oldPrice">${{food.oldPrice}}</span>
                                     </div>
                                     <div class="cartcontrol-wrapper">
-                                        <CartControl :food="food"/>
+                                        <CartControl/>
                                     </div>
                                 </div>
                             </li>
@@ -43,16 +42,83 @@
                     </li>
                 </ul>
             </div>
-            <ShopCart />
         </div>
-        <Food :food="food" ref="food"/>
     </div>
 </template>
 
 <script>
-
+    import BScroll from 'better-scroll'
+    import {mapState} from 'vuex'
     export default {
+        mounted() {
 
+            this.$store.dispatch('getShopGoods', () => {
+                this.$nextTick(()=>{
+                    this._initScroll()
+                    this._initTop()
+                })
+            })  
+        },
+
+        data() {
+            return {
+                scrollY: 0, //scroll down position of the food list
+                tops: [], //array of tops of food list
+                food: {}
+            }
+        },
+
+        computed: {
+            ...mapState(['goods']),
+            //get index of current food category
+            currentIndex() {
+                const {scrollY, tops} = this
+                const index = tops.findIndex((top, index)=>{
+                    return scrollY >= top && scrollY < tops[index+1]
+                })
+                return index
+            }
+        },
+
+        methods: {
+            //initialization method add '_' infront 
+            _initScroll() {
+                new BScroll('.menu-wrapper', {
+                    click: true
+                })
+                this.foodsScroll = new BScroll('.foods-wrapper', {
+                    probeType: 3,
+                    click: true
+                })
+
+                this.foodsScroll.on('scroll', ({x, y}) => {
+                    this.scrollY = Math.abs(y)
+                })
+            },
+
+            _initTop() {
+                const tops = []
+                let top = 0
+                tops.push(top)
+                const lists = this.$refs.foodsUl.getElementsByClassName('food-list-hook')
+                Array.prototype.slice.call(lists).forEach(list => {
+                    top +=list.clientHeight
+                    tops.push(top)
+                })
+                this.tops = tops
+            },
+
+            clickMenuItem(index) {
+                //change the menu selection right away
+                this.scrollY = this.tops[index]
+                //change the list with 250ms transition 
+                this.foodsScroll.scrollTo(0, -this.scrollY, 250) 
+            },
+
+            showFood(food) {
+
+            }
+        }
     }
 </script>
 
@@ -68,12 +134,12 @@
         overflow: hidden
         .menu-wrapper
             flex: 0 0 80px
-            width: 80px
+            width: 85px
             background: #f3f5f7
             .menu-item
                 display: table
                 height: 54px
-                width: 56px
+                width: 66px
                 padding: 0 12px
                 line-height: 14px
                 &.current
