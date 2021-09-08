@@ -4,10 +4,11 @@ import {
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
     RESET_USER_INFO,
-    RECEIVE_PLACE_ID,
     RECEIVE_GOODS,
     RECEIVE_RATINGS,
-    RECEIVE_INFOS
+    RECEIVE_INFOS,
+    FOOD_COUNT_INCREMENT,
+    FOOD_COUNT_DECREMENT
 } from './mutation-types'
 
 import { 
@@ -95,13 +96,9 @@ export default {
         }
     },
 
-    savePlaceId(context, place_id) {
-        context.commit(RECEIVE_PLACE_ID, {place_id})
-    },
-
-    async getShopGoods(context, callback) {
+    async getShopGoods(context, {place_id}, callback) {
     
-        const result = await reqShopGoods(context.state.place_id)
+        const result = await reqShopGoods(place_id)
 
         if (result.status===0) {
             const goods = result.data
@@ -110,23 +107,32 @@ export default {
         }
     },
 
-    async getShopRatings(context) {
+    async getShopRatings(context, {place_id}, callback) {
 
-        const result = await reqShopRatings(context.state.place_id)
+        const result = await reqShopRatings(place_id)
 
         if (result.status===0) {
             const ratings = result.data
             context.commit(RECEIVE_RATINGS, {ratings})
+            callback && callback()
         }
     },
 
-    async getShopInfos(context) {
+    async getShopInfos(context, {place_id}) {
     
-        const result = await reqShopInfos(context.state.place_id)
+        const result = await reqShopInfos(place_id)
 
         if (result.status===0) {
             const infos = result.data
             context.commit(RECEIVE_INFOS, {infos})
         }
-    }
+    },
+
+    updateFoodCount(context, {isAdd, food}) {
+        if (isAdd) {            
+            context.commit(FOOD_COUNT_INCREMENT, {food})
+        } else {
+            context.commit(FOOD_COUNT_DECREMENT, {food})
+        }
+    },
 }

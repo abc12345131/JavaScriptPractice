@@ -23,10 +23,10 @@
 
     export default {
 
+        props: ['place_id'],
+
         mounted() {
-            this.$store.dispatch('savePlaceId', this.$route.params.id),
-            this.$store.dispatch('getShopRatings'),
-            this.$store.dispatch('getShopInfos')
+            this.$store.dispatch('getShopInfos', {place_id: this.place_id})
         },
 
         components: {

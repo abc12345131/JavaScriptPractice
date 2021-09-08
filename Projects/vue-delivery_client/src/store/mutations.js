@@ -7,7 +7,9 @@ import {
     RECEIVE_PLACE_ID,
     RECEIVE_GOODS,
     RECEIVE_INFOS,
-    RECEIVE_RATINGS
+    RECEIVE_RATINGS,
+    FOOD_COUNT_INCREMENT,
+    FOOD_COUNT_DECREMENT
 } from './mutation-types'
 
 export default {
@@ -32,10 +34,6 @@ export default {
         state.userInfo = {}
     },
 
-    [RECEIVE_PLACE_ID](state, {place_id}) {
-        state.place_id = place_id
-    },
-
     [RECEIVE_GOODS](state, {goods}) {
         state.goods = goods
     },
@@ -46,5 +44,19 @@ export default {
 
     [RECEIVE_INFOS](state, {infos}) {
         state.infos = infos
+    },
+
+    [FOOD_COUNT_INCREMENT](state, {food}) {
+        if(food.count) {
+            food.count++
+        } else {
+            food.count=1
+        }
+    },
+
+    [FOOD_COUNT_DECREMENT](state, {food}) {
+        if(food.count) {
+            food.count--
+        }
     }
 }

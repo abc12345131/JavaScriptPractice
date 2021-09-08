@@ -8,6 +8,5 @@ export default {
     userInfo: {},
     goods: {},
     ratings: {},
-    infos: {},
-    place_id: ''
+    infos: {}
 }
