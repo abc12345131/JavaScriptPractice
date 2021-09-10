@@ -1,10 +1,10 @@
+import Vue from 'vue'
 import { 
     RECEIVE_ADDRESS,
     RECEIVE_FOODCATEGORIES,
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
     RESET_USER_INFO,
-    RECEIVE_PLACE_ID,
     RECEIVE_GOODS,
     RECEIVE_INFOS,
     RECEIVE_RATINGS,
@@ -47,10 +47,10 @@ export default {
     },
 
     [FOOD_COUNT_INCREMENT](state, {food}) {
-        if(food.count) {
+        if(food.count) {            
             food.count++
         } else {
-            food.count=1
+            Vue.set(food, 'count', 1)
         }
     },
 

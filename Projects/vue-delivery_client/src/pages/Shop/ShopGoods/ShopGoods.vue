@@ -34,7 +34,7 @@
                                         <span class="old" v-if="food.oldPrice">${{food.oldPrice}}</span>
                                     </div>
                                     <div class="cartcontrol-wrapper">
-                                        <CartControl/>
+                                        <CartControl :food="food"/>
                                     </div>
                                 </div>
                             </li>
@@ -49,15 +49,22 @@
 <script>
     import BScroll from 'better-scroll'
     import {mapState} from 'vuex'
+    import CartControl from '../../../components/CartControl/CartControl.vue'
     export default {
-        mounted() {
+        
+        props: ['place_id'],
 
-            this.$store.dispatch('getShopGoods', () => {
+        mounted() {
+            this.$store.dispatch('getShopGoods', {place_id: this.place_id}).then(() => {
                 this.$nextTick(()=>{
                     this._initScroll()
                     this._initTop()
                 })
             })  
+        },
+
+        components: {
+            CartControl
         },
 
         data() {
@@ -191,8 +198,12 @@
                     .name
                         margin: 2px 0 8px 0
                         height: 14px
+                        width: 192px
                         line-height: 14px
                         font-size: 14px
+                        overflow: hidden
+                        text-overflow: ellipsis
+                        white-space: nowrap
                         color: rgb(7, 17, 27)
                     .desc,.extra
                         line-height: 10px

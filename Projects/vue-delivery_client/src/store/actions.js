@@ -96,25 +96,23 @@ export default {
         }
     },
 
-    async getShopGoods(context, {place_id}, callback) {
+    async getShopGoods(context, {place_id}) {
     
         const result = await reqShopGoods(place_id)
 
         if (result.status===0) {
             const goods = result.data
             context.commit(RECEIVE_GOODS, {goods})
-            callback && callback()
         }
     },
 
-    async getShopRatings(context, {place_id}, callback) {
+    async getShopRatings(context, {place_id}) {
 
         const result = await reqShopRatings(place_id)
 
         if (result.status===0) {
             const ratings = result.data
             context.commit(RECEIVE_RATINGS, {ratings})
-            callback && callback()
         }
     },
 
