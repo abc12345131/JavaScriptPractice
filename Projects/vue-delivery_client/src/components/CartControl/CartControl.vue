@@ -1,20 +1,24 @@
 <template>
     <div class="cartcontrol">
         <transition name="move">
-            <div class="iconfont icon-remove-circle-outlined" v-if="food.count" @click.stop="updateFoodCount(false)"></div>
+            <i class="iconfont icon-yangshi_icon_tongyong_remove" v-if="food.count" @click.stop="updateFoodCount(false)"></i>
         </transition>
         <div class="cart-count" v-if="food.count">{{food.count}}</div>
-        <div class="iconfont icon-addcircleoutline" @click.stop="updateFoodCount(true)"></div>
+        <i class="iconfont icon-yangshi_icon_tongyong_add" @click.stop="updateFoodCount(true)"></i>
     </div>
 </template>
 
 <script>
 
     export default {
+        props: {
+            food: Object
+        },
 
         methods: {
-
-            
+            updateFoodCount(isAdd) {
+                this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
+            }            
         }
     }
 </script>
@@ -29,7 +33,7 @@
             line-height: 24px
             font-size: 24px
             color: rgb(0, 160, 220)
-        .icon-remove-circle-outlined
+        .icon-yangshi_icon_tongyong_remove
             display: inline-block
             padding: 6px
             line-height: 24px
@@ -49,7 +53,7 @@
             text-align: center
             font-size: 10px
             color: rgb(147, 153, 159)
-        .icon-addcircleoutline
+        .icon-yangshi_icon_tongyong_add
             display: inline-block
             padding: 6px
             line-height: 24px
