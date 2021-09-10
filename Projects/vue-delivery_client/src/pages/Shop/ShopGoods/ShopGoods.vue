@@ -43,6 +43,7 @@
                 </ul>
             </div>
         </div>
+        <Food :food="food" ref="food"/>
     </div>
 </template>
 
@@ -50,6 +51,7 @@
     import BScroll from 'better-scroll'
     import {mapState} from 'vuex'
     import CartControl from '../../../components/CartControl/CartControl.vue'
+    import Food from '../../../components/Food/Food.vue'
     export default {
         
         props: ['place_id'],
@@ -64,7 +66,8 @@
         },
 
         components: {
-            CartControl
+            CartControl,
+            Food
         },
 
         data() {
@@ -123,7 +126,8 @@
             },
 
             showFood(food) {
-
+                this.food = food
+                this.$refs.food.toggleShow()
             }
         }
     }

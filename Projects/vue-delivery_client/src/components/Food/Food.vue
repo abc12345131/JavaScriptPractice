@@ -11,12 +11,12 @@
             <div class="content">
                 <h1 class="title">{{food.name}}</h1>
                 <div class="detail">
-                    <span class="sell-count">月售{{food.sellCount}}份</span>
-                    <span class="rating">好评率{{food.rating}}%</span>
+                    <span class="sell-count">{{food.sellCount}}orders this month</span>
+                    <span class="rating">Commend Rate: {{food.rating}}%</span>
                 </div>
                 <div class="price">
-                    <span class="now">￥{{food.price}}</span>
-                    <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                    <span class="now">${{food.price}}</span>
+                    <span class="old" v-show="food.oldPrice">${{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
                     <CartControl :food="food"/>
@@ -28,11 +28,26 @@
 </template>
 
 <script>
-
+    import CartControl from '../CartControl/CartControl.vue'
     export default {
+        props: {
+            food: Object
+        },
+
+        components: {
+            CartControl
+        },
+
+        data() {
+            return {
+                isShow: false
+            }
+        },
 
         methods: {
-
+            toggleShow() {
+                this.isShow = !this.isShow
+            }
         }
     }
 </script>
