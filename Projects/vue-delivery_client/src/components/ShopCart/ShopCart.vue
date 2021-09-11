@@ -9,8 +9,8 @@
                         </div>
                         <div class="num" v-if="totalCount">{{totalCount}}</div>
                     </div>
-                    <div class="price" :class="{highlight: totalCount}">￥{{totalPrice}}</div>
-                    <div class="desc">另需配送费￥{{info.deliveryPrice}}元</div>
+                    <div class="price" :class="{highlight: totalCount}">${{totalPrice}}</div>
+                    <div class="desc">Deliver Fee: ${{infos.deliveryPrice}}</div>
                 </div>
                 <div class="content-right">
                     <div class="pay" :class="payClass">
@@ -21,14 +21,14 @@
             <transition name="move">
                 <div class="shopcart-list" v-show="listShow">
                     <div class="list-header">
-                        <h1 class="title">购物车</h1>
-                        <span class="empty" @click="clearCart">清空</span>
+                        <h1 class="title">Shop Cart</h1>
+                        <span class="empty" @click="clearCart">Clear Cart</span>
                     </div>
                     <div class="list-content">
                         <ul>
                             <li class="food" v-for="(food, index) in cartFoods" :key="index">
                                 <span class="name">{{food.name}}</span>
-                                <div class="price"><span>￥{{food.price}}</span></div>
+                                <div class="price"><span>${{food.price}}</span></div>
                                 <div class="cartcontrol-wrapper">
                                     <CartControl :food="food"/>
                                 </div>
@@ -43,11 +43,53 @@
 </template>
 
 <script>
-
+    import CartControl from '../CartControl/CartControl.vue'
+    import {mapState, mapGetters} from 'vuex'
     export default {
+        data() {
+            return {
+                isShow: false
+            }
+        },
+
+        components: {
+            CartControl
+        },
+
+        computed: {
+            ...mapState(['infos', 'cartFoods']),
+            ...mapGetters(['totalCount', 'totalPrice']),
+            payClass() {
+                const {totalPrice} = this
+                const {minPrice} = this.infos
+                return totalPrice>=minPrice ? 'enough': 'not-enough'
+            },
+
+            payText() {
+                const {totalPrice} = this
+                const {minPrice} = this.infos
+                if(totalPrice===0) {
+                    return `Minimum: $${minPrice}`
+                } else if(totalPrice<minPrice) {
+                    return `$${minPrice-totalPrice} more to go`
+                } else {
+                    return 'Checkout'
+                }
+            },
+
+            listShow() {
+
+            }
+        },
 
         methods: {
+            toggleShow() {
+                this.isShow = !this.isShow
+            },
 
+            clearCart() {
+
+            }
         }
     }
 </script>
