@@ -20,10 +20,8 @@
 
 <script>
     import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
-
+    import {mapState} from 'vuex'
     export default {
-
-        props: ['place_id'],
 
         mounted() {
             this.$store.dispatch('getShopInfos', {place_id: this.place_id})
@@ -31,6 +29,10 @@
 
         components: {
             ShopHeader
+        },
+
+        computed: {
+            ...mapState(['place_id'])
         }
 
     }

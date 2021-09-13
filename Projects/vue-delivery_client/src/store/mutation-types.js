@@ -9,6 +9,8 @@ export const RECEIVE_USER_INFO = 'receive_user_info'
 
 export const RESET_USER_INFO = 'reset_user_info'
 
+export const SAVE_PLACE_ID = 'save_place_id'
+
 export const RECEIVE_GOODS = 'receive_goods'
 
 export const RECEIVE_RATINGS = 'receive_ratings'

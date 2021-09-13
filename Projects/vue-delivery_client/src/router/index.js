@@ -50,7 +50,6 @@ const router = new VueRouter({
         {
             path:'/shop',
             component: Shop,
-            props: true,
             children: [
                 {
                     path:'/shop/goods',
@@ -60,7 +59,8 @@ const router = new VueRouter({
                 },
                 {
                     path:'/shop/infos',
-                    component: ShopInfos
+                    component: ShopInfos,
+                    props: true
                 },
                 {
                     path:'/shop/ratings',

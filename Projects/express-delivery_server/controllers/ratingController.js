@@ -6,7 +6,11 @@ exports.readRatings = (req, res, next) => {
     const {place_id} = req.query
     RatingModel.findOne({place_id})
         .then(ratings => {
-            res.send({status: 0, data: ratings.ratings})
+            if(ratings) {
+                res.send({status: 0, data: ratings.ratings})
+            } else {
+                res.send({status: 0, data: []})
+            }
         })
         .catch(error => {
             console.error('Get shop rating list exception', error)

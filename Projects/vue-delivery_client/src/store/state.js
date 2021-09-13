@@ -6,6 +6,7 @@ export default {
     foodCategories: [],
     shops: [],
     userInfo: {},
+    place_id: '',
     goods: {},
     ratings: {},
     infos: {},

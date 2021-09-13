@@ -6,7 +6,11 @@ exports.readGoods = (req, res, next) => {
     const {place_id} = req.query
     GoodModel.findOne({place_id})
         .then(goods => {
-            res.send({status: 0, data: goods.goods})
+            if(goods) {
+                res.send({status: 0, data: goods.goods})
+            } else {
+                res.send({status: 0, data: []})
+            }
         })
         .catch(error => {
             console.error('Get shop good list exception', error)

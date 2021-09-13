@@ -9,7 +9,8 @@ import {
     RECEIVE_INFOS,
     FOOD_COUNT_INCREMENT,
     FOOD_COUNT_DECREMENT,
-    CLEAR_CART
+    CLEAR_CART,
+    SAVE_PLACE_ID
 } from './mutation-types'
 
 import { 
@@ -95,6 +96,10 @@ export default {
         if(result.status===0) {
             context.commit(RESET_USER_INFO)
         }
+    },
+
+    savePlaceId(context, {place_id}) {           
+        context.commit(SAVE_PLACE_ID, {place_id})
     },
 
     async getShopGoods(context, {place_id}) {

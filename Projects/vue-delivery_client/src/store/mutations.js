@@ -5,6 +5,7 @@ import {
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
     RESET_USER_INFO,
+    SAVE_PLACE_ID,
     RECEIVE_GOODS,
     RECEIVE_INFOS,
     RECEIVE_RATINGS,
@@ -33,6 +34,10 @@ export default {
 
     [RESET_USER_INFO](state) {
         state.userInfo = {}
+    },
+
+    [SAVE_PLACE_ID](state, {place_id}) {
+        state.place_id = place_id
     },
 
     [RECEIVE_GOODS](state, {goods}) {

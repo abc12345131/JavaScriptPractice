@@ -55,10 +55,9 @@
     import Food from '../../../components/Food/Food.vue'
     import ShopCart from '../../../components/ShopCart/ShopCart.vue'
     export default {
-        
-        props: ['place_id'],
 
         mounted() {
+            this.$store.dispatch('savePlaceId', {place_id: this.$route.params.place_id})
             this.$store.dispatch('getShopGoods', {place_id: this.place_id}).then(() => {
                 this.$nextTick(()=>{
                     this._initScroll()
@@ -82,7 +81,7 @@
         },
 
         computed: {
-            ...mapState(['goods']),
+            ...mapState(['place_id', 'goods']),
             //get index of current food category
             currentIndex() {
                 const {scrollY, tops} = this
