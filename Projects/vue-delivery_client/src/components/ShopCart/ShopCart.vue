@@ -43,8 +43,10 @@
 </template>
 
 <script>
-    import CartControl from '../CartControl/CartControl.vue'
+    import BScroll from 'better-scroll'
+    import { MessageBox } from 'mint-ui'
     import {mapState, mapGetters} from 'vuex'
+    import CartControl from '../CartControl/CartControl.vue'
     export default {
         data() {
             return {
@@ -78,17 +80,50 @@
             },
 
             listShow() {
+                if(this.totalCount===0) {
+                    this.isShow = false
+                    return false
+                }
 
+                if(this.isShow) {
+                    this.$nextTick(() => {
+                        if(!this.scroll) {
+                            this.scroll = new BScroll('.list-content', {
+                                click: true
+                            })
+                        } else {
+                            this.scroll.refresh()
+                        }
+                    })
+                }
+
+                return this.isShow
             }
         },
 
         methods: {
             toggleShow() {
-                this.isShow = !this.isShow
+                if(this.totalCount>0) {
+                    this.isShow = !this.isShow
+                }
             },
 
             clearCart() {
-
+				MessageBox({
+                    title: 'Notice',
+                    message: 'Are you sure to clear shop cart?',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel',
+                    confirmButtonText: 'Confirm'
+                })
+                .then(action => {
+                        if(action == 'confirm') {
+                            this.$store.dispatch('clearCart')
+                        } else {
+                            console.log('Clear shop cart cancelled!')
+                        }
+                    }
+                )		
             }
         }
     }
@@ -204,7 +239,7 @@
             width: 100%
             transform: translateY(-100%)
             &.move-enter-active, &.move-leave-active
-                transition: transform .3s
+                transition: transform 0.3s
             &.move-enter,&.move-leave-to
                 transform: translateY(0)
             .list-header
@@ -258,7 +293,7 @@
         opacity: 1
         background: rgba(7, 17, 27, 0.6)
         &.fade-enter-active, &.fade-leave-active
-            transition: all 0.5s
+            transition: all 0.3s
         &.fade-enter, &.fade-leave-to
             opacity: 0
             background: rgba(7, 17, 27, 0)

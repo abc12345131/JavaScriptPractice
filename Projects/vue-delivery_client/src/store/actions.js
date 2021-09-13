@@ -8,7 +8,8 @@ import {
     RECEIVE_RATINGS,
     RECEIVE_INFOS,
     FOOD_COUNT_INCREMENT,
-    FOOD_COUNT_DECREMENT
+    FOOD_COUNT_DECREMENT,
+    CLEAR_CART
 } from './mutation-types'
 
 import { 
@@ -133,4 +134,8 @@ export default {
             context.commit(FOOD_COUNT_DECREMENT, {food})
         }
     },
+
+    clearCart(context) {
+            context.commit(CLEAR_CART)        
+    }
 }

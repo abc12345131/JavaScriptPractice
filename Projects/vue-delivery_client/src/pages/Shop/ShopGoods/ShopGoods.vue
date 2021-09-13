@@ -148,7 +148,7 @@
         overflow: hidden
         .menu-wrapper
             flex: 0 0 80px
-            width: 85px
+            width: 88px
             background: #f3f5f7
             .menu-item
                 display: table
