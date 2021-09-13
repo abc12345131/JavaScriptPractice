@@ -5,6 +5,7 @@ import VueLazyload from 'vue-lazyload'
 import loadingImg from '../src/assets/images/loading.gif'
 import router from './router'
 import store from './store'
+import './filters'
 
 Vue.config.productionTip = false
 //register label
