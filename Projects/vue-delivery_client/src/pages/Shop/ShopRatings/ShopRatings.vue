@@ -3,24 +3,24 @@
         <div class="ratings-content">
             <div class="overview">
                 <div class="overview-left">
-                    <h1 class="score">{{info.score}}</h1>
-                    <div class="title">综合评分</div>
-                    <div class="rank">高于周边商家99%</div>
+                    <h1 class="score">{{infos.score}}</h1>
+                    <div class="title">Overall Rating</div>
+                    <div class="rank">Higher than 92% surrounding businesses</div>
                 </div>
                 <div class="overview-right">
                     <div class="score-wrapper">
-                        <span class="title">服务态度</span>
-                        <Star :score="info.serviceScore" :size="36" />
-                        <span class="score">{{info.serviceScore}}</span>
+                        <span class="title">Service Attitude:</span>
+                        <Star :score="infos.serviceScore" :size="36" />
+                        <span class="score">{{infos.serviceScore}}</span>
                     </div>
                     <div class="score-wrapper">
-                        <span class="title">商品评分</span>
-                        <Star :score="info.foodScore" :size="36" />
-                        <span class="score">{{info.foodScore}}</span>
+                        <span class="title">Food Rating:</span>
+                        <Star :score="infos.foodScore" :size="36" />
+                        <span class="score">{{infos.foodScore}}</span>
                     </div>
                     <div class="delivery-wrapper">
-                        <span class="title">送达时间</span>
-                        <span class="delivery">{{info.deliveryTime}}分钟</span>
+                        <span class="title">Delivery Time:</span>
+                        <span class="delivery">{{infos.deliveryTime}}mins</span>
                     </div>
                 </div>
             </div>
@@ -28,18 +28,18 @@
             <div class="ratingselect">
                 <div class="rating-type border-1px">
                     <span class="block positive" :class="{active: selectType===2}" @click="setSelectType(2)">
-                        全部<span class="count">{{ratings.length}}</span>
+                        Total<span class="count">{{ratings.length}}</span>
                     </span>
                     <span class="block positive" :class="{active: selectType===0}" @click="setSelectType(0)">
-                        满意<span class="count">{{positiveSize}}</span>
+                        Satisfied<span class="count">{{positiveSize}}</span>
                     </span>
                     <span class="block negative" :class="{active: selectType===1}" @click="setSelectType(1)">
-                        不满意<span class="count">{{ratings.length-positiveSize}}</span>
+                        Unsatisfied<span class="count">{{ratings.length-positiveSize}}</span>
                     </span>
                 </div>
                 <div class="switch" :class="{on: onlyShowText}" @click="toggleOnlyShowText">
-                    <span class="iconfont icon-check_circle"></span>
-                    <span class="text">只看有内容的评价</span>
+                    <span class="iconfont icon-yangshi_icon_tongyong_selected"></span>
+                    <span class="text">Reviews with content only</span>
                 </div>
             </div>
             <div class="rating-wrapper">
@@ -52,7 +52,7 @@
                             <h1 class="name">{{rating.username}}</h1>
                             <div class="star-wrapper">
                                 <Star :score="rating.score" :size="24" />
-                                <span class="delivery">{{rating.deliveryTime}}</span>
+                                <span class="delivery">{{rating.deliveryTime+(rating.deliveryTime? 'mins': '')}}</span>
                             </div>
                             <p class="text">{{rating.text}}</p>
                             <div class="recommend">
@@ -69,10 +69,51 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import BScroll from 'better-scroll'
+    import {mapState, mapGetters} from 'vuex'
+    import Star from '../../../components/Star/Star.vue'
     export default {
+
+        data() {
+            return {
+                onlyShowText: false,
+                selectType: 2
+            }
+        },
+
+        components: {
+            Star
+        },
+
+        mounted() {
+            this.$store.dispatch('getShopRatings', {place_id: this.place_id}).then(() => {
+                this.$nextTick(() => {
+                    new BScroll(this.$refs.ratings, {
+                        click: true
+                    })
+                })
+            })  
+        },
+
         computed: {
-            ...mapState(['ratings'])
+            ...mapState(['place_id', 'infos', 'ratings']),
+            ...mapGetters(['positiveSize']),
+            filterRatings() {
+                const { ratings, onlyShowText, selectType} = this
+                return ratings.filter(rating => {
+                    return (selectType===2 || selectType===rating.rateType) && (!onlyShowText || rating.text.length>0)
+                })
+            }
+        },
+
+        methods: {
+            toggleOnlyShowText() {
+                this.onlyShowText = !this.onlyShowText
+            },
+
+            setSelectType(selectType) {
+                this.selectType = selectType
+            }
         }
     }
 </script>
@@ -123,13 +164,14 @@
                     font-size: 0
                     .title
                         display: inline-block
+                        margin: 0 5px
                         line-height: 18px
                         vertical-align: top
                         font-size: 12px
                         color: rgb(7, 17, 27)
                     .star
                         display: inline-block
-                        margin: 0 12px
+                        margin: 0
                         vertical-align: top
                     .score
                         display: inline-block
@@ -181,9 +223,9 @@
                 color: rgb(147, 153, 159)
                 font-size: 0
                 &.on
-                    .icon-check_circle
+                    .icon-yangshi_icon_tongyong_selected
                         color: $green
-                .icon-check_circle
+                .icon-yangshi_icon_tongyong_selected
                     display: inline-block
                     vertical-align: top
                     margin-right: 4px
