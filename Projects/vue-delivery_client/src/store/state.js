@@ -6,9 +6,10 @@ export default {
     foodCategories: [],
     shops: [],
     userInfo: {},
-    place_id: '',
-    goods: {},
+    place_id: 'ChIJN8wGluVDK4gRjvRvRBDoT2k',
+    goods: [],
     ratings: [],
     infos: {},
-    cartFoods: []
+    cartFoods: [],
+    searchShops: []
 }

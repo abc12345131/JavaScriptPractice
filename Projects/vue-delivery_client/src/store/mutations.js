@@ -37,7 +37,9 @@ export default {
     },
 
     [SAVE_PLACE_ID](state, {place_id}) {
-        state.place_id = place_id
+        if(place_id) {
+            state.place_id = place_id
+        }
     },
 
     [RECEIVE_GOODS](state, {goods}) {

@@ -1,21 +1,24 @@
 <template>
-    <div class="shop-info">
-        <div class="info-content">
+    <div class="shop-infos">
+        <div class="infos-content">
             <section class="section">
-                <h3 class="section-title">配送信息</h3>
+                <h3 class="section-title">Delivery Information</h3>
                 <div class="delivery">
                     <div>
-                        <span class="delivery-icon">{{info.description}}</span>
-                        <span>由商家配送提供配送，约{{info.deliveryTime}}分钟送达，距离{{info.distance}}</span>
+                        <span class="delivery-icon">{{infos.description}}</span>
+                        <span>BW Dedicated delivery</span>
                     </div>
-                    <div class="delivery-money">配送费￥{{info.deliveryPrice}}</div>
+                    <div class="delivery-money">
+                        <span>{{infos.distance}} from your location, takes about {{infos.deliveryTime}}mins on average</span><br>
+                        <span>Deliver Fee: ${{infos.deliveryPrice}}</span>
+                    </div>
                 </div>
             </section>
             <div class="split"></div>
             <section class="section">
-                <h3 class="section-title">活动与服务</h3>
-                <div class="activity">
-                    <div class="activity-item" v-for="(support, index) in info.supports" :key="index"
+                <h3 class="section-title">Activities&Services</h3>
+                <div class="activity" v-if="infos.supports.length">
+                    <div class="activity-item" v-for="(support, index) in infos.supports" :key="index"
                         :class="supportClasses[support.type]">
                         <span class="content-tag">
                             <span class="mini-tag">{{support.name}}</span>
@@ -26,10 +29,10 @@
             </section>
             <div class="split"></div>
             <section class="section">
-                <h3 class="section-title">商家实景</h3>
+                <h3 class="section-title">Photos</h3>
                 <div class="pic-wrapper">
-                    <ul class="pic-list" ref="picsUl">
-                        <li class="pic-item" v-for="(pic, index) in info.pics" :key="index">
+                    <ul class="pic-list" ref="picsUl" v-if="infos.pics.length">
+                        <li class="pic-item" v-for="(pic, index) in infos.pics" :key="index">
                             <img width="120" height="90" :src="pic"/>
                         </li>
                     </ul>
@@ -37,12 +40,12 @@
             </section>
             <div class="split"></div>
             <section class="section">
-                <h3 class="section-title">商家信息</h3>
+                <h3 class="section-title">Shop Information</h3>
                 <ul class="detail">
-                    <li><span class="bold">品类</span> <span>{{info.category}}</span></li>
-                    <li><span class="bold">商家电话</span> <span>{{info.phone}}</span></li>
-                    <li><span class="bold">地址</span> <span>{{info.address}}</span></li>
-                    <li><span class="bold">营业时间</span> <span>{{info.workTime}}</span></li>
+                    <li><span class="bold">Category</span> <span>{{infos.category}}</span></li>
+                    <li><span class="bold">Phone Number</span> <span>{{infos.phone}}</span></li>
+                    <li><span class="bold">Address</span> <span>{{infos.address}}</span></li>
+                    <li><span class="bold">Business hours</span> <span>{{infos.workTime}}</span></li>
                 </ul>
             </section>
         </div>
@@ -50,17 +53,55 @@
 </template>
 
 <script>
+    import BScroll from 'better-scroll'
     import {mapState} from 'vuex'
     export default {
+        
+        mounted() {
+            if(!this.infos.pics) {
+                return
+            } else {
+                this._initScroll()
+            }
+        },
+
+        data() {
+            return {
+                supportClasses: ['activity-green', 'activity-red', 'activity-orange']
+            }
+        },
+
         computed: {
             ...mapState(['infos'])
+        },
+
+        methods: {
+            _initScroll() {
+                new BScroll('.shop-infos')
+                const ul = this.$refs.picsUl
+                const liWidth = 120
+                const space = 6
+                const count = this.infos.pics.length
+                ul.style.width = (liWidth + space) * count - space + 'px'
+                new BScroll('.pic-wrapper', {
+                    scrollX: true
+                })
+            }
+        },
+
+        watch: {
+            infos() {
+                this.$nextTick(() => {
+                    this._initScroll()
+                })
+            }
         }
     }
 </script>
 
 <style lang="sass" scoped>
     @import "../../../assets/sass/mixins"
-    .shop-info
+    .shop-infos
         position: absolute
         top: 195px
         bottom: 0
@@ -117,7 +158,7 @@
                     .content-tag
                         display: inline-block
                         border-radius: 2px
-                        width: 36px
+                        width: 80px
                         height: 18px
                         margin-right: 10px
                         color: #fff
@@ -129,7 +170,7 @@
                             top: 0
                             right: -100%
                             bottom: -100%
-                            font-size: 24px
+                            font-size: 20px
                             transform: scale(.5)
                             transform-origin: 0 0
                             display: flex
