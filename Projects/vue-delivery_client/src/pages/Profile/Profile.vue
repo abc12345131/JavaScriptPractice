@@ -43,8 +43,8 @@
                 <span>
                     <i class="iconfont icon-yangshi_icon_tongyong_trips"></i>
                 </span>
-                <div class="my_order_div">
-                    <span>My Order</span>
+                <div class="my_order_div" @click="$router.push('order')">
+                    <span>My Orders</span>
                     <span class="my_order_icon">
                         <i class="iconfont icon-yangshi_icon_tongyong_enter"></i>
                     </span>

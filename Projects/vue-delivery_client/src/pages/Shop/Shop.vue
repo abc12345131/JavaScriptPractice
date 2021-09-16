@@ -3,13 +3,13 @@
         <ShopHeader/>
         <div class="tab">
             <div class="tab-item">
-                <router-link to="/shop/goods">Food</router-link>
+                <router-link to="/shop/goods" replace>Food</router-link>
             </div>
             <div class="tab-item">
-                <router-link to="/shop/ratings">Rating</router-link>
+                <router-link to="/shop/ratings" replace>Rating</router-link>
             </div>
             <div class="tab-item">
-                <router-link to="/shop/infos">About</router-link>
+                <router-link to="/shop/infos" replace>About</router-link>
             </div>
         </div>
         <keep-alive>

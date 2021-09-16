@@ -2,7 +2,7 @@
     <section class="order">
         <!--Header-->
         <Header title="Order"/>
-        <section class="order_no_login">
+        <section class="order_no_login" v-if="!userInfo">
             <img src="../../assets/images/order/person.png">
             <h3>Check order after login</h3>
             <button>Login now</button>
@@ -11,11 +11,16 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex' 
     import Header from '../../components/Header/Header.vue'
     export default {
         components: {
             Header
-        }
+        },
+
+        computed: {
+            ...mapState(['userInfo'])
+		},
     }
 </script>
 
