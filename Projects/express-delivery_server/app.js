@@ -6,7 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose')
 //redis for session cache
-// const redis = require('redis')
+const redis = require('redis')
 const session = require('express-session')
 const indexRouter = require('./routes/index');
 const { 
@@ -15,9 +15,9 @@ const {
   MONGO_IP,
   MONGO_PORT,
   SESSION_SECRET,
-  //REDIS_IP,
-  //REDIS_PORT,
-  //SESSION_SECRET
+  REDIS_IP,
+  REDIS_PORT,
+  SESSION_SECRET
 } = require('./config/config')
 const errorHandler = require('./middlewares/errorHandlerMiddleware')
 
@@ -42,10 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //mongoose
 //dev url
-const mongoUrl = 'mongodb://localhost:27017/vue-app'
+//const mongoUrl = 'mongodb://localhost:27017/vue-app'
 
 //prod url
-//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/vue-app?authSource=admin`
+const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/vue-app?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -65,40 +65,40 @@ const connectWithRetry = () => {
 connectWithRetry()
 
 //session in redis 
-// let RedisStore = require('connect-redis')(session)
-// let redisClient = redis.createClient({
-//   host: REDIS_IP,
-//   port: REDIS_PORT
-// })
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient({
+  host: REDIS_IP,
+  port: REDIS_PORT
+})
 
-// redisClient.on('error', function (err) {
-//   console.log('Could not establish a connection with redis. ' + err);
-// })
-// redisClient.on('connect', function (err) {
-//   console.log('Connected to redis successfully');
-// })
+redisClient.on('error', function (err) {
+  console.log('Could not establish a connection with redis. ' + err);
+})
+redisClient.on('connect', function (err) {
+  console.log('Connected to redis successfully');
+})
 
-// app.use(
-//   session({
-//     store: new RedisStore({ client: redisClient }),
-//     secret: SESSION_SECRET,
-//     cookie: {
-//       secure: false,
-//       resave: false,
-//       saveUninitialized: false,
-//       httpOnly: true,
-//       maxAge: 60 * 60 * 1000
-//     }
-//   })
-// )
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: SESSION_SECRET,
+    cookie: {
+      secure: false,
+      resave: false,
+      saveUninitialized: false,
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000
+    }
+  })
+)
 
 //session in memory
-app.use(session({
-  secret: SESSION_SECRET,
-  cookie: {maxAge: 60 * 60 * 1000 },
-  resave: false,
-  saveUninitialized: true,
-}));
+// app.use(session({
+//   secret: SESSION_SECRET,
+//   cookie: {maxAge: 60 * 60 * 1000 },
+//   resave: false,
+//   saveUninitialized: true,
+// }));
 
 
 //api router
