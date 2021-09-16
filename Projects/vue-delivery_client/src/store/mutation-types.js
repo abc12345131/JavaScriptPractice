@@ -22,3 +22,5 @@ export const FOOD_COUNT_INCREMENT = 'food_count_increment'
 export const FOOD_COUNT_DECREMENT = 'food_count_decrement'
 
 export const CLEAR_CART = 'clear_cart'
+
+export const RECEIVE_SEARCH_SHOPS = 'receive_search_shops'

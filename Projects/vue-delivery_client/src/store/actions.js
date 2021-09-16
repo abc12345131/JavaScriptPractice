@@ -10,7 +10,8 @@ import {
     FOOD_COUNT_INCREMENT,
     FOOD_COUNT_DECREMENT,
     CLEAR_CART,
-    SAVE_PLACE_ID
+    SAVE_PLACE_ID,
+    RECEIVE_SEARCH_SHOPS
 } from './mutation-types'
 
 import { 
@@ -71,7 +72,7 @@ export default {
     async getShops(context) {
 
         const { latitude, longitude } = context.state
-        const result = await reqSearchShops(latitude,longitude)
+        const result = await reqSearchShops(latitude, longitude)
 
         if (result.status===0) {
             const shops = result.data.results
@@ -142,5 +143,16 @@ export default {
 
     clearCart(context) {
             context.commit(CLEAR_CART)        
+    },
+
+    async searchShops(context, {keyword}) {
+
+        const { latitude, longitude } = context.state
+        const result = await reqSearchShops(latitude, longitude, keyword)
+
+        if (result.status===0) {
+            const searchShops = result.data.results
+            context.commit(RECEIVE_SEARCH_SHOPS, {searchShops})
+        }
     }
 }
