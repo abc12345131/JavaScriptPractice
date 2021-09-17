@@ -16,8 +16,7 @@ const {
   MONGO_PORT,
   SESSION_SECRET,
   REDIS_IP,
-  REDIS_PORT,
-  SESSION_SECRET
+  REDIS_PORT
 } = require('./config/config')
 const errorHandler = require('./middlewares/errorHandlerMiddleware')
 
@@ -65,7 +64,6 @@ const connectWithRetry = () => {
 connectWithRetry()
 
 //session in redis 
-let RedisStore = require('connect-redis')(session)
 let redisClient = redis.createClient({
   host: REDIS_IP,
   port: REDIS_PORT
@@ -77,6 +75,8 @@ redisClient.on('error', function (err) {
 redisClient.on('connect', function (err) {
   console.log('Connected to redis successfully');
 })
+
+let RedisStore = require('connect-redis')(session)
 
 app.use(
   session({

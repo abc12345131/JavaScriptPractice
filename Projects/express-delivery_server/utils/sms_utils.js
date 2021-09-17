@@ -1,7 +1,7 @@
 const { 
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN,
-    TWILIO_SERVICE_Id
+    TWILIO_SERVICE_ID
 } = require('../config/config')
 
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
@@ -26,7 +26,7 @@ function sendCode(phone, code, callback) {
 
     client.messages
         .create({
-            messagingServiceSid: TWILIO_SERVICE_Id, 
+            messagingServiceSid: TWILIO_SERVICE_ID, 
             body: `Your BW Delivery verification code is ${code}`,
             to: phone
         })

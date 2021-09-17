@@ -33,7 +33,7 @@
                     <div :class="{on: !loginSms}">
                         <section>
                             <section class="login_message">
-                                <input type="text" maxlength="12" placeholder="Phone Number" v-model="username">
+                                <input type="text" maxlength="12" placeholder="Username" v-model="username">
                             </section>
                             <section class="login_verification">
                                 <input :type="showPassword ? 'text': 'password'" maxlength="16" placeholder="Password" v-model="password">
@@ -44,7 +44,7 @@
                             </section>
                             <section class="login_message">
                                 <input type="text" maxlength="11" placeholder="Captcha Code" v-model="captcha">
-                                <img class="get_verification" src="http://localhost:4000/api/v1/captcha" alt="captcha" @click="getCaptcha" ref="captcha">
+                                <img class="get_verification" src="/api/v1/captcha" alt="captcha" @click="getCaptcha" ref="captcha">
                             </section>
                         </section>
                     </div>
@@ -121,7 +121,7 @@
             },
 
             getCaptcha() {
-                this.$refs.captcha.src = 'http://localhost:4000/api/v1/captcha?time='+Date.now()
+                this.$refs.captcha.src = '/api/v1/captcha?time='+Date.now()
             },
 
             async login() {

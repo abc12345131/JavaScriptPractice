@@ -9,5 +9,6 @@ module.exports = {
     JWT_SECRET: process.env.JWT_SECRET || 'yoursecret',
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
+    TWILIO_SERVICE_ID: process.env.TWILIO_SERVICE_ID,
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY
 }

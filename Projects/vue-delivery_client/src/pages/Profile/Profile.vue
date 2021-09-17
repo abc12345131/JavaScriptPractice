@@ -111,16 +111,22 @@
 
 		methods: {
 			logout() {
-				MessageBox.confirm('Are you sure to log out?', 'Notice')
-					.then(
-						action => {
-							this.$store.dispatch('logout')
+				MessageBox({
+                    title: 'Notice',
+                    message: 'Are you sure to log out?',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel',
+                    confirmButtonText: 'Confirm'
+                })
+                .then(action => {
+                        if(action == 'confirm') {
+                            this.$store.dispatch('logout')
 							Toast('Log out completed!')
-						},
-						action => {
+                        } else {
 							console.log('Log out cancelled!')
-						}
-					)				
+                        }
+                    }
+                )		
 			}
 		}
     }
