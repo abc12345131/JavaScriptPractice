@@ -1,0 +1,457 @@
+{
+  "id": "2695442",
+  "name": "vue-shop_client",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "vue food ordering and delivery",
+  "glyphs": [
+    {
+      "icon_id": "23026534",
+      "name": "选择",
+      "font_class": "yangshi_icon_tongyong_selected",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
+    },
+    {
+      "icon_id": "23026508",
+      "name": "加",
+      "font_class": "yangshi_icon_tongyong_add",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
+    },
+    {
+      "icon_id": "23026531",
+      "name": "减",
+      "font_class": "yangshi_icon_tongyong_remove",
+      "unicode": "e6a0",
+      "unicode_decimal": 59040
+    },
+    {
+      "icon_id": "23026514",
+      "name": "关闭",
+      "font_class": "yangshi_icon_tongyong_close",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "23024982",
+      "name": "电话",
+      "font_class": "yangshi_icon_tongyong_call",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "23024983",
+      "name": "语音",
+      "font_class": "yangshi_icon_tongyong_voice",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "23024984",
+      "name": "个人中心",
+      "font_class": "yangshi_icon_tongyong_user",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "23024985",
+      "name": "客服",
+      "font_class": "yangshi_icon_tongyong_customer_service",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "23024986",
+      "name": "踩",
+      "font_class": "yangshi_icon_tongyong_dislike",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "23024987",
+      "name": "搜索",
+      "font_class": "yangshi_icon_tongyong_search",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "23024988",
+      "name": "赞",
+      "font_class": "yangshi_icon_tongyong_like",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "23024989",
+      "name": "聊天",
+      "font_class": "yangshi_icon_tongyong_chat",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "23024990",
+      "name": "爱心",
+      "font_class": "yangshi_icon_tongyong_heart",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "23024991",
+      "name": "定位",
+      "font_class": "yangshi_icon_tongyong_location",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "23024992",
+      "name": "相机",
+      "font_class": "yangshi_icon_tongyong_camera",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "23024993",
+      "name": "图片",
+      "font_class": "yangshi_icon_tongyong_image",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "23025138",
+      "name": "银行卡",
+      "font_class": "yangshi_icon_tongyong_card",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "23025139",
+      "name": "消息",
+      "font_class": "yangshi_icon_tongyong_message",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "23025140",
+      "name": "日历",
+      "font_class": "yangshi_icon_tongyong_calendar",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "23025141",
+      "name": "指南针",
+      "font_class": "yangshi_icon_tongyong_compass",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "23025142",
+      "name": "回家",
+      "font_class": "yangshi_icon_tongyong_home",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "23025143",
+      "name": "订单",
+      "font_class": "yangshi_icon_tongyong_trips",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "23025144",
+      "name": "钱包",
+      "font_class": "yangshi_icon_tongyong_wallet",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "23025145",
+      "name": "购物车",
+      "font_class": "yangshi_icon_tongyong_cart",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "23025146",
+      "name": "方向盘",
+      "font_class": "yangshi_icon_tongyong_steeering_wheel",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "23025147",
+      "name": "安全支付",
+      "font_class": "yangshi_icon_tongyong_secure_payment",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "23025148",
+      "name": "安全",
+      "font_class": "yangshi_icon_tongyong_security",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "23025149",
+      "name": "盾牌",
+      "font_class": "yangshi_icon_tongyong_shield",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "23025323",
+      "name": "同伴",
+      "font_class": "yangshi_icon_tongyong_companion",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "23025324",
+      "name": "福利",
+      "font_class": "yangshi_icon_tongyong_benefits",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "23025325",
+      "name": "更多",
+      "font_class": "yangshi_icon_tongyong_more_services",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "23025326",
+      "name": "星级",
+      "font_class": "yangshi_icon_tongyong_star",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "23025327",
+      "name": "我的",
+      "font_class": "yangshi_icon_tongyong_my_account",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "23025328",
+      "name": "计时",
+      "font_class": "yangshi_icon_tongyong_timer",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "23025329",
+      "name": "司机",
+      "font_class": "yangshi_icon_tongyong_driver",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "23025330",
+      "name": "老人",
+      "font_class": "yangshi_icon_tongyong_elder",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "23025331",
+      "name": "分享",
+      "font_class": "yangshi_icon_tongyong_share",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "23025332",
+      "name": "红包",
+      "font_class": "yangshi_icon_tongyong_packet",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "23025333",
+      "name": "时间",
+      "font_class": "yangshi_icon_tongyong_time",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "23025334",
+      "name": "座位",
+      "font_class": "yangshi_icon_tongyong_seat",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "23025552",
+      "name": "干净",
+      "font_class": "yangshi_icon_tongyong_clean",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "23025553",
+      "name": "公交",
+      "font_class": "yangshi_icon_tongyong_bus",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "23025555",
+      "name": "编辑",
+      "font_class": "yangshi_icon_tongyong_edit",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "23025556",
+      "name": "车",
+      "font_class": "yangshi_icon_tongyong_car",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "23025557",
+      "name": "锁定",
+      "font_class": "yangshi_icon_tongyong_lock",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "23025558",
+      "name": "折扣",
+      "font_class": "yangshi_icon_tongyong_discount",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "23025559",
+      "name": "二维码",
+      "font_class": "yangshi_icon_tongyong_qr",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "23025560",
+      "name": "扫码",
+      "font_class": "yangshi_icon_tongyong_scan",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "23025561",
+      "name": "地铁",
+      "font_class": "yangshi_icon_tongyong_train",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "23025563",
+      "name": "设置",
+      "font_class": "yangshi_icon_tongyong_settings",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "23025564",
+      "name": "班车",
+      "font_class": "yangshi_icon_tongyong_shuttle",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "23025852",
+      "name": "手机",
+      "font_class": "yangshi_icon_tongyong_phone",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "23025853",
+      "name": "出行卡",
+      "font_class": "yangshi_icon_tongyong_travel_card",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "23025854",
+      "name": "邮件",
+      "font_class": "yangshi_icon_tongyong_email",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "23025856",
+      "name": "垃圾桶",
+      "font_class": "yangshi_icon_tongyong_trashcan",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "23025858",
+      "name": "发票",
+      "font_class": "yangshi_icon_tongyong_receipt",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "23025859",
+      "name": "热门",
+      "font_class": "yangshi_icon_tongyong_hot",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "23025860",
+      "name": "提示",
+      "font_class": "yangshi_icon_tongyong_hints",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "23025862",
+      "name": "上班",
+      "font_class": "yangshi_icon_tongyong_work",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "23025865",
+      "name": "会员",
+      "font_class": "yangshi_icon_tongyong_premium",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "23026303",
+      "name": "文件",
+      "font_class": "yangshi_icon_tongyong_document",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "23026509",
+      "name": "返回",
+      "font_class": "yangshi_icon_tongyong_back",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "23026516",
+      "name": "进入",
+      "font_class": "yangshi_icon_tongyong_enter",
+      "unicode": "e69d",
+      "unicode_decimal": 59037
+    },
+    {
+      "icon_id": "21914681",
+      "name": "关闭",
+      "font_class": "guanbi",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}
