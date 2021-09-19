@@ -2,10 +2,10 @@
     <section class="order">
         <!--Header-->
         <Header title="Order"/>
-        <section class="order_no_login" v-if="!userInfo">
+        <section class="order_no_login" v-if="!Object.keys(userInfo).length">
             <img src="../../assets/images/order/person.png">
             <h3>Check order after login</h3>
-            <button>Login now</button>
+            <button @click="$router.push('/login')">Login now</button>
         </section>
     </section> 
 </template>
