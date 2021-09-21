@@ -20,7 +20,7 @@
                     </div>
                     <div class="delivery-wrapper">
                         <span class="title">Delivery Time:</span>
-                        <span class="delivery">{{infos.deliveryTime}}mins</span>
+                        <span class="delivery">{{infos.deliveryTime}} mins</span>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             <h1 class="name">{{rating.username}}</h1>
                             <div class="star-wrapper">
                                 <Star :score="rating.score" :size="24" />
-                                <span class="delivery">{{rating.deliveryTime+(rating.deliveryTime? 'mins': '')}}</span>
+                                <span class="delivery">{{rating.deliveryTime+(rating.deliveryTime? ' mins': '')}}</span>
                             </div>
                             <p class="text">{{rating.text}}</p>
                             <div class="recommend">
@@ -256,7 +256,7 @@
                         color: rgb(7, 17, 27)
                     .star-wrapper
                         margin-bottom: 6px
-                        font-size: 0
+                        height: 12px
                         .star
                             display: inline-block
                             margin-right: 6px
@@ -269,6 +269,7 @@
                             color: rgb(147, 153, 159)
                     .text
                         margin-bottom: 8px
+                        text-align: left
                         line-height: 18px
                         color: rgb(7, 17, 27)
                         font-size: 12px

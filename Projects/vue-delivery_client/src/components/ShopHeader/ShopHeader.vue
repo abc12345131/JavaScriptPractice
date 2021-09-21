@@ -17,10 +17,10 @@
                 </h2>
                 <div class="shop-message">
                 <span class="shop-message-detail">{{infos.score}}</span>
-                <span class="shop-message-detail">Monthly: {{infos.sellCount}}orders</span>
+                <span class="shop-message-detail">Monthly: {{infos.sellCount}} orders</span>
                 <span class="shop-message-detail">
                     {{infos.description}}: 
-                    <span>{{infos.deliveryTime}}mins</span>
+                    <span>{{infos.deliveryTime}} mins</span>
                 </span>
                 <span class="shop-message-detail">Distance: {{infos.distance}}</span>
                 </div>
@@ -54,11 +54,11 @@
                             <p>Score</p>
                         </li>
                         <li>
-                            <h3>{{infos.sellCount}}orders</h3>
+                            <h3>{{infos.sellCount}} orders</h3>
                             <p>Monthly</p>
                         </li>
                         <li>
-                            <h3>{{infos.deliveryTime}}mins</h3>
+                            <h3>{{infos.deliveryTime}} mins</h3>
                             <p>{{infos.description}}</p>
                         </li>
                         <li>

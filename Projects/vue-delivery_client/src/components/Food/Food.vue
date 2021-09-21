@@ -11,7 +11,7 @@
             <div class="content">
                 <h1 class="title">{{food.name}}</h1>
                 <div class="detail">
-                    <span class="sell-count">{{food.sellCount}}orders this month</span>
+                    <span class="sell-count">{{food.sellCount}} orders this month</span>
                     <span class="rating">Commend Rate: {{food.rating}}%</span>
                 </div>
                 <div class="price">

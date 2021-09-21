@@ -6,11 +6,13 @@
                 <div class="delivery">
                     <div>
                         <span class="delivery-icon">{{infos.description}}</span>
-                        <span>BW Dedicated delivery</span>
+                        <span>BW Dedicated Delivery</span>
                     </div>
                     <div class="delivery-money">
-                        <span>{{infos.distance}} from your location, takes about {{infos.deliveryTime}}mins on average</span><br>
-                        <span>Deliver Fee: ${{infos.deliveryPrice}}</span>
+                        <span>Distance from your location is {{infos.distance}}</span><br>
+                        <span>Delivery takes about {{infos.deliveryTime}} mins on average</span><br>
+                        <span>Deliver fee is ${{infos.deliveryPrice}}</span><br>
+                        <span>Minimum cost is ${{infos.minPrice}}</span>
                     </div>
                 </div>
             </section>

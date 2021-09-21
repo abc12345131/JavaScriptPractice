@@ -3,7 +3,7 @@
         <Header title="Search"/>
         <form class="search_form" @submit.prevent="search">
             <input type="search" placeholder="Please input shop name" class="search_input" v-model="keyword">
-            <input type="submit" class="search_submit"/>
+            <input type="submit" class="search_submit" value="Submit"/>
         </form>
         <section class="list" v-if="!noSearchShops">
             <ul class="list_container">
@@ -82,8 +82,6 @@
     @import "../../assets/sass/mixins"
     .search
         width: 100%
-        height: 100%
-        overflow: hidden
         .search_form
             @include clearFix
             margin-top: 45px
