@@ -1,8 +1,8 @@
 import { 
     SET_HEAD_TITLE, 
-    //RECEIVE_USER, 
-    //SHOW_ERROR_MSG, 
-    //RESET_USER 
+    RECEIVE_USER, 
+    SHOW_ERROR_MSG, 
+    RESET_USER 
 } from './action-types'
 //import { reqLogin } from '../api'
 //import storageUtils from '../utils/storageUtils'
