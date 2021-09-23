@@ -46,5 +46,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "author": "abc12345131",
+  "license": "ISC"
 }
