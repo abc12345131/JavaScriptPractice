@@ -1,26 +1,112 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const mongoose = require('mongoose')
+//redis for session cache
+// const redis = require('redis')
+// const session = require('express-session')
+const indexRouter = require('./routes/index');
+const { 
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_IP,
+  MONGO_PORT,
+  //REDIS_IP,
+  //REDIS_PORT,
+  //SESSION_SECRET
+} = require('./config/config')
+const errorHandler = require('./middlewares/errorHandlerMiddleware')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//cors
+//const origin = process.env.NODE_ENV === "development" ? "http://localhost:3000": "http://example.com"
+app.use(cors({
+  //credentials: true,
+  //origin
+}));
+
+//proxy setting
+app.enable('trust proxy');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//mongoose
+//dev url
+const mongoUrl = 'mongodb://localhost:27017/react-hire'
+
+//prod url
+//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-hire?authSource=admin`
+const connectWithRetry = () => {
+  mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log('MongoDB is connected!')
+  })
+  .catch(error => {
+    console.error(`Failed to connect mongoDB at ${mongoUrl}!`, error)
+    setTimeout(connectWithRetry, 5000)
+  })
+}
+
+connectWithRetry()
+
+//redis
+// let RedisStore = require('connect-redis')(session)
+// let redisClient = redis.createClient({
+//   host: REDIS_IP,
+//   port: REDIS_PORT
+// })
+
+// redisClient.on('error', function (err) {
+//   console.log('Could not establish a connection with redis. ' + err);
+// })
+// redisClient.on('connect', function (err) {
+//   console.log('Connected to redis successfully');
+// })
+
+// app.use(
+//   session({
+//     store: new RedisStore({ client: redisClient }),
+//     secret: SESSION_SECRET,
+//     cookie: {
+//       secure: false,
+//       resave: false,
+//       saveUninitialized: false,
+//       httpOnly: true,
+//       maxAge: 3600000
+//     }
+//   })
+// )
+
+
+//api router
+app.use('/api/v1', indexRouter);
+
+// if frontend and backend project deployed together, incase of frontend router not working
+// app.use((req, res) => {
+//   fs.readFile(__dirname + '/public/index.html', (err, data)=>{
+//     if(err){
+//       console.log(err)
+//       res.send('Server error')
+//     } else {
+//       res.writeHead(200, {
+//         'Content-Type': 'text/html; charset=utf-8',
+//       });
+//       res.send(data)
+//     }
+//   })
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -28,14 +114,6 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(errorHandler);
 
 module.exports = app;
