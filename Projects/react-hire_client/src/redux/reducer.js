@@ -1,33 +1,25 @@
 import {combineReducers} from 'redux'
 import { 
-    SET_HEAD_TITLE, 
     RECEIVE_USER, 
     SHOW_ERROR_MSG, 
     RESET_USER 
 } from './action-types'
 
 const initialState = {
-    headTitle: '',
-    user: {}
+    user: {},
+    userType: '',
+    errorMsg: ''
 }
 
-function headTitle (state = initialState.headTitle, action) {
-    switch (action.type) {
-        case SET_HEAD_TITLE:
-            return action.data
-        default:
-            return state
-    }
-}
-
-function user (state = initialState.user, action) {
+function user (state = initialState, action) {
     switch (action.type) {
         case RECEIVE_USER:
-            return action.data
+            const user = action.data
+            return {...state, user: user}
         case SHOW_ERROR_MSG:
             const errorMsg = action.data
             //do not modify origin state!
-            return {...state, errorMsg}
+            return {...state, errorMsg: errorMsg}
         case RESET_USER:
             return {}
         default:
@@ -35,15 +27,6 @@ function user (state = initialState.user, action) {
     }
 }
 
-
-/*
-    exported state structure
-    {
-        headTitle: 'Home'
-        user: {}
-    }
-*/
 export default combineReducers({
-    headTitle,
     user
 })

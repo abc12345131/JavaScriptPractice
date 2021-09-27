@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { message } from 'antd'
-
 
 //axios.defaults.withCredentials = true
 
@@ -31,7 +29,7 @@ export default function ajax (url, data={}, type='GET' ){
             resolve(response.data)
         }).catch(error => {
             //use antd message collect error
-            message.error(error.message)
+            console.log(error.message)
         })
     })
 }
