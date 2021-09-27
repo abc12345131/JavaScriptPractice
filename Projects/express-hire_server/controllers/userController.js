@@ -18,7 +18,7 @@ exports.createUser = (req, res, next) => {
             }
         })
         .then(user => {
-            res.send({status: 0, msg: 'User added successfully!'})
+            res.send({status: 0, msg: 'User added successfully!', data: user})
         })
         .catch(error => {
             console.error('Add user exception', error)
@@ -32,17 +32,12 @@ exports.userLogin = (req, res, next) => {
     const { password } = req.body
     UserModel.findOne({username, password: md5(password)})
         .then(user => {
-            if (user) {
-                if (user.role_id) {
-
-                } else {
-                    user._doc.role = {menus: []}
-                    // create resonse cookie with role information
-                    res.cookie('user_key', user, { expires: new Date(Date.now() + 3600000) })
-                    //use session
-                    //req.session.user = user
-                    res.send({status: 0})
-                }  
+            if (user) {       
+                // create response cookie
+                res.cookie('user_id', user._id, { expires: new Date(Date.now() + 3600000) })
+                //use session
+                //req.session.user = user
+                res.send({status: 0, data: user})          
             } else {
                 res.send({status: 1, msg: 'Username or password is incorrect!'})
             }
@@ -59,7 +54,7 @@ exports.updateUser = (req, res, next) => {
     user.password = md5(user.password)
     UserModel.findOneAndUpdate({_id: user._id}, user)
         .then(oldUser => {
-            res.send({status: 0})
+            res.send({status: 0, data: user})
         })
         .catch(error => {
             console.error('Update user exception', error)
@@ -71,8 +66,8 @@ exports.updateUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const {userId} = req.query
     UserModel.deleteOne({_id: userId})
-        .then((doc) => {
-            res.send({status: 0})
+        .then(doc => {
+            res.send({status: 0, data: doc})
         })
         .catch(error => {
             console.error('Delete user exception', error)
