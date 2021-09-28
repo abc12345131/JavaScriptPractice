@@ -7,19 +7,17 @@ import {
 
 const initialState = {
     user: {},
-    userType: '',
-    errorMsg: ''
+    errorMsg: '',
+    redirectTo: ''
 }
 
-function user (state = initialState, action) {
+function userReducer (state = initialState, action) {
     switch (action.type) {
         case RECEIVE_USER:
-            const user = action.data
-            return {...state, user: user}
+            return {...action.data, redirectTo: '/'}
         case SHOW_ERROR_MSG:
-            const errorMsg = action.data
             //do not modify origin state!
-            return {...state, errorMsg: errorMsg}
+            return {...state, errorMsg: action.data}
         case RESET_USER:
             return {}
         default:
@@ -28,5 +26,5 @@ function user (state = initialState, action) {
 }
 
 export default combineReducers({
-    user
+    userReducer
 })

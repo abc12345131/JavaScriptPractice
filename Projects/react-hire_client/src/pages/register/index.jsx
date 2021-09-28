@@ -20,17 +20,17 @@ export default function Register(props) {
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [userType, setUserType] = useState('')
-    const errorMsg = useSelector(state => state.errorMsg)
+    const errorMsg = useSelector(state => state.userReducer.errorMsg)
     const dispatch = useDispatch()
 
     const register = async () => {
 
-        if(!password===password2) {
-            dispatch(showErrorMsg('Passwords do not match.'))
-        } else if(!/^\w{6,12}$/.test(username)) {
+        if(!/^\w{6,12}$/.test(username)) {
             dispatch(showErrorMsg('Username must include 6 to 12 digits the following character types: uppercase, lowercase, numbers, and _ symbol.'))
         } else if(!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(password)) {
             dispatch(showErrorMsg('Password should include 8 to 16 digits, at least two of the following character types: letters, numbers and special characters.'))
+        } else if(!(password===password2)) {
+            dispatch(showErrorMsg('Passwords do not match.'))
         } else if(!userType) {
             dispatch(showErrorMsg('User type is required.'))
         } else {
@@ -38,12 +38,17 @@ export default function Register(props) {
             const result = await reqAddOrUpdateUser(user)
             if (result.status === 0) {
                 console.log('Register succeed')
+                dispatch(showErrorMsg(''))
                 props.history.replace('/login')
             } else {
                 dispatch(showErrorMsg(result.msg))
-                console.log(errorMsg)
             }
         }
+    }
+
+    const redirect = () => {
+        dispatch(showErrorMsg(''))
+        props.history.push('/login')
     }
 
     return (
@@ -66,7 +71,7 @@ export default function Register(props) {
                     <WhiteSpace/>
                     <Button type="primary" onClick={register}>Register</Button>
                     <WhiteSpace/>
-                    <Button type="primary" onClick={() => props.history.push('/login')}>Already have an account</Button>
+                    <Button type="primary" onClick={redirect}>Already have an account</Button>
                 </List>
             </WingBlank>
         </div>
