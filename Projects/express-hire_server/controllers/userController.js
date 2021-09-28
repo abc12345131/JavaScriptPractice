@@ -11,7 +11,7 @@ exports.createUser = (req, res, next) => {
     UserModel.findOne({username})
         .then(user => {
             if (user) {
-                res.send({status: 1, msg: 'Someone already uses the username, please try another one!'})
+                res.send({status: 1, msg: 'This username is already taken, please try another one!'})
                 return new Promise(() => {})
             } else {
                 return UserModel.create({...req.body, password: md5(password)})
