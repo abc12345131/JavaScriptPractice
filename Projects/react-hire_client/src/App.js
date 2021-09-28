@@ -1,4 +1,4 @@
-import './App.css'
+import './App.less'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './pages/login'
 import Register from './pages/register'
