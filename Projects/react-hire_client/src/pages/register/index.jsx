@@ -10,7 +10,7 @@ import {
 } from 'antd-mobile'
 import { useSelector,useDispatch } from 'react-redux'
 import Logo from '../../components/logo'
-import { reqAddOrUpdateUser } from '../../api'
+import { reqRegister } from '../../api'
 import { showErrorMsg } from '../../redux/actions'
 
 
@@ -35,7 +35,7 @@ export default function Register(props) {
             dispatch(showErrorMsg('User type is required.'))
         } else {
             const user = {username, password, userType}
-            const result = await reqAddOrUpdateUser(user)
+            const result = await reqRegister(user)
             if (result.status === 0) {
                 console.log('Register succeed')
                 dispatch(showErrorMsg(''))

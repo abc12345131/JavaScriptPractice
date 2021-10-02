@@ -4,6 +4,7 @@ import {
     SHOW_ERROR_MSG, 
     RESET_USER 
 } from './action-types'
+import { getRedirectPath } from '../utils/redirectUtils' 
 
 const initialState = {
     user: {},
@@ -14,7 +15,8 @@ const initialState = {
 function userReducer (state = initialState, action) {
     switch (action.type) {
         case RECEIVE_USER:
-            return {...action.data, redirectTo: '/'}
+            const {userType, info} = action.data
+            return {...action.data, redirectTo: getRedirectPath(userType, info)}
         case SHOW_ERROR_MSG:
             //do not modify origin state!
             return {...state, errorMsg: action.data}

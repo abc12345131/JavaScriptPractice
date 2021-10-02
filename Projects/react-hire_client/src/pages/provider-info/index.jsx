@@ -5,8 +5,8 @@ import {
     TextareaItem,
     Button
 } from 'antd-mobile'
-import { useSelector, useDispatch } from 'react-redux'
 import AvatarSelect from '../../components/avatar-select'
+import { reqUpdateUser } from '../../api'
 
 export default function ProviderInfo(props) {
 
@@ -15,14 +15,12 @@ export default function ProviderInfo(props) {
     const [company, setCompany] = useState('')
     const [salary, setSalary] = useState('')
     const [jobDescription, setJobDescription] = useState('')
-    const errorMsg = useSelector(state => state)
-    const dispatch = useDispatch()
     
     const selectAvatar = (text) => {
         setAvatar(text)
     }
 
-    const save = () => {
+    const save = async () => {
         const info = {
             avatar,
             providedPosition,
@@ -30,7 +28,13 @@ export default function ProviderInfo(props) {
             salary,
             jobDescription
         }
-        console.log(info)
+        const result = await reqUpdateUser(info)
+        if(result.status===0) {
+            console.log('Info saved successfully!')
+            props.history.push('/provider')
+        } else {
+            console.log(result.msg)
+        }
     }
 
     return (
