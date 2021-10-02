@@ -5,18 +5,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose')
-//redis for session cache
-// const redis = require('redis')
-// const session = require('express-session')
 const indexRouter = require('./routes/index');
 const { 
   MONGO_USER,
   MONGO_PASSWORD,
   MONGO_IP,
   MONGO_PORT,
-  //REDIS_IP,
-  //REDIS_PORT,
-  //SESSION_SECRET
 } = require('./config/config')
 const errorHandler = require('./middlewares/errorHandlerMiddleware')
 
@@ -60,35 +54,6 @@ const connectWithRetry = () => {
 }
 
 connectWithRetry()
-
-//redis
-// let RedisStore = require('connect-redis')(session)
-// let redisClient = redis.createClient({
-//   host: REDIS_IP,
-//   port: REDIS_PORT
-// })
-
-// redisClient.on('error', function (err) {
-//   console.log('Could not establish a connection with redis. ' + err);
-// })
-// redisClient.on('connect', function (err) {
-//   console.log('Connected to redis successfully');
-// })
-
-// app.use(
-//   session({
-//     store: new RedisStore({ client: redisClient }),
-//     secret: SESSION_SECRET,
-//     cookie: {
-//       secure: false,
-//       resave: false,
-//       saveUninitialized: false,
-//       httpOnly: true,
-//       maxAge: 3600000
-//     }
-//   })
-// )
-
 
 //api router
 app.use('/api/v1', indexRouter);

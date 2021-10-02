@@ -1,7 +1,7 @@
 const protect = async (req, res, next) => {
-    const user = req.cookies.user_id
+    const userId = req.cookies.user_id
 
-    if(!user) {
+    if(!userId) {
         return res.status(401).json({status: 'fail', message: 'Unauthorized'})
     }
 
