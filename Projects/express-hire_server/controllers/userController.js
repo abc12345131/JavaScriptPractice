@@ -1,7 +1,4 @@
 const UserModel = require('../models/UserModel')
-// const { sign } = require('../utils/jsonwebtoken')
-// const { JWT_SECRET } = require('../config/config')
-
 const md5 = require('blueimp-md5')
 
 //register or add user
@@ -35,8 +32,6 @@ exports.userLogin = (req, res, next) => {
             if (user) {       
                 // create response cookie
                 res.cookie('user_id', user._id, { expires: new Date(Date.now() + 3600000) })
-                //use session
-                //req.session.user = user
                 res.send({status: 0, data: user})          
             } else {
                 res.send({status: 1, msg: 'Username or password is incorrect!'})
@@ -50,11 +45,16 @@ exports.userLogin = (req, res, next) => {
 
 //update user
 exports.updateUser = (req, res, next) => {
-    const user = req.body
-    user.password = md5(user.password)
-    UserModel.findOneAndUpdate({_id: user._id}, user)
-        .then(oldUser => {
-            res.send({status: 0, data: user})
+    const info = req.body
+    const userId = req.cookies.user_id
+    UserModel.findOneAndUpdate({_id: userId}, {$set: {info}}, {new: true})
+        .then(newUser => {
+            if(!newUser) {
+                res.clearCookie('user_id')
+                res.send({status: 1, msg: 'Update user exception, please try again!'})
+            } else {
+                res.send({status: 0, data: newUser})
+            }
         })
         .catch(error => {
             console.error('Update user exception', error)
