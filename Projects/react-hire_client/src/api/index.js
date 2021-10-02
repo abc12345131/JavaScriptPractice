@@ -7,9 +7,9 @@ const Base = '/api/v1'
 export const reqRegister = (user) => ajax(Base + '/users', user, 'POST')
 //user login
 export const reqLogin = (username, password) => ajax(Base + '/users/'+username, {password}, 'POST')
-//get Users
-export const reqUsers = () => ajax(Base + '/users')
-//delete User
-export const reqDeleteUser = (userId) => ajax(Base + '/users', {userId}, 'DELETE')
+//get user list
+export const reqUserList = (userType) => ajax(Base + '/users', {userType})
+//get user
+export const reqUser = (userId) => ajax(Base + '/users/'+userId)
 //update register
 export const reqUpdateUser = (info) => ajax(Base + '/users', info, 'PUT')

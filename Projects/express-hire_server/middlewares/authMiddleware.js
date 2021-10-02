@@ -4,7 +4,6 @@ const protect = async (req, res, next) => {
     if(!userId) {
         return res.status(401).json({status: 'fail', message: 'Unauthorized'})
     }
-
     next()
 }
 

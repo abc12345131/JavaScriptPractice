@@ -10,11 +10,12 @@ const router = express.Router()
 router.route('/users/:username')
     .post(userController.userLogin)
 
+router.route('/users/:userId')
+    .get(protect, userController.readUser)
 
 router.route('/users')
-    .get(protect, userController.readAllUsers)
+    .get(protect, userController.readUserList)
     .post(userValidator.register, userController.createUser)
     .put(protect, userController.updateUser)
-    .delete(protect, userController.deleteUser)
 
 module.exports = router;

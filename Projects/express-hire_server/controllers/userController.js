@@ -62,23 +62,25 @@ exports.updateUser = (req, res, next) => {
         })
 }
 
-//delete user
-exports.deleteUser = (req, res, next) => {
-    const {userId} = req.query
-    UserModel.deleteOne({_id: userId})
-        .then(doc => {
-            res.send({status: 0, data: doc})
+//get user 
+exports.readUser = (req, res, next) => {
+    const { userId } = req.params
+    UserModel.findOne({_id: userId})
+        .then(user => {
+            res.send({status: 0, data: user})  
         })
         .catch(error => {
-            console.error('Delete user exception', error)
-            res.send({status: 1, msg: 'Delete user exception, please try again!'})
+            console.error('Get user exception', error)
+            res.send({status: 1, msg: 'Get user exception, please try again!'})
         })
 }
   
 //get user list
-exports.readAllUsers = (req, res, next) => {
-    UserModel.find({username: {'$ne': 'admin'}}) //admin don't want to be listed
+exports.readUserList = (req, res, next) => {
+    const { userType } = req.query
+    UserModel.find({userType})
         .then(users => {
+            res.send({status: 0, data: users})  
         })
         .catch(error => {
             console.error('Get user list exception', error)
