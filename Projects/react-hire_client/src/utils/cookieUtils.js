@@ -6,7 +6,7 @@ const cookies = new Cookies();
 const cookieUtils = {
     // get user cookie
     getUser () {
-        return cookies.get(USER_ID) || {}
+        return cookies.get(USER_ID) || ''
     },
   
     // remove user cookie

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
 import {
     NavBar,
     WingBlank,
@@ -10,27 +9,32 @@ import {
 } from 'antd-mobile'
 import { useSelector, useDispatch } from 'react-redux'
 import Logo from '../../components/logo'
-import { getUser, showErrorMsg } from '../../redux/actions'
+import { reqLogin } from '../../api'
+import { saveUser, showErrorMsg } from '../../redux/actions'
 
 export default function Login(props) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const errorMsg = useSelector(state => state.userReducer.errorMsg)
-    const redirectTo = useSelector(state => state.userReducer.redirectTo)
+    const user = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()
-
-    if(redirectTo) {
-        return <Redirect to={redirectTo}/>
-    }
     
-    const login = () => {
+    const login = async () => {
         if(!/^\w{6,12}$/.test(username)) {
             dispatch(showErrorMsg('Username must include 6 to 12 digits the following character types: uppercase, lowercase, numbers, and _ symbol.'))
         } else if(!/^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,16}$/.test(password)) {
             dispatch(showErrorMsg('Password should include 8 to 16 digits, at least two of the following character types: letters, numbers and special characters.'))
         } else {
-            dispatch(getUser(username, password))
+            const result = await reqLogin(username, password)
+            if (result.status === 0) {
+                dispatch(saveUser(result.data))
+                console.log('user2:', user)
+                props.history.replace('/')
+            } else {
+                const errorMsg = result.msg
+                dispatch(showErrorMsg(errorMsg))
+            }
         }
     }
 

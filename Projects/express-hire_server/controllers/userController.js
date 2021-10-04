@@ -67,6 +67,7 @@ exports.readUser = (req, res, next) => {
     const { userId } = req.params
     UserModel.findOne({_id: userId})
         .then(user => {
+            console.log(`Send user ${userId}: ${user}`)
             res.send({status: 0, data: user})  
         })
         .catch(error => {

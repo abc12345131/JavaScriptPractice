@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Row, Col} from 'antd-mobile'
+import { Button } from 'antd-mobile'
 import './index.less'
 
 export default function NotFound(props) {

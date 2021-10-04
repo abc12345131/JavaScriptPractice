@@ -2347,6 +2347,11 @@ ansi-styles@^5.0.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
   integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
+antd-mobile-icons@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/antd-mobile-icons/-/antd-mobile-icons-0.2.2.tgz#0e084d3ea5c642f60ab46e7ed3db74ad3dbacd52"
+  integrity sha512-iquIc7EsQTndk5nMv9pQQv+/OY5YnjVIPhtCFo7W7JL+Gjqzq/YJ/HO2WxUxyCgYha2NsTTNAb2vPa/M4zAi2g==
+
 antd-mobile@^2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/antd-mobile/-/antd-mobile-2.3.4.tgz#8f584707b30343d102f3ca10fdaf677e2a5d1cc8"
