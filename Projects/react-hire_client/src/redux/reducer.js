@@ -1,27 +1,24 @@
 import {combineReducers} from 'redux'
 import { 
-    RECEIVE_USER, 
+    SAVE_USER, 
     SHOW_ERROR_MSG, 
     RESET_USER 
 } from './action-types'
-import { getRedirectPath } from '../utils/redirectUtils' 
 
 const initialState = {
     user: {},
-    errorMsg: '',
-    redirectTo: ''
+    errorMsg: ''
 }
 
 function userReducer (state = initialState, action) {
     switch (action.type) {
-        case RECEIVE_USER:
-            const {userType, info} = action.data
-            return {...action.data, redirectTo: getRedirectPath(userType, info)}
+        case SAVE_USER:
+            return {user: action.data, errorMsg: ''}
         case SHOW_ERROR_MSG:
             //do not modify origin state!
             return {...state, errorMsg: action.data}
         case RESET_USER:
-            return {}
+            return initialState
         default:
             return state
     }

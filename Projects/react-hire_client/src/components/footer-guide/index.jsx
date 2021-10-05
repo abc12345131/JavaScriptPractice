@@ -6,10 +6,10 @@ export default function FooterGuide(props) {
 
     const history = useHistory()
     const location = useLocation()
-
+    const filteredList = props.navList.filter(nav => !nav.hide)
     return (
         <TabBar>
-            {props.navList.map(item => (
+            {filteredList.map(item => (
                 <TabBar.Item
                     key={item.path}
                     icon={item.icon}
