@@ -12,7 +12,7 @@ export default function SeekerInfo(props) {
     
     const [avatar, setAvatar] = useState('')
     const [desiredPosition, setDesiredPosition] = useState('')
-    const [personalProfile, setPersonalProfile] = useState('')
+    const [skills, setSkills] = useState('')
 
     const selectAvatar = (text) => {
         setAvatar(text)
@@ -22,7 +22,7 @@ export default function SeekerInfo(props) {
         const info = {
             avatar,
             desiredPosition,
-            personalProfile
+            skills
         }
         const result = await reqUpdateUser(info)
         if(result.status===0) {
@@ -38,7 +38,7 @@ export default function SeekerInfo(props) {
             <NavBar>Job Provider Information</NavBar>
             <AvatarSelect selectAvatar={selectAvatar}/>
             <InputItem placeholder="Please enter desired position" onChange={ val => setDesiredPosition(val) }>Position</InputItem>
-            <TextareaItem title="Profile" placeholder="Please enter personal profile" rows={5} onChange={ val => setPersonalProfile(val) }/>
+            <TextareaItem title="Skills" placeholder="Please enter skills" rows={5} onChange={ val => setSkills(val) }/>
             <Button type="primary" onClick={save}>Save</Button>
         </div>
     )

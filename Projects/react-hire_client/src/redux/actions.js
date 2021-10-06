@@ -1,7 +1,8 @@
 import {  
     SAVE_USER, 
     SHOW_ERROR_MSG, 
-    RESET_USER 
+    RESET_USER, 
+    SAVE_USER_LIST
 } from './action-types'
 import cookieUtils from '../utils/cookieUtils'
 
@@ -19,3 +20,8 @@ export const removeUser = () => {
     cookieUtils.removeUser()
     return {type: RESET_USER}
 }
+
+export const saveUserList = (userList) => ({
+    type: SAVE_USER_LIST,
+    data: userList
+})

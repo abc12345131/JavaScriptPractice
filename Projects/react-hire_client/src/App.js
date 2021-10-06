@@ -1,8 +1,8 @@
-import './App.less'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './pages/login'
 import Register from './pages/register'
 import Main from './pages/main'
+import './App.less'
 
 function App() {
   return (

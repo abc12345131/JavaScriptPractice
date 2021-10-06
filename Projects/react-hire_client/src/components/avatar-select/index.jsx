@@ -13,7 +13,7 @@ export default function AvatarSelect(props) {
         const list = []
         for(let i=0; i<20; i++) {
             list.push({
-                text: 'Avatar'+(i+1),
+                text: 'avatar'+(i+1),
                 icon: require(`../../assets/images/avatar${i+1}.png`).default
             })
         }

@@ -29,7 +29,6 @@ export default function Login(props) {
             const result = await reqLogin(username, password)
             if (result.status === 0) {
                 dispatch(saveUser(result.data))
-                console.log('user2:', user)
                 props.history.replace('/')
             } else {
                 const errorMsg = result.msg

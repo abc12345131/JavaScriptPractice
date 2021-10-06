@@ -81,6 +81,7 @@ exports.readUserList = (req, res, next) => {
     const { userType } = req.query
     UserModel.find({userType})
         .then(users => {
+            console.log(`Send users: ${users}`)
             res.send({status: 0, data: users})  
         })
         .catch(error => {

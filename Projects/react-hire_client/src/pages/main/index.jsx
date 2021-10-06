@@ -40,9 +40,9 @@ export default function Main(props) {
         if(userId && !user._id) {
             fetchUser()
         }
-    }, [])   
-
-    if(!userId || Object.keys(userId).length===0) {
+    }, [])
+        
+    if(!userId) {
         return <Redirect to='/login'/>
     } 
 
@@ -87,10 +87,8 @@ export default function Main(props) {
     if(currentNav) {
         if(user.userType==='provider') {
             navList[1].hide = true
-        } else if(user.userType==='seeker') {
-            navList[0].hide = true
         } else {
-            return <Redirect to='/login'/>
+            navList[0].hide = true
         }
     }
     
