@@ -5,7 +5,7 @@ export default function UserList(props) {
 
     const userList = props.userList
     return (
-        <WingBlank>
+        <WingBlank style={{marginBottom:50, marginTop:45}}>
             {   
                 userList?
                     userList.map(user => (
