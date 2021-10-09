@@ -31,7 +31,7 @@ exports.userLogin = (req, res, next) => {
         .then(user => {
             if (user) {       
                 // create response cookie
-                res.cookie('user_id', user._id, { expires: new Date(Date.now() + 3600000) })
+                res.cookie('user_id', user._id, { expires: new Date(Date.now() + 60 * 60 * 1000 * 24) })
                 res.send({status: 0, data: user})          
             } else {
                 res.send({status: 1, msg: 'Username or password is incorrect!'})
