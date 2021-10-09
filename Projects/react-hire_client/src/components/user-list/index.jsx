@@ -1,7 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Card, WhiteSpace, WingBlank } from 'antd-mobile'
 
 export default function UserList(props) {
+
+    const history = useHistory()
 
     const userList = props.userList
     return (
@@ -11,7 +14,7 @@ export default function UserList(props) {
                     userList.map(user => (
                         <div key={user._id}>
                             <WhiteSpace/>
-                            <Card>
+                            <Card onClick={()=> history.push(`/chat/${user._id}`)}>
                                 <Card.Header
                                     thumb = {require(`../../assets/images/${user.info.avatar}.png`).default}
                                     extra = {user.username}

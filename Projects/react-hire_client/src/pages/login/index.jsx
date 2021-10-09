@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     NavBar,
     WingBlank,
@@ -7,19 +9,19 @@ import {
     WhiteSpace,
     Button
 } from 'antd-mobile'
-import { useSelector, useDispatch } from 'react-redux'
 import Logo from '../../components/logo'
 import { reqLogin } from '../../api'
 import { saveUser, showErrorMsg } from '../../redux/actions'
 
 export default function Login(props) {
 
+    const history = useHistory()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const errorMsg = useSelector(state => state.userReducer.errorMsg)
     const user = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()
-    
+
     const login = async () => {
         if(!/^\w{6,12}$/.test(username)) {
             dispatch(showErrorMsg('Username must include 6 to 12 digits the following character types: uppercase, lowercase, numbers, and _ symbol.'))
@@ -29,7 +31,7 @@ export default function Login(props) {
             const result = await reqLogin(username, password)
             if (result.status === 0) {
                 dispatch(saveUser(result.data))
-                props.history.replace('/')
+                history.replace('/')
             } else {
                 const errorMsg = result.msg
                 dispatch(showErrorMsg(errorMsg))
@@ -39,7 +41,7 @@ export default function Login(props) {
 
     const redirect = () => {
         dispatch(showErrorMsg(''))
-        props.history.push('/register')
+        history.push('/register')
     }
 
     return (

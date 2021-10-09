@@ -1,9 +1,12 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Button } from 'antd-mobile'
 import './index.less'
 
 export default function NotFound(props) {
 
+    const history = useHistory()
+    
     return (
         <div className='not-found'>
             <div className='top'></div>
@@ -12,7 +15,7 @@ export default function NotFound(props) {
                 <h2>Sorry, Page Not Found!</h2>
                 <Button
                     type='primary'
-                    onClick={() => props.history.replace('/')}
+                    onClick={() => history.replace('/')}
                 >
                     Return to Home
                 </Button>

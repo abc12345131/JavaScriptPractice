@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
     NavBar,
     InputItem,
@@ -9,7 +10,8 @@ import AvatarSelect from '../../components/avatar-select'
 import { reqUpdateUser } from '../../api'
 
 export default function SeekerInfo(props) {
-    
+
+    const history = useHistory()
     const [avatar, setAvatar] = useState('')
     const [desiredPosition, setDesiredPosition] = useState('')
     const [skills, setSkills] = useState('')
@@ -27,7 +29,7 @@ export default function SeekerInfo(props) {
         const result = await reqUpdateUser(info)
         if(result.status===0) {
             console.log('Info saved successfully!')
-            props.history.push('/seeker')
+            history.push('/seeker')
         } else {
             console.log(result.msg)
         }

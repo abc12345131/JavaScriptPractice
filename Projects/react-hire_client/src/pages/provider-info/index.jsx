@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
     NavBar,
     InputItem,
@@ -10,6 +11,7 @@ import { reqUpdateUser } from '../../api'
 
 export default function ProviderInfo(props) {
 
+    const history = useHistory()
     const [avatar, setAvatar] = useState('')
     const [providedPosition, setProvidedPosition] = useState('')
     const [company, setCompany] = useState('')
@@ -31,7 +33,7 @@ export default function ProviderInfo(props) {
         const result = await reqUpdateUser(info)
         if(result.status===0) {
             console.log('Info saved successfully!')
-            props.history.push('/provider')
+            history.push('/provider')
         } else {
             console.log(result.msg)
         }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux'
 import {
     NavBar,
     WingBlank,
@@ -8,7 +10,6 @@ import {
     Radio,
     Button
 } from 'antd-mobile'
-import { useSelector,useDispatch } from 'react-redux'
 import Logo from '../../components/logo'
 import { reqRegister } from '../../api'
 import { showErrorMsg } from '../../redux/actions'
@@ -16,6 +17,7 @@ import { showErrorMsg } from '../../redux/actions'
 
 export default function Register(props) {
 
+    const history = useHistory()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
@@ -39,7 +41,7 @@ export default function Register(props) {
             if (result.status === 0) {
                 console.log('Register succeed')
                 dispatch(showErrorMsg(''))
-                props.history.replace('/login')
+                history.replace('/login')
             } else {
                 dispatch(showErrorMsg(result.msg))
             }
@@ -48,7 +50,7 @@ export default function Register(props) {
 
     const redirect = () => {
         dispatch(showErrorMsg(''))
-        props.history.push('/login')
+        history.push('/login')
     }
 
     return (
