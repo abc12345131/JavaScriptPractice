@@ -1,5 +1,6 @@
-const {ChatModel} = require('../models/ChatModel')
+const MessageModel = require('../models/MessageModel')
 const { CLIENT_ADDRESS } = require('../config/config')
+
 module.exports = function(server) {
     const io = require('socket.io')(server, {
         cors: {
@@ -8,20 +9,22 @@ module.exports = function(server) {
         }
     })
 
-    io.on('connection', function(socket) {
-        console.log('socketIO connected!')
+    io.on('connection', (socket) => {
+        console.log('socketIO connected, id:', socket.id)
 
-        socket.on('sendMsg', function({from, to, content}) {
-            console.log('Server received message', {from, to, content})
+        socket.on('sendMsg', ({from, to, content}) => {
+            console.log('Server received message from client', {from, to, content})
             const chat_id = [from, to].join('_')
-            ChatModel.create({from, to, content, chat_id})
-                .then(chatMsg => {
-                    io.emit('receiveMsg', chatMsg)
-                    console.log('Server sent message', chatMsg)
+            MessageModel.create({from, to, content, chat_id})
+                .then(message => {
+                    //private message need the socket.id of receiver
+                    //socket.to(receiverSocketId).emit('receiveMsg', socket.id, message)
+                    io.emit('receiveMsg', message)
+                    console.log('Server send message to client', message)
                 })
                 .catch(error => {
-                    console.error('Add chatMsg exception', error)
-                    res.send({status: 1, msg: 'Add chatMsg exception, please try again!'})
+                    console.error('Add message exception', error)
+                    res.send({status: 1, msg: 'Add message exception, please try again!'})
                 })
         })
     })
