@@ -3,7 +3,9 @@ import {
     SAVE_USER, 
     SHOW_ERROR_MSG, 
     RESET_USER,
-    SAVE_USER_LIST 
+    SAVE_USER_LIST, 
+    SAVE_MESSAGE_LIST,
+    SAVE_MESSAGE
 } from './action-types'
 
 const initUserState = {
@@ -38,7 +40,25 @@ function userListReducer (state = initUserListState, action) {
     }
 }
 
+const initChatState = {
+    users: {},
+    messageList: [],
+    unReadCount: 0
+}
+
+function chatReducer (state = initChatState, action) {
+    switch (action.type) {
+        case SAVE_MESSAGE_LIST:
+            return {...initChatState, ...action.data}
+        case SAVE_MESSAGE:
+            return {}
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
     userReducer,
-    userListReducer
+    userListReducer,
+    chatReducer
 })

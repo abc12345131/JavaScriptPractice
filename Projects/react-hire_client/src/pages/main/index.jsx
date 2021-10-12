@@ -10,8 +10,8 @@ import {
   } from 'antd-mobile-icons'
 import cookieUtils from '../../utils/cookieUtils'
 import getRedirectPath from '../../utils/redirectUtils'
-import { reqUser } from '../../api'
-import { saveUser, removeUser } from '../../redux/actions'
+import { reqUser, reqMessageList } from '../../api'
+import { saveUser, removeUser, initIO, saveMessageList } from '../../redux/actions'
 import ProviderInfo from '../provider-info'
 import SeekerInfo from '../seeker-info'
 import Provider from '../provider'
@@ -20,6 +20,7 @@ import Message from '../message'
 import Personal from '../personal'
 import NotFound from '../../components/not-found'
 import FooterGuide from '../../components/footer-guide'
+import Chat from '../chat'
 
 export default function Main(props) {
 
@@ -28,17 +29,31 @@ export default function Main(props) {
     const userId = cookieUtils.getUser()
 
     useEffect(()=>{
-        async function fetchUser() {
+        const fetchUser = async () => {
             const result = await reqUser(userId)
             if(result.status===0) {
+                fetchMessageList()                
                 dispatch(saveUser(result.data))
             } else {
                 console.log('User not found, Please login!')
                 dispatch(removeUser())
             }
         }
+
+        const fetchMessageList = async () => {
+            initIO()
+            const result = await reqMessageList()
+            if(result.status===0) {                
+                dispatch(saveMessageList(result.data))
+            } else {
+                console.log('Get Message list exception, Please try again!')
+            }
+        }
+
         if(userId && !user._id) {
             fetchUser()
+        } else if(userId && user._id){
+            fetchMessageList()
         }
     }, [])
         
@@ -101,6 +116,7 @@ export default function Main(props) {
                 }
                 <Route path='/providerinfo' component={ProviderInfo}/>
                 <Route path='/seekerinfo' component={SeekerInfo}/>
+                <Route path='/chat/:userId' component={Chat}/>
                 <Route component={NotFound}/>
             </Switch>
             {currentNav? <FooterGuide navList={navList}/>: null}
