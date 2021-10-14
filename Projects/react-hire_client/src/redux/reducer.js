@@ -49,9 +49,12 @@ const initChatState = {
 function chatReducer (state = initChatState, action) {
     switch (action.type) {
         case SAVE_MESSAGE_LIST:
-            return {...initChatState, ...action.data}
+            return {...state, ...action.data}
         case SAVE_MESSAGE:
-            return {}
+            return {
+                ...state, 
+                messageList: [...state.messageList, action.data]
+            }
         default:
             return state
     }

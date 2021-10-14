@@ -5,8 +5,9 @@ import {
     RESET_USER, 
     SAVE_USER_LIST,
     SAVE_MESSAGE_LIST,
-
+    SAVE_MESSAGE
 } from './action-types'
+import { reqMessageList } from '../api'
 import cookieUtils from '../utils/cookieUtils'
 
 export const saveUser = (user) => ({
@@ -29,29 +30,43 @@ export const saveUserList = (userList) => ({
     data: userList
 })
 
-export const initIO = () =>{
-    if(!io.socket) {
-        io.socket = io("wss://localhost:5000")
-        io.socket.on('receiveMsg', (message) => {
-            console.log('Client receive message from server', message)
-        })
-    }
-}
+export const saveMessage = (message) => ({
+    type: SAVE_MESSAGE,
+    data: message
+})
 
-//async 
-export const sendMsg = ({from, to, content}) => {
-    return dispatch => {
-      console.log('Client send message to server', {from, to, content})
-      io.socket.emit('sendMsg', {from, to, content})
-    }
-}
-
-export const saveMessageList = ({users, messageList}) => ({
+const saveMessageList = ({users, messageList}) => ({
     type: SAVE_MESSAGE_LIST,
     data: {users, messageList}
 })
 
-export const saveMessage = (message) => ({
-    type: SAVE_MESSAGE_LIST,
-    data: message
-})
+const initIO = (dispatch, userId) =>{
+    if(!io.socket) {
+        io.socket = io("http://localhost:5000")
+        io.socket.on('receiveMsg', (message) => {
+            console.log('Client receive message from server', message)
+            if(userId===message.from || userId===message.to) {
+                dispatch(saveMessage(message))
+            }
+        })
+    }
+}
+
+export const fetchMessageList = (userId) => {
+    return async dispatch => {
+        initIO(dispatch, userId)
+        const result = await reqMessageList()
+        if(result.status===0) {                
+            dispatch(saveMessageList(result.data))
+        } else {
+            console.log('Get Message list exception, Please try again!')
+        }
+    }
+}
+
+export const sendMessage = ({from, to, content}) => {
+    return dispatch => {
+        console.log('Client send message to server', {from, to, content})
+        io.socket.emit('sendMsg', {from, to, content})
+    }
+}

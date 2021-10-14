@@ -33,12 +33,12 @@ exports.readMessageList = (req, res, next) => {
             }, {})
 
             MessageModel.find({'&or': [{from: userId}, {to: userId}]})
-                .then(MessageMsgs => {
-                    res.send({status: 0, data: {users, MessageMsgs}})  
+                .then(messageList => {
+                    res.send({status: 0, data: {users, messageList}})  
                 })
                 .catch(error => {
-                    console.error('Get MessageMsg list exception', error)
-                    res.send({status: 1, msg: 'Get MessageMsg list exception, please try again!'})
+                    console.error('Get Message list exception', error)
+                    res.send({status: 1, msg: 'Get Message list exception, please try again!'})
                 })
         })
         .catch(error => {

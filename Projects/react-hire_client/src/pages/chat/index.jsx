@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     List,
     NavBar,
@@ -7,8 +7,9 @@ import {
 } from 'antd-mobile'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { reqMessageList } from '../../api'
-import { sendMsg } from '../../redux/actions'
+import { sendMessage } from '../../redux/actions'
+
+const { Item } = List
 
 export default function Chat(props) {
 
@@ -17,43 +18,56 @@ export default function Chat(props) {
     const user = useSelector(state => state.userReducer.user)
     const {users, messageList} = useSelector(state => state.chatReducer)
     const dispatch = useDispatch()
-    
+
+    const from = user._id
+    const to = params.userId
+
     //if async request didnt get data back yet
     if(!users[to]) {
         return null
     }
 
-    const from = user._id
-    const to = params.userId
-
-    const sendMessage = () => {
+    const handleSend = () => {
         if(content) {
-            dispatch(sendMsg({from, to, content}))            
+            dispatch(sendMessage({from, to, content}))            
         }
         setContent('')
     }
     const sendChatId = [from, to].join('_')
     const receiveChatId = [to, from].join('_')
-    const messages = messageList.filter(message => message.chat_id===(sendChatId || receiveChatId))
-    const targetAvatar = users[to].info.avatar ? require(`../../assets/images/${users[to].info.avatar}.png`) : null
-    const userAvatar = require(`../../assets/images/${user.info.avatar}.png`)
+    const messages = messageList ? messageList.filter(message => (message.chat_id===sendChatId || message.chat_id===receiveChatId)) : []
+    const targetAvatar = users[to] ? require(`../../assets/images/${users[to].avatar}.png`).default : null
+    const userAvatar = require(`../../assets/images/${user.info.avatar}.png`).default
+    const list2 = messages.map(message => {
+        if(to===message.from) {
+            return (
+                <Item
+                    key={message._id}
+                    thumb={targetAvatar}
+                >
+                    {message.content}
+                </Item>
+            )
+        } else {
+            return (
+                <Item
+                    key={message._id}
+                    className='chat-me'
+                    extra={
+                        <img src={userAvatar} alt={user.info.avatar}/>
+                    }
+                >
+                    {message.content}
+                </Item>
+            )
+        }
+    })
+
     return (
-        <div>
+        <div id='chat-page'>
             <NavBar>{users[to].username}</NavBar>
             <List>
-                {
-                    messages.map(message => {
-                        if(message.chat_id===receiveChatId) {
-                            <List.item key={message._id} thumb={targetAvatar}>
-                                {message.content}
-                            </List.item>
-                        } else {
-                            <List.item key={message._id} className='chat-me' extra='me' thumb={userAvatar}>
-                                {message.content}
-                            </List.item>
-                        }
-                    })
-                }
+                {list2}
             </List>
             <div className='am-tab-bar'>
                 <InputItem
@@ -61,7 +75,7 @@ export default function Chat(props) {
                     value={content}
                     onChange={ val => setContent(val) }
                     extra={
-                        <Button onClick={sendMessage}>Send</Button>
+                        <Button type='primary' style={{height: '100%', lineHeight: '100%', fontSize: 20}} onClick={handleSend}>&nbsp;Send&nbsp;</Button>
                     }
                 />
             </div>

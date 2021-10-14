@@ -12,8 +12,8 @@ export default function Provider(props) {
 
     useEffect(()=>{
         async function fetchUserList() {
-            if(user.userType) {
-                const result = await reqUserList(user.userType)
+            if(user.userType==='provider') {
+                const result = await reqUserList('seeker')
                 if(result.status===0) {
                     dispatch(saveUserList(result.data))
                     console.log('Load UserList successfully!')

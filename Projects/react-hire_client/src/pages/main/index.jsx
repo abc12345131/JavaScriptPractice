@@ -10,8 +10,8 @@ import {
   } from 'antd-mobile-icons'
 import cookieUtils from '../../utils/cookieUtils'
 import getRedirectPath from '../../utils/redirectUtils'
-import { reqUser, reqMessageList } from '../../api'
-import { saveUser, removeUser, initIO, saveMessageList } from '../../redux/actions'
+import { reqUser } from '../../api'
+import { saveUser, removeUser, fetchMessageList } from '../../redux/actions'
 import ProviderInfo from '../provider-info'
 import SeekerInfo from '../seeker-info'
 import Provider from '../provider'
@@ -29,10 +29,10 @@ export default function Main(props) {
     const userId = cookieUtils.getUser()
 
     useEffect(()=>{
-        const fetchUser = async () => {
+        const fetchUser = async (userId) => {
             const result = await reqUser(userId)
             if(result.status===0) {
-                fetchMessageList()                
+                dispatch(fetchMessageList(userId))                
                 dispatch(saveUser(result.data))
             } else {
                 console.log('User not found, Please login!')
@@ -40,20 +40,10 @@ export default function Main(props) {
             }
         }
 
-        const fetchMessageList = async () => {
-            initIO()
-            const result = await reqMessageList()
-            if(result.status===0) {                
-                dispatch(saveMessageList(result.data))
-            } else {
-                console.log('Get Message list exception, Please try again!')
-            }
-        }
-
         if(userId && !user._id) {
-            fetchUser()
+            fetchUser(userId)
         } else if(userId && user._id){
-            fetchMessageList()
+            dispatch(fetchMessageList(userId))
         }
     }, [])
         
