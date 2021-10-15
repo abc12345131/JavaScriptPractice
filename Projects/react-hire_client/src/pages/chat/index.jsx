@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     List,
     NavBar,
     InputItem,
-    Button,
+    Icon,
     Grid
 } from 'antd-mobile'
-import { useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 import { sendMessage } from '../../redux/actions'
 
 const { Item } = List
 
 export default function Chat(props) {
 
+    const history = useHistory()
     const [content, setContent] = useState('')
     const [emojiList, setEmojiList] = useState([])
     const [isShow, setIsShow] = useState(false)
@@ -40,6 +42,10 @@ export default function Chat(props) {
         }, 0);
     }, [isShow])
 
+    useEffect(()=>{
+        window.scrollTo(0, document.body.scrollHeight)
+    }, [messageList])
+
     const from = user._id
     const to = params.userId
 
@@ -52,6 +58,7 @@ export default function Chat(props) {
         if(content) {
             dispatch(sendMessage({from, to, content}))            
         }
+        setIsShow(false)
         setContent('')
     }
     const sendChatId = [from, to].join('_')
@@ -86,8 +93,14 @@ export default function Chat(props) {
 
     return (
         <div id='chat-page'>
-            <NavBar>{users[to].username}</NavBar>
-            <List>
+            <NavBar
+                icon={<Icon type='left'/>}
+                className='sticky-header'
+                onLeftClick={()=> history.goBack()}
+            >
+                {users[to].username}
+            </NavBar>
+            <List style={{paddingBottom:50, paddingTop:45}}>
                 {list2}
             </List>
             <div className='am-tab-bar'>
