@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     List,
     NavBar,
     InputItem,
-    Button
+    Button,
+    Grid
 } from 'antd-mobile'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,10 +15,26 @@ const { Item } = List
 export default function Chat(props) {
 
     const [content, setContent] = useState('')
+    const [emojiList, setEmojiList] = useState([])
+    const [isShow, setIsShow] = useState(false)
     const params = useParams()
     const user = useSelector(state => state.userReducer.user)
     const {users, messageList} = useSelector(state => state.chatReducer)
     const dispatch = useDispatch()
+
+    useEffect(()=>{
+        const emojis = [
+            '😀', '😁', '🤣', '😄', '😁', '😅', '😂', '🙂', '🙃', '😉', '😊',
+            '😇', '🥰', '😍', '🤩', '😘', '😗', '😜', '😚', '😙', '😋', '😛',
+            '🤪', '😝', '🤑', '🤗', '🤭', '🤫', '🤔', '🤐', '🤨', '😐', '😑',
+            '😶', '😏', '😒', '😬', '🤥', '😌', '😔', '😪', '🤤', '😴', '😷',
+            '🤒', '🤕', '🤢', '🤮', '🤧', '🥵', '🥶', '🥴', '😵', '😎'
+        ]
+        const emojiList = emojis.map(emoji => ({text: emoji}))
+        setEmojiList(emojiList)
+    }, [])
+
+
 
     const from = user._id
     const to = params.userId
@@ -26,6 +43,16 @@ export default function Chat(props) {
     if(!users[to]) {
         return null
     }
+
+    const toggleShow = () => {
+        setIsShow(!isShow)
+        if(isShow) {
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'))
+            }, 0)
+        }
+    }
+
 
     const handleSend = () => {
         if(content) {
@@ -73,11 +100,25 @@ export default function Chat(props) {
                 <InputItem
                     placeholder='Please input'
                     value={content}
-                    onChange={ val => setContent(val) }
+                    onChange={val => setContent(val)}
+                    onFocus={() => setIsShow(false)}
                     extra={
-                        <Button type='primary' style={{height: '100%', lineHeight: '100%', fontSize: 20}} onClick={handleSend}>&nbsp;Send&nbsp;</Button>
+                        <span>
+                            <span onClick={toggleShow} style={{fontSize: 12, marginRight: 5}}>😀</span>
+                            <span onClick={handleSend} style={{backgroundColor: '#1EB270', color: 'white', fontSize: 18, padding: '0 5px', borderRadius: 5}}>Send</span>
+                        </span>
                     }
                 />
+                {isShow ? (
+                    <Grid
+                        data={emojiList}
+                        columnNum={8}
+                        carouselMaxRow={4}
+                        isCarousel={true}
+                        onClick={ item => setContent(content + item.text)}
+                    />
+                ) : null}
+
             </div>
         </div>
     )
