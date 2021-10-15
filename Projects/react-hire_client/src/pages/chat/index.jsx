@@ -34,7 +34,11 @@ export default function Chat(props) {
         setEmojiList(emojiList)
     }, [])
 
-
+    useEffect(()=>{
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'))
+        }, 0);
+    }, [isShow])
 
     const from = user._id
     const to = params.userId
@@ -43,16 +47,6 @@ export default function Chat(props) {
     if(!users[to]) {
         return null
     }
-
-    const toggleShow = () => {
-        setIsShow(!isShow)
-        if(isShow) {
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'))
-            }, 0)
-        }
-    }
-
 
     const handleSend = () => {
         if(content) {
@@ -104,7 +98,7 @@ export default function Chat(props) {
                     onFocus={() => setIsShow(false)}
                     extra={
                         <span>
-                            <span onClick={toggleShow} style={{fontSize: 12, marginRight: 5}}>😀</span>
+                            <span onClick={() => setIsShow(!isShow)} style={{fontSize: 12, marginRight: 5}}>😀</span>
                             <span onClick={handleSend} style={{backgroundColor: '#1EB270', color: 'white', fontSize: 18, padding: '0 5px', borderRadius: 5}}>Send</span>
                         </span>
                     }
@@ -116,6 +110,7 @@ export default function Chat(props) {
                         carouselMaxRow={4}
                         isCarousel={true}
                         onClick={ item => setContent(content + item.text)}
+                        style={{touchAction: 'none'}}
                     />
                 ) : null}
 
