@@ -11,7 +11,7 @@ export default function Provider(props) {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        async function fetchUserList() {
+        const fetchUserList = async () => {
             if(user.userType==='provider') {
                 const result = await reqUserList('seeker')
                 if(result.status===0) {
