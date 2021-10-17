@@ -12,6 +12,7 @@ export default function FooterGuide(props) {
             {filteredList.map(item => (
                 <TabBar.Item
                     key={item.path}
+                    badge={item.path==='/message' ? props.unReadCount : 0}
                     icon={item.icon}
                     title={item.text}
                     selectedIcon={item.icon}

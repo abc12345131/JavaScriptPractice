@@ -15,18 +15,26 @@ export default function Message(props) {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        const getLastMessages = (messageList) => {
+        const getLastMessages = (messageList, userId) => {
             //get obj(faster) of {targetId:lastMessage}
             const lastMessageObj = {}
             messageList.forEach(message => {
-                const targetId = message.to===user._id ? message.from : message.to
+                //message itself unreadcount
+                if(message.to===userId && !message.read) {
+                    message.unReadCount = 1
+                } else {
+                    message.unReadCount = 0
+                }
+                const targetId = message.to===userId ? message.from : message.to
                 const lastMessage = lastMessageObj[targetId]
                 if(!lastMessage) {
                     lastMessageObj[targetId] = message
                 } else {
+                    const unReadCount = message.unReadCount + lastMessage.unReadCount
                     if(message.create_time>lastMessage.create_time) {
                         lastMessageObj[targetId] = message
                     }
+                    lastMessageObj[targetId].unReadCount = unReadCount
                 }
             })
             //turn obj to array
@@ -37,7 +45,7 @@ export default function Message(props) {
             })
             setLastMessages(lastMessages)
         }
-        getLastMessages(messageList)
+        getLastMessages(messageList, user._id)
     },[messageList])
 
     if(!users) {
@@ -56,7 +64,7 @@ export default function Message(props) {
                                 <Item
                                     key={message._id}
                                     thumb = {target.avatar ? require(`../../assets/images/${target.avatar}.png`).default : null}
-                                    extra = {<Badge text={0}/>}
+                                    extra = {<Badge text={message.unReadCount}/>}
                                     arrow = 'horizontal'
                                     onClick={()=> history.push(`/chat/${targetId}`)}
                                 >

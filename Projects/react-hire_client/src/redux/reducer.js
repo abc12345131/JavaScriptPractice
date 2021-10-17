@@ -49,11 +49,18 @@ const initChatState = {
 function chatReducer (state = initChatState, action) {
     switch (action.type) {
         case SAVE_MESSAGE_LIST:
-            return {...state, ...action.data}
-        case SAVE_MESSAGE:
+            const {users, messageList, userId} =action.data
             return {
-                ...state, 
-                messageList: [...state.messageList, action.data]
+                users,
+                messageList,
+                unReadCount: messageList.reduce((preTotal, message)=>preTotal+(!message.read && message.to===userId ? 1 : 0), 0)
+            }
+        case SAVE_MESSAGE:
+            const {message} = action.data
+            return {
+                users: state.users, 
+                messageList: [...state.messageList, message],
+                unReadCount: state.unReadCount + (!message.read && message.to===action.data.userId ? 1 : 0)
             }
         default:
             return state

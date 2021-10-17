@@ -25,6 +25,7 @@ import Chat from '../chat'
 export default function Main(props) {
 
     const user = useSelector(state => state.userReducer.user)
+    const unReadCount = useSelector(state => state.chatReducer.unReadCount)
     const dispatch = useDispatch()
     const userId = cookieUtils.getUser()
 
@@ -109,7 +110,7 @@ export default function Main(props) {
                 <Route path='/chat/:userId' component={Chat}/>
                 <Route component={NotFound}/>
             </Switch>
-            {currentNav? <FooterGuide navList={navList}/>: null}
+            {currentNav? <FooterGuide navList={navList} unReadCount={unReadCount}/>: null}
         </div>
     )
 }

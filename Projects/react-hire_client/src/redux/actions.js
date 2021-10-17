@@ -30,14 +30,14 @@ export const saveUserList = (userList) => ({
     data: userList
 })
 
-export const saveMessage = (message) => ({
+export const saveMessage = (message, userId) => ({
     type: SAVE_MESSAGE,
-    data: message
+    data: {message, userId}
 })
 
-const saveMessageList = ({users, messageList}) => ({
+const saveMessageList = (users, messageList, userId) => ({
     type: SAVE_MESSAGE_LIST,
-    data: {users, messageList}
+    data: {users, messageList, userId}
 })
 
 const initIO = (dispatch, userId) =>{
@@ -46,7 +46,7 @@ const initIO = (dispatch, userId) =>{
         io.socket.on('receiveMsg', (message) => {
             console.log('Client receive message from server', message)
             if(userId===message.from || userId===message.to) {
-                dispatch(saveMessage(message))
+                dispatch(saveMessage(message, userId))
             }
         })
     }
@@ -56,8 +56,9 @@ export const fetchMessageList = (userId) => {
     return async dispatch => {
         initIO(dispatch, userId)
         const result = await reqMessageList()
-        if(result.status===0) {                
-            dispatch(saveMessageList(result.data))
+        if(result.status===0) {         
+            const {users, messageList} = result.data      
+            dispatch(saveMessageList(users, messageList, userId))
         } else {
             console.log('Get Message list exception, Please try again!')
         }
