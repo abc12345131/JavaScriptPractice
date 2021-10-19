@@ -9,7 +9,8 @@ import {
     Icon,
     Grid
 } from 'antd-mobile'
-import { sendMessage } from '../../redux/actions'
+import { reqUpdateMessageList } from '../../api'
+import { sendMessage, readMessage } from '../../redux/actions'
 
 const { Item } = List
 
@@ -46,8 +47,24 @@ export default function Chat(props) {
         window.scrollTo(0, document.body.scrollHeight)
     }, [messageList])
 
+    //user id
     const from = user._id
+    //target id
     const to = params.userId
+
+    useEffect(()=>{
+        const messageRead = async (targetId, userId) => {
+            const result = await reqUpdateMessageList(targetId)
+            if(result.status===0) {
+                const count = result.data
+                const from = targetId
+                const to = userId
+                dispatch(readMessage({count, from, to}))
+            }
+        }
+        //only message send to user will be updated as read
+        messageRead(to, from)
+    }, [])
 
     //if async request didnt get data back yet
     if(!users[to]) {

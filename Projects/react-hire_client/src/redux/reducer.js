@@ -5,7 +5,8 @@ import {
     RESET_USER,
     SAVE_USER_LIST, 
     SAVE_MESSAGE_LIST,
-    SAVE_MESSAGE
+    SAVE_MESSAGE,
+    READ_MESSAGE
 } from './action-types'
 
 const initUserState = {
@@ -61,6 +62,19 @@ function chatReducer (state = initChatState, action) {
                 users: state.users, 
                 messageList: [...state.messageList, message],
                 unReadCount: state.unReadCount + (!message.read && message.to===action.data.userId ? 1 : 0)
+            }
+        case READ_MESSAGE:
+            const {count, from, to} = action.data
+            return {
+                users: state.users, 
+                messageList: state.messageList.map(message => {
+                    if(message.from===from && message.to===to && !message.read) {
+                        return {...message, read: true}
+                    } else {
+                        return message
+                    }
+                }),
+                unReadCount: state.unReadCount -count
             }
         default:
             return state

@@ -11,7 +11,7 @@ exports.updateMessageList = (req, res, next) => {
                 res.send({status: 1, msg: 'Update MessageMsg exception, please try again!'})
             } else {
                 console.log('MessageMsg updated successfully!', doc)
-                res.send({status: 0, data: doc.nModified})
+                res.send({status: 0, data: doc.modifiedCount})
             }
         })
         .catch(error => {

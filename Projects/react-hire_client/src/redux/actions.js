@@ -5,7 +5,8 @@ import {
     RESET_USER, 
     SAVE_USER_LIST,
     SAVE_MESSAGE_LIST,
-    SAVE_MESSAGE
+    SAVE_MESSAGE,
+    READ_MESSAGE
 } from './action-types'
 import { reqMessageList } from '../api'
 import cookieUtils from '../utils/cookieUtils'
@@ -35,7 +36,12 @@ export const saveMessage = (message, userId) => ({
     data: {message, userId}
 })
 
-const saveMessageList = (users, messageList, userId) => ({
+export const readMessage = (count, from, to) => ({
+    type: READ_MESSAGE,
+    data: {count, from, to}
+})
+
+export const saveMessageList = (users, messageList, userId) => ({
     type: SAVE_MESSAGE_LIST,
     data: {users, messageList, userId}
 })

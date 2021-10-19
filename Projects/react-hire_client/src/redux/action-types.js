@@ -10,3 +10,5 @@ export const SAVE_USER_LIST = 'save_user_list'
 export const SAVE_MESSAGE_LIST = 'save_message_list'
 
 export const SAVE_MESSAGE = 'save_message'
+
+export const READ_MESSAGE = 'read_message'
