@@ -8,15 +8,15 @@ exports.updateMessageList = (req, res, next) => {
     MessageModel.updateMany({from, to, read: false}, {read: true})
         .then(doc => {
             if(!doc) {
-                res.send({status: 1, msg: 'Update MessageMsg exception, please try again!'})
+                res.send({status: 1, msg: 'Update Message list exception, please try again!'})
             } else {
-                console.log('MessageMsg updated successfully!', doc)
+                console.log('Message list updated successfully!', doc)
                 res.send({status: 0, data: doc.modifiedCount})
             }
         })
         .catch(error => {
-            console.error('Update MessageMsg exception', error)
-            res.send({status: 1, msg: 'Update MessageMsg exception, please try again!'})
+            console.error('Update Message list exception', error)
+            res.send({status: 1, msg: 'Update Message list exception, please try again!'})
         })
 }
 

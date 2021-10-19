@@ -74,7 +74,7 @@ function chatReducer (state = initChatState, action) {
                         return message
                     }
                 }),
-                unReadCount: state.unReadCount -count
+                unReadCount: (state.unReadCount - count)
             }
         default:
             return state

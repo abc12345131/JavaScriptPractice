@@ -35,6 +35,20 @@ export default function Chat(props) {
         ]
         const emojiList = emojis.map(emoji => ({text: emoji}))
         setEmojiList(emojiList)
+
+        const messageRead = async (targetId, userId) => {
+            const result = await reqUpdateMessageList(targetId)
+            if(result.status===0) {
+                const count = result.data
+                const from = targetId
+                const to = userId
+                dispatch(readMessage(count, from, to))
+            }
+        }
+        return () => {
+            //only message send to user will be updated as read
+            messageRead(to, from)
+        }
     }, [])
 
     useEffect(()=>{
@@ -51,20 +65,6 @@ export default function Chat(props) {
     const from = user._id
     //target id
     const to = params.userId
-
-    useEffect(()=>{
-        const messageRead = async (targetId, userId) => {
-            const result = await reqUpdateMessageList(targetId)
-            if(result.status===0) {
-                const count = result.data
-                const from = targetId
-                const to = userId
-                dispatch(readMessage({count, from, to}))
-            }
-        }
-        //only message send to user will be updated as read
-        messageRead(to, from)
-    }, [])
 
     //if async request didnt get data back yet
     if(!users[to]) {
