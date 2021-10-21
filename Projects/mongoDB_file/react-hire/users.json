@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "61525379c8fd29d4b9e7eec6"
+  },
+  "username": "abc12345131",
+  "password": "062e058bab4712217e0afdc987457430",
+  "userType": "seeker",
+  "create_time": 1632785273456,
+  "__v": 0,
+  "info": {
+    "avatar": "avatar2",
+    "desiredPosition": "Full Stack Developer",
+    "skills": "React, Vue, Webpack, Jest, Axios, Node, Express, MongoDB, Redis, Docker, Nginx, AWS, GCP"
+  }
+},{
+  "_id": {
+    "$oid": "6152922ac8fd29d4b9e7eed1"
+  },
+  "username": "abc12345",
+  "password": "062e058bab4712217e0afdc987457430",
+  "userType": "provider",
+  "create_time": 1632801322316,
+  "__v": 0,
+  "info": {
+    "avatar": "avatar1",
+    "providedPosition": "Full Stack Engineer",
+    "company": "BW Hire",
+    "salary": "$70,000",
+    "jobDescription": "MERN Full Stack experience needed"
+  }
+},{
+  "_id": {
+    "$oid": "615deed37435e5da46f95e2a"
+  },
+  "username": "abc12345111",
+  "password": "062e058bab4712217e0afdc987457430",
+  "userType": "seeker",
+  "create_time": 1632785273456,
+  "__v": 0,
+  "info": {
+    "avatar": "avatar2",
+    "desiredPosition": "Full Stack Developer",
+    "skills": "React, Vue, Webpack, Jest, Axios, Node, Express, MongoDB, Redis, Docker, Nginx, AWS, GCP"
+  }
+},{
+  "_id": {
+    "$oid": "615deee37435e5da46f95e2b"
+  },
+  "username": "abc12345121",
+  "password": "062e058bab4712217e0afdc987457430",
+  "userType": "provider",
+  "create_time": 1632801322316,
+  "__v": 0,
+  "info": {
+    "avatar": "avatar1",
+    "providedPosition": "Full Stack Engineer",
+    "company": "BW Hire",
+    "salary": "$70,000",
+    "jobDescription": "MERN Full Stack experience needed"
+  }
+}]
