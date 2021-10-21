@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { List, Badge } from 'antd-mobile'
 import { useSelector, useDispatch } from 'react-redux'
+import { List, Badge } from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim'
+import formatTime from '../../utils/timeUtils'
 
 const Item = List.Item
 const Brief = Item.Brief
@@ -54,29 +56,34 @@ export default function Message(props) {
 
     return (
         <List style={{paddingBottom:50, paddingTop:45}}>
-            {
-                lastMessages ?
-                    lastMessages.map( message => {
-                        const targetId = message.to===user._id ? message.from : message.to
-                        const target = users[targetId]
-                        if(target) {
-                            return (
-                                <Item
-                                    key={message._id}
-                                    thumb = {target.avatar ? require(`../../assets/images/${target.avatar}.png`).default : null}
-                                    extra = {<Badge text={message.unReadCount}/>}
-                                    arrow = 'horizontal'
-                                    onClick={()=> history.push(`/chat/${targetId}`)}
-                                >
-                                    <Brief>{target.username}</Brief>
-                                    {message.content}
-                                </Item>
-                            )
-                        } else {
-                            return null
-                        }    
-                    }) : null
-            }
+            <QueueAnim type='alpha' delay={100}>
+                {
+                    lastMessages ?
+                        lastMessages.map( message => {
+                            const targetId = message.to===user._id ? message.from : message.to
+                            const target = users[targetId]
+                            if(target) {
+                                return (
+                                    <Item
+                                        key={message._id}
+                                        thumb = {target.avatar ? require(`../../assets/images/${target.avatar}.png`).default : null}
+                                        extra = {<Badge text={message.unReadCount}/>}
+                                        arrow = 'horizontal'
+                                        onClick={()=> history.push(`/chat/${targetId}`)}
+                                    >
+                                        <Brief style={{fontSize: 13}}>
+                                            <span>{target.username}</span>
+                                            <span style={{float: 'right'}}>{formatTime(message.create_time)}</span>
+                                        </Brief>
+                                        {message.content}
+                                    </Item>
+                                )
+                            } else {
+                                return null
+                            }    
+                        }) : null
+                }
+            </QueueAnim>
         </List>
     )
 }

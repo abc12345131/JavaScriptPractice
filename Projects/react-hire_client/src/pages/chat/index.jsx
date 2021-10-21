@@ -9,8 +9,10 @@ import {
     Icon,
     Grid
 } from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim'
 import { reqUpdateMessageList } from '../../api'
 import { sendMessage, readMessage } from '../../redux/actions'
+import formatTime from '../../utils/timeUtils'
 
 const { Item } = List
 
@@ -90,11 +92,13 @@ export default function Chat(props) {
                     key={message._id}
                     thumb={targetAvatar}
                 >
+                    <div style={{fontSize: 12, color: 'grey'}}>{formatTime(message.create_time)}</div>
                     {message.content}
                 </Item>
             )
         } else {
             return (
+
                 <Item
                     key={message._id}
                     className='chat-me'
@@ -102,6 +106,7 @@ export default function Chat(props) {
                         <img src={userAvatar} alt={user.info.avatar}/>
                     }
                 >
+                    <div style={{fontSize: 12, color: 'grey'}}>{formatTime(message.create_time)}</div>
                     {message.content}
                 </Item>
             )
@@ -118,7 +123,9 @@ export default function Chat(props) {
                 {users[to].username}
             </NavBar>
             <List style={{paddingBottom:50, paddingTop:45}}>
-                {list2}
+                <QueueAnim type='left' delay={50}>
+                    {list2}
+                </QueueAnim>
             </List>
             <div className='am-tab-bar'>
                 <InputItem
