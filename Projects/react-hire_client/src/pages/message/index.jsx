@@ -14,7 +14,6 @@ export default function Message(props) {
     const user = useSelector(state => state.userReducer.user)
     const {users, messageList} = useSelector(state => state.chatReducer)
     const [lastMessages, setLastMessages] = useState([])
-    const dispatch = useDispatch()
 
     useEffect(()=>{
         const getLastMessages = (messageList, userId) => {

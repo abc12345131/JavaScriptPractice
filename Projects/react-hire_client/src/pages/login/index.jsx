@@ -19,7 +19,6 @@ export default function Login(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const errorMsg = useSelector(state => state.userReducer.errorMsg)
-    const user = useSelector(state => state.userReducer.user)
     const dispatch = useDispatch()
 
     const login = async () => {
