@@ -48,8 +48,6 @@ const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
     useUnifiedTopology: true
   })
   .then(() => {
