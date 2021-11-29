@@ -48,7 +48,7 @@ export const saveMessageList = (users, messageList, userId) => ({
 
 const initIO = (dispatch, userId) =>{
     if(!io.socket) {
-        io.socket = io("http://localhost:5000")
+        io.socket = io() //use "http://localhost:5000" for local development
         io.socket.on('receiveMsg', (message) => {
             console.log('Client receive message from server', message)
             if(userId===message.from || userId===message.to) {
