@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<title></title>
+		<style type="text/css">
+			/*
+			 * 	rem：html fontsize			 * 
+			 *  adaptation：Achieve equal page ratio on different devices 
+			*/
+			
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#test{
+				width: 8rem;
+				height: 1rem;
+				background: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test">test</div>
+	</body>
+	<script type="text/javascript">
+		/*
+			var html = document.querySelector("html");
+			html.style.fontSize = document.documentElement.clientWidth/16+"px!important"; 错！！！
+		*/
+		
+		//Rem adaptation principle: changes the css pixels occupied by an element on different devices
+		/*
+			rem adaptation pro and cons:
+			pro: Does not destroy the perfect viewport 
+			con: The conversion of px value to rem is too complicated 
+		*/
+			
+		(function(){
+			var styleNode = document.createElement("style");
+			var w = document.documentElement.clientWidth/16;
+			styleNode.innerHTML = "html{font-size:"+w+"px!important}";
+			document.head.appendChild(styleNode);
+		})()
+		
+	</script>
+</html>
