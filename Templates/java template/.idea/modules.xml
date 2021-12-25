@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaWeb/JavaWeb.iml" filepath="$PROJECT_DIR$/JavaWeb/JavaWeb.iml" />
       <module fileurl="file://$PROJECT_DIR$/javatemplate.iml" filepath="$PROJECT_DIR$/javatemplate.iml" />
     </modules>
   </component>
