@@ -3,6 +3,7 @@ package com.baolongwu.project;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        CustomerView cView = new CustomerView();
+        cView.enterMainMenu();
     }
 }
