@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { List, Badge } from 'antd-mobile'
 import QueueAnim from 'rc-queue-anim'
 import formatTime from '../../utils/timeUtils'
