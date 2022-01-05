@@ -159,7 +159,6 @@ public class CustomerView {
         } else {
             System.out.println("编号\t姓名\t性别\t年龄\t\t电话\t\t邮箱");
             for (int i = 0; i < custs.length; i++) {
-//            System.out.println(i + 1 + "\t" + custs[i].getName() + "\t" + custs[i].getGender() + "\t" + custs[i].getAge() + "\t\t" + custs[i].getPhone() + "\t" + custs[i].getEmail());
                 System.out.println((i+1) + "\t" + custs[i].getDetails());
             }
         }

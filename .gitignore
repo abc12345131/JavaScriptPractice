@@ -9,6 +9,8 @@
 **/coverage
 
 # development
+/**/.vscode
+/**/.idea
 /**/dist/**
 
 # production
