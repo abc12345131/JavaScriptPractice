@@ -25,5 +25,7 @@
   "optionalDependencies": {
     "bufferutil": "^4.0.4",
     "utf-8-validate": "^5.0.6"
-  }
+  },
+  "author": "abc12345131",
+  "license": "MIT"
 }

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon -L ./bin/www.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -21,5 +22,10 @@
     "redis": "^3.1.2",
     "svg-captcha": "^1.4.0",
     "twilio": "^3.67.0"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "author": "abc12345131",
+  "license": "MIT"
 }
