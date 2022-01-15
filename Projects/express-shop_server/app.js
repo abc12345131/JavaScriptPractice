@@ -41,10 +41,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //mongoose
 //dev url
-//const mongoUrl = 'mongodb://localhost:27017/react-app'
+const mongoUrl = 'mongodb://localhost:27017/vue-shop'
 
 //prod url
-const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
+//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/vue-shop?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -61,8 +61,7 @@ const connectWithRetry = () => {
 
 connectWithRetry()
 
-//redis
-// let RedisStore = require('connect-redis')(session)
+// session in redis
 // let redisClient = redis.createClient({
 //   host: REDIS_IP,
 //   port: REDIS_PORT
@@ -74,6 +73,8 @@ connectWithRetry()
 // redisClient.on('connect', function (err) {
 //   console.log('Connected to redis successfully');
 // })
+
+// let RedisStore = require('connect-redis')(session)
 
 // app.use(
 //   session({
