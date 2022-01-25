@@ -40,11 +40,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //mongoose
-//dev url
-//const mongoUrl = 'mongodb://localhost:27017/react-app'
+let mongoUrl
+if(process.env.MONGO_IP) {
+  mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
+} else {
+  mongoUrl = 'mongodb://localhost:27017/react-app'
+}
 
-//prod url
-const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/react-app?authSource=admin`
 const connectWithRetry = () => {
   mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
