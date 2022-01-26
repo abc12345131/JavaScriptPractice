@@ -4,20 +4,17 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const mongoose = require('mongoose')
-//redis for session cache
-// const redis = require('redis')
-// const session = require('express-session')
-const indexRouter = require('./routes/index');
 const { 
-  MONGO_USER,
-  MONGO_PASSWORD,
-  MONGO_IP,
-  MONGO_PORT,
   //REDIS_IP,
   //REDIS_PORT,
   //SESSION_SECRET
 } = require('./config/config')
+
+//redis for session cache
+// const redis = require('redis')
+// const session = require('express-session')
+const indexRouter = require('./routes/index');
+
 const errorHandler = require('./middlewares/errorHandlerMiddleware')
 
 
@@ -38,28 +35,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-//mongoose
-//dev url
-const mongoUrl = 'mongodb://localhost:27017/vue-shop'
-
-//prod url
-//const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/vue-shop?authSource=admin`
-const connectWithRetry = () => {
-  mongoose.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log('MongoDB is connected!')
-  })
-  .catch(error => {
-    console.error(`Failed to connect mongoDB at ${mongoUrl}!`, error)
-    setTimeout(connectWithRetry, 5000)
-  })
-}
-
-connectWithRetry()
 
 // session in redis
 // let redisClient = redis.createClient({
