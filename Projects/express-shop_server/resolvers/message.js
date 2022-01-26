@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const { combineResolvers } = require('graphql-resolvers')
-const { PubSub } = require('apollo-server')
+const { PubSub } = require('graphql-subscriptions')
 const EVENTS = require('../subscription')
 const { isAuthenticated, isMessageOwner } = require('./authorization')
 

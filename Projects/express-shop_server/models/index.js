@@ -9,7 +9,7 @@ const {
   POOL_MIN,
   POOL_ACQUIRE,
   POOL_IDLE,
-} = require('./config/config')
+} = require('../config/config')
 
 pool= {
   max: POOL_MAX,
@@ -27,7 +27,6 @@ if (process.env.DATABASE_IP) {
     {
       host: DATABASE_IP,
       dialect: DATABASE_TYPE,
-      operatorsAliases: false,
       pool: pool
     }
   );
@@ -39,25 +38,30 @@ if (process.env.DATABASE_IP) {
     {
       host: 'localhost',
       dialect: DATABASE_TYPE,
-      operatorsAliases: false,
       pool: pool
     },
   );
 }
 
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.')
-} catch (error) {
-  console.error(`Unable to connect to the database:`, error)
-}
+sequelize.authenticate()
+  .then(response => {
+    console.log('Connection has been established successfully.')
+  })
+  .catch(error => {
+    console.error(`Unable to connect to the database:`, error)
+  })
 
 const models = {
   sequelize: sequelize,
   Sequelize: Sequelize,
   MessageModel: require("./message")(sequelize, Sequelize),
   UserModel: require("./user")(sequelize, Sequelize),
-  TutorialModel: require("./tutorial.js")(sequelize, Sequelize)
 }
+
+Object.keys(models).forEach(key => {
+  if ('associate' in models[key]) {
+    models[key].associate(models);
+  }
+})
 
 module.exports = models

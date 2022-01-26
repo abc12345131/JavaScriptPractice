@@ -1,8 +1,10 @@
 const { ForbiddenError } = require('apollo-server')
 const { combineResolvers, skip } = require('graphql-resolvers')
 
-exports.isAuthenticated = (parent, args, { me }) =>
+const isAuthenticated = (parent, args, { me }) =>
   me ? skip : new ForbiddenError('Not authenticated as user.')
+
+exports.isAuthenticated = isAuthenticated
 
 exports.isAdmin = combineResolvers(
   isAuthenticated,
