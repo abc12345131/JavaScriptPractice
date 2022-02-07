@@ -7,7 +7,6 @@
     "dev": "nodemon -L ./app.js"
   },
   "dependencies": {
-    "apollo-server": "^3.6.2",
     "apollo-server-express": "^3.6.2",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",

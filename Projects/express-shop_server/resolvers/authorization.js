@@ -1,4 +1,4 @@
-const { ForbiddenError } = require('apollo-server')
+const { ForbiddenError } = require('apollo-server-express')
 const { combineResolvers, skip } = require('graphql-resolvers')
 
 const isAuthenticated = (parent, args, { me }) =>
@@ -11,7 +11,7 @@ exports.isAdmin = combineResolvers(
   (parent, args, { me: { role } }) =>
     role === 'ADMIN'
       ? skip
-      : new ForbiddenError('Not authorized as admin.'),
+      : new ForbiddenError('Not authorized!'),
 )
 
 exports.isMessageOwner = async (

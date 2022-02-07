@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [7, 42],
+        len: [5, 40],
       },
     },
     role: {
