@@ -4,6 +4,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const DataLoader = require('dataloader')
+const cors = require('cors')
 const { ApolloServer, AuthenticationError } = require('apollo-server-express')
 const debug = require('debug')('express-shop-server:server')
 const http = require('http');
@@ -14,8 +15,9 @@ const schemas = require('./schema')
 const resolvers = require('./resolvers')
 const models = require('./models')
 const loaders = require('./loaders')
+const seeds = require('./seeds')
 
-const startApolloServer = async (schemas, resolvers, models, loaders) => {
+const startApolloServer = async (schemas, resolvers, models=null, loaders=null, seeds=null) => {
   const app = express();
 
 
@@ -88,13 +90,14 @@ const startApolloServer = async (schemas, resolvers, models, loaders) => {
   })
 
   await apolloServer.start();
-  app.use(apolloServer.getMiddleware({cors: true}))
+  app.use(apolloServer.getMiddleware({path: '/graphql'}))
   //proxy setting
-  app.enable('trust proxy');
-  app.use(logger('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(cookieParser());
+  app.enable('trust proxy')
+  app.use(logger('dev'))
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+  app.use(cookieParser())
+  app.use(cors())
     
   // if frontend and backend project deployed together, incase of frontend router not working
   // app.use(express.static(path.join(__dirname, 'public')));
@@ -122,7 +125,7 @@ const startApolloServer = async (schemas, resolvers, models, loaders) => {
 
   models.sequelize.sync({ force: true })
   .then(async () => {
-    createUsersWithMessages(new Date())
+    seeds.userSeed.createUsersWithMessages(new Date())
     httpServer.listen(port, () => {
       console.log(`Apollo Server on http://localhost:${port}/graphql`)
     })
@@ -132,7 +135,7 @@ const startApolloServer = async (schemas, resolvers, models, loaders) => {
   })
 }
 
-startApolloServer(schemas, resolvers, models, loaders)
+startApolloServer(schemas, resolvers, models, loaders, seeds)
 
 const getMe = async req => {
   const token = req.headers['x-token']
@@ -147,53 +150,6 @@ const getMe = async req => {
     }
   }
 }
-
-const createUsersWithMessages = async (date) => {
-    await models.UserModel.create(
-      {
-        username: 'admin',
-        email: 'abc12345131@gmail.com',
-        password: 'admin',
-        role: 'ADMIN',
-        messages: [
-          {
-            text: 'Published the Road to learn React',
-            createdAt: date.setSeconds(date.getSeconds() + 1),
-          },
-        ],
-      },
-      {
-        include: [models.MessageModel],
-      },
-    )
-    .catch(error=>{
-      console.error(`Unable to create user with messages in database:`, error)
-    })
-  
-    await models.UserModel.create(
-      {
-        username: 'testuser1',
-        email: 'testuser1@gmail.com',
-        password: 'testuser1',
-        messages: [
-          {
-            text: 'Happy to release ...',
-            createdAt: date.setSeconds(date.getSeconds() + 1),
-          },
-          {
-            text: 'Published a complete ...',
-            createdAt: date.setSeconds(date.getSeconds() + 1),
-          },
-        ],
-      },
-      {
-        include: [models.MessageModel],
-      },
-    )
-    .catch(error=>{
-      console.error(`Unable to create user with messages in database:`, error)
-    })
-  }
 
 /**
  * Normalize a port into a number, string, or false.
