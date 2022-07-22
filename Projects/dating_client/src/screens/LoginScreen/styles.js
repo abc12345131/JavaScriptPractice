@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { pxToDp } from '../../utils/stylesKits'
 import colors from '../../constants/colors';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   view: {
     flex: 1,
   },
@@ -23,5 +23,3 @@ const styles = StyleSheet.create({
     height: pxToDp(200),
   }
 });
-
-export default styles;
