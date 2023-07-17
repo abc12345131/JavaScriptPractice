@@ -4,7 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const mongoose = require('mongoose')
+const net = require('net');
+const mongoose = require('mongoose');
+
 //redis for session cache
 // const redis = require('redis')
 // const session = require('express-session')
@@ -38,6 +40,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//tcp
+const options = {
+  port: 6000,
+  host: '192.168.2.17'
+}
+
+const client = net.connect(options, () => { 
+  console.log('connected to tcp server')
+  client.write('hello from client')
+})
+
+client.on('data', (data) => {
+  console.log(data.toString())
+})
+
+client.on('end', () => {
+  console.log('disconnected from tcp server')
+})
+
+client.on('error', (err) => {
+  console.log(err)
+})
+
 
 //mongoose
 let mongoUrl
